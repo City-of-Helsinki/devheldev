@@ -1,3 +1,12 @@
-# HelDev site's wagtail project
+# New dev.hel.fi site's wagtail project
 
-And assorted stuff
+## Installation
+
+Installation assumes a working PostgreSQL with table creation rights
+
+ * Clone the repository somewhere and change there for the rest
+ * pip install -r requirements.txt
+ * createdb heldev
+ * python manage.py migrate
+ * python manage.py createsuperuser
+ * python manage.py runserver
