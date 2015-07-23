@@ -12,6 +12,14 @@ SECRET_KEY = 'ihpe=w=%c7e+o&4@k0ado7pop+$pxy(2qxe)kjn43xg1f9)tmz'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'heldev'
+    }
+}
+
+
 try:
     from .local import *
 except ImportError:
