@@ -13,7 +13,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         {# Global stylesheets #}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/heldev.css' %}">
+        {% load pipeline %}
+        {% stylesheet 'screen' %}
 
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}
@@ -22,7 +23,6 @@
 
     <body class="{% block body_class %}{% endblock %}">
         {% wagtailuserbar %}
-
         {% block content %}{% endblock %}
 
         {# Global javascript #}

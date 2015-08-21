@@ -49,6 +49,9 @@ INSTALLED_APPS = (
 
     'search',
     'home',
+    'pipeline',
+    'djangobower',
+    'livereload',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -85,8 +88,31 @@ TEMPLATES = [
     },
 ]
 
+TEMPLATE_LOADERS = (
+    ('django.template.loaders.cached.Loader', (
+        'hamlpy.template.loaders.HamlPyFilesystemLoader',
+        'hamlpy.template.loaders.HamlPyAppDirectoriesLoader',
+        'django.template.loaders.filesystem.Loader',
+    )),   
+)
+    
 WSGI_APPLICATION = 'heldev.wsgi.application'
 
+PIPELINE_COMPILERS = (
+    'pipeline_compass.compiler.CompassCompiler',
+)
+
+PIPELINE_CSS = {
+    'screen': {
+        'source_filenames': (
+          'sass/screen.scss',
+        ),
+        'output_filename': 'css/screen.css',
+        'extra_context': {
+            'media': 'screen,projection',
+        },
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
@@ -116,9 +142,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.FileSystemFinder',
+    'pipeline.finders.AppDirectoriesFinder',
+    'pipeline.finders.CachedFileFinder',
+    'pipeline.finders.PipelineFinder',
     'compressor.finders.CompressorFinder',
 )
 

@@ -7,4 +7,14 @@ if __name__ == "__main__":
 
     from django.core.management import execute_from_command_line
 
-    execute_from_command_line(sys.argv)
+    if 'livereload' in sys.argv:
+        from django.core.wsgi import get_wsgi_application
+        from livereload import Server
+        application = get_wsgi_application()
+        server = Server(application)
+
+        # Add your watch
+        # server.watch('path/to/file', 'your command')
+        server.serve('8000')
+    else:
+        execute_from_command_line(sys.argv)
