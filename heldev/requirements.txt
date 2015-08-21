@@ -1,3 +1,9 @@
 Django>=1.8,<1.9
 wagtail==1.0
 psycopg2
+hamlpy
+django-pipeline
+django-pipeline-compass
+django-bower
+# Live Reload (this should be dev only)
+livereload==2.4.0
