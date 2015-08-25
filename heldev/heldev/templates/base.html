@@ -1,5 +1,7 @@
 {% load static wagtailuserbar %}
 
+{% load compress %}
+
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -11,20 +13,90 @@
         <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+        <link href='http://fonts.googleapis.com/css?family=Lato:400,900italic,700,400italic|Inconsolata:400,700' rel='stylesheet' type='text/css'>
         {# Global stylesheets #}
-        {% load pipeline %}
-        {% stylesheet 'screen' %}
-
+ 
+        {% compress css %}
+          <link rel="stylesheet" type="text/x-scss" href="{% static "sass/screen.scss" %}" />
+        {% endcompress %}
+      
+        <script type="text/javascript" src='{% static 'jquery/jquery.js' %}'></script>
+      
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}
         {% endblock %}
     </head>
 
     <body class="{% block body_class %}{% endblock %}">
+      
         {% wagtailuserbar %}
-        {% block content %}{% endblock %}
+      
+        <div class="container site-content">
+          
+          
+          <div class="menu-container">
+            <img src="{% static 'images/heldev-logo-mini-white.svg' %}" class="site-logo">
+		    <a id="menu-toggle" class="anchor-link" href="#mobile-nav">MENU</a>
+	      </div>
+          <nav id="mobile-nav" class="nav" role="navigation">
+            <ul>
+                <li><a href="#">Projects</a></li>
+                <li><a href="#">Open APIs</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Events</a></li>
+                <li><a href="#">Current Tenders</a></li>
+            </ul>
+	       </nav>
+          <div class="main-content page-content">
+            
+            <!-- start front-banner content -->
+            <div class="front-banner">
+              <div class="front-banner-content">
+                {% block content %}{% endblock %}
+              </div>
+            </div>
+            <!-- end front-banner content -->
+            <!-- start promoted content -->
+            <div class="promoted-content">
+              
+              <div class="list-banner list-banner--commit-watch">
+                <h3>Commit Watch</h3>
+                <ul>
+                  <li>
+                    <span>32 minutes ago</span>
+                    <span>jyrjola pushed to master at City-of-Helsinki/openhjo</span>
+                  </li>
+                </ul>
+              </div>
 
+              <div class="list-banner list-banner--available-apis">
+                <h3>Available APIs</h3>
+              </div>
+              
+            </div>
+            <!-- end promoted content -->
+            
+            <aside class="side-content">
+              <div class="list-banner list-banner--events">
+                <h3>Events</h3>
+                <ul>
+                  <li>
+                    <span>18.9.2015</span>
+                    <span>Rockathon Helsinki</span>
+                  </li>
+                </ul>
+              </div>
+            </aside>
+          </div>
+          
+          <div class="site-footer">
+          
+          </div>
+          
+          
+        </div>
+      
         {# Global javascript #}
         <script type="text/javascript" src="{% static 'js/heldev.js' %}"></script>
 
