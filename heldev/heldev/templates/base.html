@@ -20,7 +20,7 @@
           <link rel="stylesheet" type="text/x-scss" href="{% static "sass/screen.scss" %}" />
         {% endcompress %}
       
-        <script type="text/javascript" src='{% static 'jquery/jquery.js' %}'></script>
+        <script type="text/javascript" src='{% static 'jquery/dist/jquery.js' %}'></script>
       
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}
@@ -30,15 +30,8 @@
     <body class="{% block body_class %}{% endblock %}">
       
         {% wagtailuserbar %}
-      
-        <div class="container site-content">
-          
-          
-          <div class="menu-container">
-            <img src="{% static 'images/heldev-logo-mini-white.svg' %}" class="site-logo">
-		    <a id="menu-toggle" class="anchor-link" href="#mobile-nav">MENU</a>
-	      </div>
-          <nav id="mobile-nav" class="nav" role="navigation">
+
+          <nav id="mobile-nav" class="pushy pushy-left" role="navigation">
             <ul>
                 <li><a href="#">Projects</a></li>
                 <li><a href="#">Open APIs</a></li>
@@ -47,33 +40,46 @@
                 <li><a href="#">Events</a></li>
                 <li><a href="#">Current Tenders</a></li>
             </ul>
-	       </nav>
+         </nav>
+         <!-- Site Overlay -->
+         <div class="site-overlay"></div>
+         <div id="menu-toggle" class="menu-btn">&#9776;</div>
+          
+        <div id="container" class="container site-content">
+          <div class="menu-container">
+            <div class="menu-content">
+              <img src="{% static 'images/heldev-logo-mini-white.svg' %}" class="site-logo">
+            </div>
+          </div>
           <div class="main-content page-content">
-            
             <!-- start front-banner content -->
             <div class="front-banner">
-              <div class="front-banner-content">
-                {% block content %}{% endblock %}
+              <div class="front-banner-content front-banner-background">
+                <img src="{% static 'images/front-banner-image-default.png' %}" class="front-banner-bg-image">
+                <div class="front-banner-text">
+                  {% block content %}{% endblock %}
+                </div>
               </div>
             </div>
             <!-- end front-banner content -->
             <!-- start promoted content -->
             <div class="promoted-content">
-              
-              <div class="list-banner list-banner--commit-watch">
-                <h3>Commit Watch</h3>
-                <ul>
-                  <li>
-                    <span>32 minutes ago</span>
-                    <span>jyrjola pushed to master at City-of-Helsinki/openhjo</span>
-                  </li>
-                </ul>
+              <div class="promoted-first">
+                <div class="list-banner list-banner--commit-watch">
+                  <h3>Commit Watch</h3>
+                  <ul>
+                    <li>
+                      <span>32 minutes ago</span>
+                      <span>jyrjola pushed to master at City-of-Helsinki/openhjo</span>
+                    </li>
+                  </ul>
+                </div>
               </div>
-
-              <div class="list-banner list-banner--available-apis">
-                <h3>Available APIs</h3>
+              <div class="promoted-second">
+                <div class="list-banner list-banner--available-apis">
+                  <h3>Available APIs</h3>
+                </div>
               </div>
-              
             </div>
             <!-- end promoted content -->
             
@@ -98,8 +104,14 @@
         </div>
       
         {# Global javascript #}
-        <script type="text/javascript" src="{% static 'js/heldev.js' %}"></script>
-
+        {% compress js %}
+          <script type="text/javascript" src="{% static 'js/heldev.js' %}"></script>
+          <script type="text/javascript" src="{% static 'pushy/js/pushy.js' %}"></script>
+          <script type="text/javascript" src="{% static 'eventEmitter/eventEmitter.js' %}"></script>
+          <script type="text/javascript" src="{% static 'eventie/eventie.js' %}"></script>
+          <script type="text/javascript" src="{% static 'imagesloaded/imagesloaded.js' %}"></script>
+          <script type="text/javascript" src="{% static 'imagefill/js/jquery-imagefill.js' %}"></script>
+        {% endcompress %}
         {% block extra_js %}
             {# Override this in templates to add extra javascript #}
         {% endblock %}
