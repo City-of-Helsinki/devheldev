@@ -1,7 +1,5 @@
 Django>=1.8,<1.9
 wagtail==1.0
 psycopg2
-hamlpy
-django-pipeline
-django-pipeline-compass
 django-bower
+django-libsass

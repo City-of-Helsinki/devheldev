@@ -9,5 +9,6 @@ Installation assumes a working PostgreSQL with table creation rights
   * pip install -r dev_requirements.txt
  * createdb heldev
  * python manage.py migrate
+ * python manage.py bower install
  * python manage.py createsuperuser
  * python manage.py runserver
