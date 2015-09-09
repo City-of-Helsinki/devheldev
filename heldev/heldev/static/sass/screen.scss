@@ -4,13 +4,15 @@
 @import 'variables';
 @import 'pushycss';
 
-@import 'bower_components/compass-mixins/lib/compass/reset';
+//@import 'bower_components/compass-mixins/lib/compass/reset';
 
+@include global-reset;
 @include establish-baseline;
   
 body {
   font-family: 'Lato', sans-serif;
   color: $devblue;
+  letter-spacing: 0.0625em;
   background-color: #eee;
   background-image: url("/static/images/heldev-sitebg-gray.png");
   background-position: center top;
@@ -26,6 +28,14 @@ img {
 .site-logo {
   height: 3em;
   padding: 1em;
+}
+
+/* headings() */
+h1, h2, h3, h4, h5, h6, h7 {
+	font-family: 'Lato', sans-serif;
+    font-style: italic;
+    font-weight: 700;
+	/* Set font-family to all headings */
 }
 
 
@@ -87,11 +97,11 @@ nav.pushy a:hover{
 }
 
 /*-----------------------*/
-  .main-content, .menu-content { 
+  .main-wrapper, .menu-wrapper {
     @include container;
   }
   
-  .main-content {
+  .content-wrapper {
     margin-top: 2em;  
   }
 
@@ -109,9 +119,30 @@ nav.pushy a:hover{
     margin-bottom: 1em;
   }
 
+  .main-content {
+    @include span(100%);
+  }
+
   .side-content {
     @include span(100%);
   }
+
+  .list-banner {
+    padding: 1em;
+    background: $devblue;
+    color: #ffffff;
+  }
+
+  .hilight-banner {
+    padding: .5em;
+    background: #FFFFFF;
+    margin-bottom: 1em;
+    .hilight-banner__content {
+      padding: .5em;
+      border: 2px solid $devblue;
+    }
+  }
+
 
 /* ------------ FRONT BANNER */
 
@@ -141,8 +172,3 @@ nav.pushy a:hover{
 }
 
 
-.list-banner {
-  padding: 1em;
-  background: $devblue;
-  color: #ffffff;
-}

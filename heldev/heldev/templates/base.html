@@ -47,11 +47,11 @@
           
         <div id="container" class="container site-content">
           <div class="menu-container">
-            <div class="menu-content">
+            <div class="menu-wrapper">
               <img src="{% static 'images/heldev-logo-mini-white.svg' %}" class="site-logo">
             </div>
           </div>
-          <div class="main-content page-content">
+          <div class="main-wrapper">
             <!-- start front-banner content -->
             <div class="front-banner">
               <div class="front-banner-content front-banner-background">
@@ -82,7 +82,20 @@
               </div>
             </div>
             <!-- end promoted content -->
-            
+            <div class="main-content">
+              <div class="hilight-banner hilight-banner--full">
+                <div class="hilight-banner__content">
+                  <h3>{% lorem 5 w random %}</h3>
+                  <p>{% lorem 30 w random %}</p>
+                </div>
+              </div>
+              <div class="hilight-banner hilight-banner--full">
+                <div class="hilight-banner__content">
+                  <h3>{% lorem 5 w random %}</h3>
+                  <p>{% lorem 30 w random %}</p>
+                </div>
+              </div>
+            </div>
             <aside class="side-content">
               <div class="list-banner list-banner--events">
                 <h3>Events</h3>
