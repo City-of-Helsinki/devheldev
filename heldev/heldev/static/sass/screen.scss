@@ -1,6 +1,7 @@
 @import 'compass-mixins/lib/compass';
 @import "susy/sass/susy";
 @import 'typography';
+@import 'components-font-awesome/scss/font-awesome';
 @import 'variables';
 @import 'pushycss';
 
@@ -11,8 +12,9 @@
   
 body {
   font-family: 'Lato', sans-serif;
+  font-weight: 400;
   color: $devblue;
-  letter-spacing: 0.0625em;
+  //letter-spacing: 0.0625em;
   background-color: #eee;
   background-image: url("/static/images/heldev-sitebg-gray.png");
   background-position: center top;
@@ -26,7 +28,9 @@ img {
 }
 
 .site-logo {
-  height: 3em;
+  position: absolute;
+  z-index: 9999;
+  height: 12em;
   padding: 1em;
 }
 
@@ -38,13 +42,17 @@ h1, h2, h3, h4, h5, h6, h7 {
 	/* Set font-family to all headings */
 }
 
+a, a:visited, a:active, a:hover {
+  color: $devyellow;
+  text-decoration: none;
+}
 
 /* ------------ SITE NAVIGATION */
 
-  .menu-container { display: block; }
-  
-  .menu-container { 
+  .layout-header {
+    display: block;
     width: 100%; 
+    margin-bottom: 2em;
     background-color: $devblue;
     background-image: url("/static/images/heldev-sitebg-blue.png");
     background-position: center top;
@@ -74,7 +82,7 @@ h1, h2, h3, h4, h5, h6, h7 {
   }
 
 nav.pushy {
-    height: 90%;
+    height: 100%;
     padding-top: 1.5em;
     background: $devblue;
     font-weight: 700;
@@ -97,40 +105,43 @@ nav.pushy a:hover{
 }
 
 /*-----------------------*/
-  .main-wrapper, .menu-wrapper {
+  .layout-main, .layout-header__wrapper, .layout-site-footer__wrapper {
     @include container;
   }
   
-  .content-wrapper {
+  .layout-main {
     margin-top: 2em;  
   }
 
-  .front-banner {
-    @include span(100%);
+  .layout-front-banner {
+    @include pre(15%);
+    @include span(85%);
     margin-bottom: 2em;
+    margin-top: 6em;
   }
   
-  .promoted-content {
+  .layout-promoted {
     @include span(100% nest);
   }
 
-  .promoted-first, .promoted-second {
+  .layout-promoted__first, .layout-promoted__second {
     @include span(100%);
     margin-bottom: 1em;
   }
 
-  .main-content {
+  .layout-page-content {
     @include span(100%);
   }
 
-  .side-content {
+  .layout-side-content {
     @include span(100%);
   }
 
-  .list-banner {
-    padding: 1em;
-    background: $devblue;
-    color: #ffffff;
+  .layout-site-footer {
+    background: #333333;
+    margin-top: 2em;
+    padding: 1em 0 3em 0;
+    color: #FFFFFF;
   }
 
   .hilight-banner {
@@ -141,18 +152,36 @@ nav.pushy a:hover{
       padding: .5em;
       border: 2px solid $devblue;
     }
+    h3 {
+      @include adjust-font-size-to(28px);
+      //margin-top: -0.5em;
+    }
+    h5 {
+      @include adjust-font-size-to(16px);
+      font-family: 'Inconsolata';
+      text-transform: uppercase;
+      font-weight: 700;
+      font-style: normal;
+      color: $devyellow;
+    }
   }
+
+.site-footer-partners,
+.site-footer-navigation,
+.site-footer-links {
+  @include span(100%);
+}
 
 
 /* ------------ FRONT BANNER */
 
-.front-banner-background {
+.front-banner__background {
   overflow: hidden;
   width: 100%;
   height: 100%;
 }
 
-.front-banner-content {
+.front-banner__content {
   //position: relative;
   //@include clearfix;
   //padding: 1em;
@@ -162,7 +191,7 @@ nav.pushy a:hover{
   box-shadow: .5em .5em 0 0 $devblue;
 }
 
-.front-banner-text {
+.front-banner__text {
   position: relative;
   float: right;
   width: 50%;
@@ -171,4 +200,87 @@ nav.pushy a:hover{
   color: #ffffff;
 }
 
+.list-banner {
+  padding: 1em;
+  margin-bottom: 1em;
+  background: $devblue;
+  color: #ffffff;
+  font-weight: 300;
+  h3 {
+    @include adjust-font-size-to(18px);
+    display: inline-block;
+    clear: both;
+    font-family: 'Inconsolata';
+    text-transform: uppercase;
+    font-weight: 700;
+    font-style: normal;
+    border-bottom: 3px solid #FFFFFF;
+    margin-bottom: 1em;
+  }
+  ul {
+    margin-bottom: 1em;
+  }
+}
 
+.event-list__item {
+  border: 2px solid #FFFFFF;
+  padding: .5em;
+  margin-bottom: 1em;
+}
+.event-list__date {
+  font-weight: 700;
+  display: block;
+}
+.event-list__header {
+  display: block;
+}
+.event-list__description {
+  display: block;
+}
+.event-list__link {
+  font-weight: 700;
+}
+.list-banner__full-link {
+}
+
+
+.commit-list__item {
+
+}
+
+.commit-list__date {
+  font-weight: 700;
+  display: block;
+  color: #FFFFFF;
+  &:hover {
+    color: $devyellow;
+  }
+}
+.commit-list__description {
+  display: block;
+  color: #FFFFFF;
+}
+
+.list-banner__full-link {
+
+}
+
+.api-list__item {
+}
+.api-list__icon {
+  margin-right: .5em;
+}
+.api-list__header {
+  color: #FFFFFF;
+  &:hover {
+    color: $devyellow;
+  }
+}
+
+.some-banner {
+  padding: 1em;
+  margin-bottom: 1em;
+  background: $devblue;
+  color: #ffffff;
+  font-weight: 300;
+}

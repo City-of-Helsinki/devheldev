@@ -97,7 +97,8 @@ BOWER_INSTALLED_APPS = (
     'jquery',
     'pushy',
     'imagesloaded',
-    'imagefill'
+    'imagefill',
+    'components-font-awesome'
 )
 
 COMPRESS_PRECOMPILERS = (

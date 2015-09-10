@@ -1,3 +1,3 @@
 $( document ).ready(function() {
-  $('.front-banner-background').imagefill();
+  $('.front-banner__background').imagefill();
 });
