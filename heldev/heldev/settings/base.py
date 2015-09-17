@@ -94,6 +94,11 @@ WSGI_APPLICATION = 'heldev.wsgi.application'
 BOWER_INSTALLED_APPS = (
     'compass-mixins',
     'susy',
+    'jquery',
+    'pushy',
+    'imagesloaded',
+    'imagefill',
+    'components-font-awesome'
 )
 
 COMPRESS_PRECOMPILERS = (
@@ -131,6 +136,7 @@ USE_TZ = True
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'djangobower.finders.BowerFinder',
     'compressor.finders.CompressorFinder',
 )
 

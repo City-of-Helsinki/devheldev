@@ -23,6 +23,7 @@ var/
 .installed.cfg
 *.egg
 bower_components/
+static/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

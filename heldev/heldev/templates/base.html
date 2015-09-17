@@ -13,14 +13,14 @@
         <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link href='http://fonts.googleapis.com/css?family=Lato:400,900italic,700,400italic|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic|Inconsolata:400,700' rel='stylesheet' type='text/css'>
         {# Global stylesheets #}
  
         {% compress css %}
           <link rel="stylesheet" type="text/x-scss" href="{% static "sass/screen.scss" %}" />
         {% endcompress %}
       
-        <script type="text/javascript" src='{% static 'jquery/jquery.js' %}'></script>
+        <script type="text/javascript" src='{% static 'jquery/dist/jquery.js' %}'></script>
       
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}
@@ -30,15 +30,8 @@
     <body class="{% block body_class %}{% endblock %}">
       
         {% wagtailuserbar %}
-      
-        <div class="container site-content">
-          
-          
-          <div class="menu-container">
-            <img src="{% static 'images/heldev-logo-mini-white.svg' %}" class="site-logo">
-		    <a id="menu-toggle" class="anchor-link" href="#mobile-nav">MENU</a>
-	      </div>
-          <nav id="mobile-nav" class="nav" role="navigation">
+
+          <nav id="mobile-nav" class="pushy pushy-left" role="navigation">
             <ul>
                 <li><a href="#">Projects</a></li>
                 <li><a href="#">Open APIs</a></li>
@@ -47,59 +40,182 @@
                 <li><a href="#">Events</a></li>
                 <li><a href="#">Current Tenders</a></li>
             </ul>
-	       </nav>
-          <div class="main-content page-content">
-            
+         </nav>
+         <!-- Site Overlay -->
+         <div class="site-overlay"></div>
+         <div id="menu-toggle" class="menu-btn">&#9776;</div>
+          
+        <div id="container">
+          <div class="layout-header">
+            <div class="layout-header__wrapper">
+              <img src="{% static 'images/heldev-logo-white.svg' %}" class="site-logo">
             <!-- start front-banner content -->
-            <div class="front-banner">
-              <div class="front-banner-content">
-                {% block content %}{% endblock %}
+            <div class="layout-front-banner">
+              <div class="front-banner__content front-banner__background">
+                <img src="{% static 'images/front-banner-image-default.png' %}" class="front-banner-bg-image">
+                <div class="front-banner__text">
+                  {% block content %}{% endblock %}
+                </div>
               </div>
             </div>
             <!-- end front-banner content -->
+            </div>
+          </div>
+          <div class="layout-main">
             <!-- start promoted content -->
-            <div class="promoted-content">
-              
-              <div class="list-banner list-banner--commit-watch">
-                <h3>Commit Watch</h3>
-                <ul>
-                  <li>
-                    <span>32 minutes ago</span>
-                    <span>jyrjola pushed to master at City-of-Helsinki/openhjo</span>
-                  </li>
-                </ul>
+            <div class="layout-promoted">
+              <div class="layout-promoted__first">
+                <div class="list-banner list-banner--commit-watch">
+                  <h3>Commit Watch</h3>
+                  <ul>
+                    <li class="commit-list__item">
+                      <a href="#">
+                      <span class="commit-list__date">32 minutes ago</span>
+                      <span class="commit-list__description">jyrjola pushed to master at City-of-Helsinki/openhjo</span>
+                      </a>
+                    </li>
+                    <li class="commit-list__item">
+                      <a href="">
+                        <span class="commit-list__date">32 minutes ago</span>
+                        <span class="commit-list__description">jyrjola pushed to master at City-of-Helsinki/openhjo</span>
+                      </a>
+                    </li>
+                  </ul>
+                  <div class="list-banner__full-link">
+                    <a href="#">Full list of events >></a>
+                  </div>
+                </div>
               </div>
-
-              <div class="list-banner list-banner--available-apis">
-                <h3>Available APIs</h3>
+              <div class="layout-promoted__second">
+                <div class="list-banner list-banner--available-apis">
+                  <h3>Available APIs</h3>
+                  <ul>
+                    <li class="api-list__item">
+                      <a href="#">
+                      <span class="api-list__icon"><i class="fa fa-share-alt-square"></i></span>
+                      <span class="api-list__header">Open Ajo API</span>
+                      </a>
+                    </li>
+                    <li class="api-list__item">
+                      <a href="#">
+                      <span class="api-list__icon"><i class="fa fa-share-alt-square"></i></span>
+                      <span class="api-list__header">Open Ajo API</span>
+                      </a>
+                    </li>
+                    <li class="api-list__item">
+                      <a href="#">
+                      <span class="api-list__icon"><i class="fa fa-share-alt-square"></i></span>
+                      <span class="api-list__header">Open Ajo API</span>
+                      </a>
+                    </li>
+                    <li class="api-list__item">
+                      <a href="#">
+                      <span class="api-list__icon"><i class="fa fa-share-alt-square"></i></span>
+                      <span class="api-list__header">Open Ajo API</span>
+                      </a>
+                    </li>
+                  </ul>
+                  <div class="list-banner__full-link">
+                    <a href="#">Full list of available APIs >></a>
+                  </div>
+                </div>
               </div>
-              
             </div>
             <!-- end promoted content -->
-            
-            <aside class="side-content">
+            <div class="layout-page-content">
+              <div class="hilight-banner hilight-banner--full">
+                <div class="hilight-banner__content">
+                  <h5 class="hilight-banner__section">Blog</h5>
+                  <h3>{% lorem 5 w random %}</h3>
+                  <p>{% lorem 30 w random %}</p>
+                </div>
+              </div>
+              <div class="hilight-banner hilight-banner--full">
+                <div class="hilight-banner__content">
+                  <h5 class="hilight-banner__section">Projects</h5>
+                  <h3>{% lorem 5 w random %}</h3>
+                  <p>{% lorem 30 w random %}</p>
+                </div>
+              </div>
+            </div>
+            <aside class="layout-side-content">
               <div class="list-banner list-banner--events">
                 <h3>Events</h3>
                 <ul>
-                  <li>
-                    <span>18.9.2015</span>
-                    <span>Rockathon Helsinki</span>
+                  <li class="event-list__item">
+                    <span class="event-list__date">18.9.2015</span>
+                    <span class="event-list__header">{% lorem 2 w random %}</span>
+                    <span class="event-list__description">{% lorem 5 w random %}</span>
+                    <span class="event-list__link"><a href="#">Read more >></a></span>
+                  </li>
+                  <li class="event-list__item">
+                    <span class="event-list__date">18.9.2015</span>
+                    <span class="event-list__header">{% lorem 2 w random %}</span>
+                    <span class="event-list__description">{% lorem 5 w random %}</span>
+                    <span class="event-list__link"><a href="#">Read more >></a></span>
+                  </li>
+                  <li class="event-list__item">
+                    <span class="event-list__date">18.9.2015</span>
+                    <span class="event-list__header">{% lorem 2 w random %}</span>
+                    <span class="event-list__description">{% lorem 5 w random %}</span>
+                    <span class="event-list__link"><a href="#">Read more >></a></span>
                   </li>
                 </ul>
+                <div class="list-banner__full-link">
+                  <a href="#">Full list of events >></a>
+                </div>
+              </div>
+              <div class="some-banner">
+                <a href="#">
+                  <i class="fa fa-facebook-official fa-2x"></i>
+                  We are in Facebook
+                </a>
+              </div>
+              <div class="some-banner">
+                <a href="#">
+                  <i class="fa fa-github fa-2x"></i>
+                  Find us in GitHub
+                </a>
               </div>
             </aside>
           </div>
           
-          <div class="site-footer">
-          
+          <div class="layout-site-footer">
+            <div class="layout-site-footer__wrapper">
+              <div class="site-footer-partners">
+                Helsingin Kaupunki [logo] / Hel Dev [logo]<br>
+                Helsingin kaupunki
+              </div>
+              <div class="site-footer-navigation">
+                <ul>
+                    <li><a href="#">Projects</a></li>
+                    <li><a href="#">Open APIs</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Events</a></li>
+                    <li><a href="#">Current Tenders</a></li>
+                </ul>
+              </div>
+              <div class="site-footer-links">
+                <div class="site-footer-some">
+                  Github / Facebook / Twitter
+                </div>
+              </div>
+            </div>
           </div>
           
           
         </div>
       
         {# Global javascript #}
-        <script type="text/javascript" src="{% static 'js/heldev.js' %}"></script>
-
+        {% compress js %}
+          <script type="text/javascript" src="{% static 'js/heldev.js' %}"></script>
+          <script type="text/javascript" src="{% static 'pushy/js/pushy.js' %}"></script>
+          <script type="text/javascript" src="{% static 'eventEmitter/eventEmitter.js' %}"></script>
+          <script type="text/javascript" src="{% static 'eventie/eventie.js' %}"></script>
+          <script type="text/javascript" src="{% static 'imagesloaded/imagesloaded.js' %}"></script>
+          <script type="text/javascript" src="{% static 'imagefill/js/jquery-imagefill.js' %}"></script>
+        {% endcompress %}
         {% block extra_js %}
             {# Override this in templates to add extra javascript #}
         {% endblock %}
