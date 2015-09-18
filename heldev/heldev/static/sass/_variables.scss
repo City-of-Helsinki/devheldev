@@ -2,6 +2,8 @@ $devblue: #003380;
 $devblack: #333333;
 $devyellow: #ffc61e;
 
+$deskwidth: 640px;
+
 $susy: (
   flow: ltr,
   math: fluid,
@@ -9,7 +11,7 @@ $susy: (
   gutter-position: inside,
   container: 60em,
   container-position: center,
-  columns: 4,
+  columns: 12,
   gutters: .25,
   column-width: false,
   global-box-sizing: content-box,

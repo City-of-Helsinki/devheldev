@@ -4,6 +4,7 @@
 @import 'components-font-awesome/scss/font-awesome';
 @import 'variables';
 @import 'pushycss';
+@import 'compass-breakpoint/stylesheets/breakpoint';
 
 //@import 'bower_components/compass-mixins/lib/compass/reset';
 
@@ -30,8 +31,17 @@ img {
 .site-logo {
   position: absolute;
   z-index: 9999;
-  height: 12em;
-  padding: 1em;
+  height: rhythm(2);
+  width: 6em;
+  top: rhythm(.5);
+  left: rhythm(.5);
+  @include replace-text(url("/static/images/heldev-logo-mini-white.svg"));
+  background-size: contain;
+  @include breakpoint($deskwidth) {
+    height: 12em;
+    width: 12em;
+    @include replace-text(url("/static/images/heldev-logo-white.svg"));
+  }
 }
 
 /* headings() */
@@ -47,12 +57,22 @@ a, a:visited, a:active, a:hover {
   text-decoration: none;
 }
 
+p {
+  margin-bottom: rhythm(1);
+}
+
+/* ------------ OFFSET WAGTAIL USERBAR */
+
+#wagtail-userbar{
+   top: rhythm(4);
+}
+
 /* ------------ SITE NAVIGATION */
 
   .layout-header {
     display: block;
     width: 100%; 
-    margin-bottom: 2em;
+    margin-bottom: rhythm(2);
     background-color: $devblue;
     background-image: url("/static/images/heldev-sitebg-blue.png");
     background-position: center top;
@@ -71,6 +91,9 @@ a, a:visited, a:active, a:hover {
     color: #fff; 
     float: right; 
     cursor: pointer;
+    @include breakpoint($deskwidth) {
+      display: none;
+    }
   }
 
   .menu-btn:hover {  
@@ -81,75 +104,120 @@ a, a:visited, a:active, a:hover {
     display: none;
   }
 
-nav.pushy {
-    height: 100%;
-    padding-top: 1.5em;
-    background: $devblue;
-    font-weight: 700;
-    font-style: italic;
-    font-size: 1.2em;
-    letter-spacing: .04em;
-}
+  nav.pushy {
+      height: 100%;
+      padding: rhythm(1) 0;
+      background: $devblue;
+      font-weight: 700;
+      font-style: italic;
+      font-size: 1.2em;
+      letter-spacing: .04em;
+  }
 
-nav.pushy a{
-    display: block;
-    padding: .5em 1em;
-    border: 0;
-    color: #ffffff;
-    text-decoration: none;
-}
+  nav.pushy a{
+      display: block;
+      padding: rhythm(.25) rhythm(.5);
+      border: 0;
+      color: #ffffff;
+      text-decoration: none;
+  }
 
-nav.pushy a:hover{
-    background: $devyellow;
-    color: #FFF;
-}
+  nav.pushy a:hover{
+      background: $devyellow;
+      color: #FFF;
+  }
+  nav.pushy a:hover{
+      background: $devyellow;
+      color: #FFF;
+  }
+
+  .desktop-navigation {
+    display: none;
+    @include breakpoint($deskwidth) {
+      display: block;
+      @include pre(3);
+      @include span(9);
+      text-align: right;
+      margin-top: rhythm(1);
+      @include adjust-font-size-to(16px);
+      font-weight: 900;
+      > ul  {
+        @include inline-block-list(rhythm(.5));
+      }
+      a {
+        display: block;
+        color: #FFFFFF;
+        &:hover {
+          color: $devyellow;
+        }
+      }
+    }
+  }
 
 /*-----------------------*/
   .layout-main, .layout-header__wrapper, .layout-site-footer__wrapper {
     @include container;
+    padding: 0 rhythm(.25);
+    @include breakpoint($deskwidth) {
+      padding: 0 rhythm(1);
+    }
   }
   
   .layout-main {
-    margin-top: 2em;  
+    margin-top:  rhythm(2);
   }
 
   .layout-front-banner {
-    @include pre(15%);
-    @include span(85%);
-    margin-bottom: 2em;
-    margin-top: 6em;
+    @include span(12);
+    margin-top: rhythm(4);
+    margin-bottom: rhythm(2);
+    @include breakpoint($deskwidth) {
+      @include pre(2);
+      @include span(10);
+      margin-top: rhythm(2);
+      margin-bottom: rhythm(3);
+    }
   }
   
   .layout-promoted {
-    @include span(100% nest);
+    @include span(12 nest);
   }
 
   .layout-promoted__first, .layout-promoted__second {
-    @include span(100%);
-    margin-bottom: 1em;
+    @include span(12);
+    //margin-bottom: rhythm(1);
+    @include breakpoint($deskwidth) {
+      @include span(6);
+    }
   }
 
   .layout-page-content {
-    @include span(100%);
+    @include span(12 nest);
+    @include breakpoint($deskwidth) {
+      @include span(8 nest);
+    }
   }
 
   .layout-side-content {
-    @include span(100%);
+    @include span(12);
+    @include breakpoint($deskwidth) {
+      @include span(4);
+    }
   }
 
   .layout-site-footer {
     background: #333333;
-    margin-top: 2em;
-    padding: 1em 0 3em 0;
+    margin-top: rhythm(2);
+    padding: rhythm(2) 0 rhythm(4) 0;
     color: #FFFFFF;
   }
 
-  .hilight-banner {
-    padding: .5em;
+  .hilight-banner__box {
+    padding: rhythm(.5);
     background: #FFFFFF;
-    margin-bottom: 1em;
+    margin-bottom: rhythm(1);
     .hilight-banner__content {
-      padding: .5em;
+      padding: rhythm(.5);
       border: 2px solid $devblue;
     }
     h3 {
@@ -165,13 +233,71 @@ nav.pushy a:hover{
       color: $devyellow;
     }
   }
+  .hilight-banner--full {
+    @include span(12);
+  }
+  .hilight-banner--half {
+    @include span(6);
+  }
 
 .site-footer-partners,
 .site-footer-navigation,
 .site-footer-links {
-  @include span(100%);
+  @include span(12);
 }
 
+.site-footer {
+  a {
+    color: #FFFFFF;
+    &:hover {
+      color: $devyellow;
+    }
+  }
+}
+
+.site-footer-navigation {
+    @include breakpoint($deskwidth) {
+      @include pre(3);
+      @include span(3);
+    }
+}
+
+.site-footer-links {
+    @include breakpoint($deskwidth) {
+      @include span(3);
+    }
+
+  i {
+    margin-right: .5em;
+    margin-bottom: .5em;
+  }
+}
+
+.site-footer-partners {
+    @include breakpoint($deskwidth) {
+      @include span(3);
+    }
+  .partner-helsinki {
+    height: rhythm(4);
+    width: 50%;
+    float: left;
+    @include replace-text(url("/static/images/helsinki-vaakuna.svg"),90%,1%);
+    background-size: contain;
+  }
+  .partner-heldev {
+    height: rhythm(4);
+    width: 50%;
+    float: left;
+    @include replace-text(url("/static/images/heldev-logo-white.svg"),10%,1%);
+    background-size: contain;
+  }
+  .partner-link {
+    float: left;
+    width: 100%;
+    margin-top: rhythm(1);
+    text-align: center;
+  }
+}
 
 /* ------------ FRONT BANNER */
 
@@ -185,24 +311,33 @@ nav.pushy a:hover{
   //position: relative;
   //@include clearfix;
   //padding: 1em;
-  margin-right: .5em;
-  margin-bottom: .5em;
+  //margin-right: 1em;
+  //margin-bottom: .5em;
   background: $devyellow;
-  box-shadow: .5em .5em 0 0 $devblue;
+  box-shadow: .5em .5em 0 0 darken($devblue,25%);
 }
 
 .front-banner__text {
   position: relative;
   float: right;
-  width: 50%;
-  padding: 2em 1em;
+
+  min-height: rhythm(14);
+  padding: rhythm(1) 2em;
   background: rgba($devblue, 0.5);
   color: #ffffff;
+  h1 {
+    @include adjust-font-size-to(36px);
+    margin-bottom: rhythm(.5);
+  }
+
+  @include breakpoint($deskwidth) {
+    width: 50%;
+  }
 }
 
 .list-banner {
-  padding: 1em;
-  margin-bottom: 1em;
+  padding: rhythm(1);
+  margin-bottom: rhythm(1);
   background: $devblue;
   color: #ffffff;
   font-weight: 300;
@@ -215,17 +350,17 @@ nav.pushy a:hover{
     font-weight: 700;
     font-style: normal;
     border-bottom: 3px solid #FFFFFF;
-    margin-bottom: 1em;
+    margin-bottom: rhythm(1);
   }
   ul {
-    margin-bottom: 1em;
+    margin-bottom: rhythm(1);
   }
 }
 
 .event-list__item {
   border: 2px solid #FFFFFF;
-  padding: .5em;
-  margin-bottom: 1em;
+  padding: rhythm(.5);
+  margin-bottom: rhythm(1);
 }
 .event-list__date {
   font-weight: 700;
@@ -241,6 +376,7 @@ nav.pushy a:hover{
   font-weight: 700;
 }
 .list-banner__full-link {
+  font-weight: 700;
 }
 
 
@@ -278,8 +414,8 @@ nav.pushy a:hover{
 }
 
 .some-banner {
-  padding: 1em;
-  margin-bottom: 1em;
+  padding: rhythm(1);
+  margin-bottom: rhythm(1);
   background: $devblue;
   color: #ffffff;
   font-weight: 300;

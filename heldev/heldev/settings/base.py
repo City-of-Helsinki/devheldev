@@ -98,7 +98,8 @@ BOWER_INSTALLED_APPS = (
     'pushy',
     'imagesloaded',
     'imagefill',
-    'components-font-awesome'
+    'components-font-awesome',
+    'compass-breakpoint'
 )
 
 COMPRESS_PRECOMPILERS = (
