@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load static %}
+{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
+{% block content %}
+
+          <div class="layout-header">
+            <div class="layout-header__wrapper">
+
+              <a href="/"><h1 class="site-logo">dev.hel.fi</h1></a>
+              <nav id="desk-nav" class="desktop-navigation" role="navigation">
+                <ul>
+                    <li><a href="#">Projects</a></li>
+                    <li><a href="#">Open APIs</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Events</a></li>
+                    <li><a href="#">Current Tenders</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          <div class="layout-main">
+
+            <div class="layout-page-content">
+
+              <div class="page-content">
+                <div class="page-content__box">
+                  <h5 class="page-section-header">Blog</h5>
+
+                  <div class="blog-listing-item">
+                    <div class="blog-listing-item__date">
+                      <div class="blog-listing-date-box">
+                        <span class="listing-date__day">12</span>
+                        <span class="listing-date__month">09</span>
+                        <span class="listing-date__year">15</span>
+                      </div>
+                    </div>
+                    <div class="blog-listing-item__content">
+                      <img src="{% static "images/front-banner-image-default.png" %}" alt="blog-article-image" />
+                      <div class="blog-post-details">12.8.2015 / Kalle Päätalo / #opendata #design #education #public</div>
+                      <h1>Blog Article Headline</h1>
+                      <p>{% lorem 30 w random %}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <aside class="layout-side-content">
+              <div class="list-banner list-banner--blogposts">
+                <h3>RECENT POSTS</h3>
+                <ul>
+                  <li class="event-list__item">
+                    <span class="event-list__date">18.9.2015</span>
+                    <span class="event-list__header">{% lorem 2 w random %}</span>
+                    <span class="event-list__description">{% lorem 5 w random %}</span>
+                    <span class="event-list__link"><a href="#">Read more >></a></span>
+                  </li>
+                  <li class="event-list__item">
+                    <span class="event-list__date">18.9.2015</span>
+                    <span class="event-list__header">{% lorem 2 w random %}</span>
+                    <span class="event-list__description">{% lorem 5 w random %}</span>
+                    <span class="event-list__link"><a href="#">Read more >></a></span>
+                  </li>
+                  <li class="event-list__item">
+                    <span class="event-list__date">18.9.2015</span>
+                    <span class="event-list__header">{% lorem 2 w random %}</span>
+                    <span class="event-list__description">{% lorem 5 w random %}</span>
+                    <span class="event-list__link"><a href="#">Read more >></a></span>
+                  </li>
+                </ul>
+                <div class="list-banner__full-link">
+                  <a href="#">Archive >></a>
+                  <ul>
+                    <li>August (1)</li>
+                    <li>July (2)</li>
+                    <li>June (0)</li>
+                    <li>May (3)</li>
+                    <li>April (5)</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="some-banner">
+                <a href="#">
+                  <i class="fa fa-facebook-official fa-2x"></i>
+                  We are in Facebook
+                </a>
+              </div>
+              <div class="some-banner">
+                <a href="#">
+                  <i class="fa fa-github fa-2x"></i>
+                  Find us in GitHub
+                </a>
+              </div>
+            </aside>
+          </div>
+
+
+{% endblock %}

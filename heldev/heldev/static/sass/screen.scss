@@ -37,10 +37,12 @@ img {
   left: rhythm(.5);
   @include replace-text(url("/static/images/heldev-logo-mini-white.svg"));
   background-size: contain;
-  @include breakpoint($deskwidth) {
-    height: 12em;
-    width: 12em;
-    @include replace-text(url("/static/images/heldev-logo-white.svg"));
+  &.site-logo--frontpage {
+    @include breakpoint($deskwidth) {
+      height: 12em;
+      width: 12em;
+      @include replace-text(url("/static/images/heldev-logo-white.svg"));
+    }
   }
 }
 
@@ -72,12 +74,15 @@ p {
   .layout-header {
     display: block;
     width: 100%; 
+    min-height: rhythm(3);
     margin-bottom: rhythm(2);
     background-color: $devblue;
-    background-image: url("/static/images/heldev-sitebg-blue.png");
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    &.layout-header--frontpage {
+      background-image: url("/static/images/heldev-sitebg-blue.png");
+      background-position: center top;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
   }
 
   .menu-btn { 
@@ -135,10 +140,11 @@ p {
     display: none;
     @include breakpoint($deskwidth) {
       display: block;
-      @include pre(3);
-      @include span(9);
+      @include pre(2);
+      @include span(10);
       text-align: right;
       margin-top: rhythm(1);
+      margin-bottom: rhythm(1);
       @include adjust-font-size-to(16px);
       font-weight: 900;
       > ul  {
@@ -169,7 +175,7 @@ p {
 
   .layout-front-banner {
     @include span(12);
-    margin-top: rhythm(4);
+    margin-top: rhythm(3);
     margin-bottom: rhythm(2);
     @include breakpoint($deskwidth) {
       @include pre(2);
@@ -244,6 +250,7 @@ p {
 .site-footer-navigation,
 .site-footer-links {
   @include span(12);
+  margin-bottom: rhythm(2);
 }
 
 .site-footer {
@@ -256,14 +263,18 @@ p {
 }
 
 .site-footer-navigation {
+    text-align: center;
     @include breakpoint($deskwidth) {
+      text-align: left;
       @include pre(3);
       @include span(3);
     }
 }
 
 .site-footer-links {
+    text-align: center;
     @include breakpoint($deskwidth) {
+      text-align: left;
       @include span(3);
     }
 
@@ -420,3 +431,67 @@ p {
   color: #ffffff;
   font-weight: 300;
 }
+
+
+/* ------------ PAGE CONTENT */
+
+.page-content {
+  @include span(12);
+  margin-bottom: rhythm(2);
+  //@include clearfix;
+  //padding: rhythm(1);
+  //background: #FFFFFF;
+}
+
+.page-content__box {
+  @include clearfix;
+  padding: rhythm(1);
+  background: #FFFFFF;
+}
+
+
+/* ------------ BLOG LISTING*/
+
+.blog-listing-item {
+  border: 2px solid $devblue;
+  //padding: rhythm(1);
+  @include span(12 nest);
+  padding-top: rhythm(.5);
+  padding-bottom: rhythm(.5);
+}
+
+.blog-listing-item__date {
+  @include span(12);
+  //padding: rhythm(.5);
+  margin-bottom: rhythm(.5);
+  @include adjust-font-size-to(16px);
+  color: #FFFFFF;
+  font-weight: 700;
+  font-face: 'Inconsolata';
+
+  @include breakpoint($deskwidth) {
+    @include adjust-font-size-to(28px);
+    @include span(2);
+    text-align: center;
+    span {
+      display: block;
+    }
+  }
+
+  .blog-listing-date-box {
+    background: $devblue;
+    padding: rhythm(.5);
+    @include breakpoint($deskwidth) {
+      padding: rhythm(1) 0;
+    }
+  }
+}
+
+.blog-listing-item__content {
+  @include span(12);
+  @include breakpoint($deskwidth) {
+    @include span(10);
+  }
+}
+
+
