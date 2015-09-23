@@ -29,16 +29,17 @@ img {
 }
 
 .site-logo {
-  position: absolute;
+  position: fixed;
   z-index: 9999;
   height: rhythm(2);
   width: 6em;
   top: rhythm(.5);
-  left: rhythm(.5);
+  left: rhythm(.25);
   @include replace-text(url("/static/images/heldev-logo-mini-white.svg"));
   background-size: contain;
   &.site-logo--frontpage {
     @include breakpoint($deskwidth) {
+      left: 3%;
       height: 12em;
       width: 12em;
       @include replace-text(url("/static/images/heldev-logo-white.svg"));
@@ -390,6 +391,25 @@ p {
   font-weight: 700;
 }
 
+.blog-list__item {
+  padding: rhythm(.25);
+  margin-bottom: rhythm(.5);
+  background: #FFFFFF;
+  font-weight: 500;
+  a {
+    color: $devblue;
+  }
+}
+
+.blog-list__date {
+  display: block;
+}
+
+.blog-list__header {
+  display: block;
+}
+
+
 
 .commit-list__item {
 
@@ -449,15 +469,42 @@ p {
   background: #FFFFFF;
 }
 
+.page-section-header {
+    @include adjust-font-size-to(18px);
+    font-family: 'Inconsolata';
+    text-transform: uppercase;
+    font-weight: 700;
+    font-style: normal;
+    border-bottom: 3px solid $devblue;
+    margin-bottom: rhythm(1);
+}
+
+.button {
+  background: $devblue;
+  padding: rhythm(.25);
+  color: #FFFFFF;
+  text-align: center;
+  cursor: pointer;
+  &:hover {
+    background: $devyellow;
+  }
+}
+
+.button--loadmore {
+  clear: both;
+  width: 25%;
+  margin: 0 auto;
+}
 
 /* ------------ BLOG LISTING*/
 
 .blog-listing-item {
   border: 2px solid $devblue;
   //padding: rhythm(1);
-  @include span(12 nest);
+  @include span(12);
   padding-top: rhythm(.5);
   padding-bottom: rhythm(.5);
+  margin-bottom: rhythm(1);
 }
 
 .blog-listing-item__date {
@@ -468,11 +515,16 @@ p {
   color: #FFFFFF;
   font-weight: 700;
   font-face: 'Inconsolata';
-
+  .listing-date__day::after, .listing-date__month::after {
+    content: " .";
+  }
   @include breakpoint($deskwidth) {
     @include adjust-font-size-to(28px);
     @include span(2);
     text-align: center;
+    .listing-date__day::after, .listing-date__month::after {
+      content: none;
+    }
     span {
       display: block;
     }
@@ -487,11 +539,51 @@ p {
   }
 }
 
+.blog-listing-item__details {
+  @include adjust-font-size-to(12px);
+  color: $devgray;
+}
+
 .blog-listing-item__content {
   @include span(12);
   @include breakpoint($deskwidth) {
     @include span(10);
   }
+  h2 {
+    @include adjust-font-size-to(32px);
+    a {
+      color: $devblue;
+      &:hover {
+        color: $devyellow;
+      }
+    }
+  }
 }
 
+a.blog-listing-item__tag {
+  color: $devgray;
+  &:hover {
+    color: $devyellow;
+  }
+}
+
+.blog-post {
+  .blog-article-image {
+    margin-bottom: rhythm(.5);
+  }
+  h1 {
+    @include adjust-font-size-to(36px);
+    margin-bottom: rhythm(.5);
+  }
+  .blog-post__details {
+    color: $devgray;
+  }
+  a.blog-post__tag {
+    color: $devgray;
+    &:hover{
+      color:$devyellow;
+    }
+  }
+  
+}
 

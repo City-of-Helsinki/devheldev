@@ -25,39 +25,49 @@
 
             <div class="layout-page-content">
 
-              <div class="page-content page-content--blog">
-                <h5 class="page-section-header">Blog</h5>
-                <img src="{% static "images/front-banner-image-default.png" %}" alt="blog-article-image" />
-                <div class="blog-post-details">12.8.2015 / Kalle Päätalo / #opendata #design #education #public</div>
+              <div class="page-content">
+                <div class="page-content__box">
+                  <h5 class="page-section-header">Blog</h5>
+                  <div class="blog-post">
+                <img src="{% static "images/front-banner-image-default.png" %}" alt="blog-article-image" class="blog-article-image" />
+                      <div class="blog-post__details">
+                        <span class="blog-post__date">21.9.2105</span> /
+                        <span class="blog-post__author">Kalle Päätalo</span> / 
+                        <a href="#" class="blog-post__tag">#opendata</a> 
+                        <a href="#" class="blog-post__tag">#design</a> 
+                        <a href="#" class="blog-post__tag">#education</a> 
+                        <a href="#" class="blog-post__tag">#public</a>
+                      </div>
                 <h1>Blog Article Headline</h1>
                 <p>{% lorem 30 w random %}</p>
                 <p>{% lorem 30 w random %}</p>
                 <p>{% lorem 30 w random %}</p>
               </div>
-
+                </div>
+              </div>
             </div>
 
             <aside class="layout-side-content">
               <div class="list-banner list-banner--blogposts">
                 <h3>RECENT POSTS</h3>
                 <ul>
-                  <li class="event-list__item">
-                    <span class="event-list__date">18.9.2015</span>
-                    <span class="event-list__header">{% lorem 2 w random %}</span>
-                    <span class="event-list__description">{% lorem 5 w random %}</span>
-                    <span class="event-list__link"><a href="#">Read more >></a></span>
+                  <li class="blog-list__item">
+                    <a href="/blog-post/">
+                    <span class="blog-list__date">18.9.2015</span>
+                    <span class="blog-list__header">{% lorem 5 w random %}</span>
+                    </a>
                   </li>
-                  <li class="event-list__item">
-                    <span class="event-list__date">18.9.2015</span>
-                    <span class="event-list__header">{% lorem 2 w random %}</span>
-                    <span class="event-list__description">{% lorem 5 w random %}</span>
-                    <span class="event-list__link"><a href="#">Read more >></a></span>
+                  <li class="blog-list__item">
+                    <a href="/blog-post/">
+                    <span class="blog-list__date">18.9.2015</span>
+                    <span class="blog-list__header">{% lorem 5 w random %}</span>
+                    </a>
                   </li>
-                  <li class="event-list__item">
-                    <span class="event-list__date">18.9.2015</span>
-                    <span class="event-list__header">{% lorem 2 w random %}</span>
-                    <span class="event-list__description">{% lorem 5 w random %}</span>
-                    <span class="event-list__link"><a href="#">Read more >></a></span>
+                  <li class="blog-list__item">
+                    <a href="/blog-post/">
+                    <span class="blog-list__date">18.9.2015</span>
+                    <span class="blog-list__header">{% lorem 5 w random %}</span>
+                    </a>
                   </li>
                 </ul>
                 <div class="list-banner__full-link">
