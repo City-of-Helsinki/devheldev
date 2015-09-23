@@ -29,18 +29,21 @@ img {
 }
 
 .site-logo {
-  position: absolute;
+  position: fixed;
   z-index: 9999;
   height: rhythm(2);
   width: 6em;
   top: rhythm(.5);
-  left: rhythm(.5);
+  left: rhythm(.25);
   @include replace-text(url("/static/images/heldev-logo-mini-white.svg"));
   background-size: contain;
-  @include breakpoint($deskwidth) {
-    height: 12em;
-    width: 12em;
-    @include replace-text(url("/static/images/heldev-logo-white.svg"));
+  &.site-logo--frontpage {
+    @include breakpoint($deskwidth) {
+      left: 3%;
+      height: 12em;
+      width: 12em;
+      @include replace-text(url("/static/images/heldev-logo-white.svg"));
+    }
   }
 }
 
@@ -72,12 +75,15 @@ p {
   .layout-header {
     display: block;
     width: 100%; 
+    min-height: rhythm(3);
     margin-bottom: rhythm(2);
     background-color: $devblue;
-    background-image: url("/static/images/heldev-sitebg-blue.png");
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    &.layout-header--frontpage {
+      background-image: url("/static/images/heldev-sitebg-blue.png");
+      background-position: center top;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
   }
 
   .menu-btn { 
@@ -135,10 +141,11 @@ p {
     display: none;
     @include breakpoint($deskwidth) {
       display: block;
-      @include pre(3);
-      @include span(9);
+      @include pre(2);
+      @include span(10);
       text-align: right;
       margin-top: rhythm(1);
+      margin-bottom: rhythm(1);
       @include adjust-font-size-to(16px);
       font-weight: 900;
       > ul  {
@@ -169,7 +176,7 @@ p {
 
   .layout-front-banner {
     @include span(12);
-    margin-top: rhythm(4);
+    margin-top: rhythm(3);
     margin-bottom: rhythm(2);
     @include breakpoint($deskwidth) {
       @include pre(2);
@@ -244,6 +251,7 @@ p {
 .site-footer-navigation,
 .site-footer-links {
   @include span(12);
+  margin-bottom: rhythm(2);
 }
 
 .site-footer {
@@ -256,14 +264,18 @@ p {
 }
 
 .site-footer-navigation {
+    text-align: center;
     @include breakpoint($deskwidth) {
+      text-align: left;
       @include pre(3);
       @include span(3);
     }
 }
 
 .site-footer-links {
+    text-align: center;
     @include breakpoint($deskwidth) {
+      text-align: left;
       @include span(3);
     }
 
@@ -379,6 +391,25 @@ p {
   font-weight: 700;
 }
 
+.blog-list__item {
+  padding: rhythm(.25);
+  margin-bottom: rhythm(.5);
+  background: #FFFFFF;
+  font-weight: 500;
+  a {
+    color: $devblue;
+  }
+}
+
+.blog-list__date {
+  display: block;
+}
+
+.blog-list__header {
+  display: block;
+}
+
+
 
 .commit-list__item {
 
@@ -420,3 +451,139 @@ p {
   color: #ffffff;
   font-weight: 300;
 }
+
+
+/* ------------ PAGE CONTENT */
+
+.page-content {
+  @include span(12);
+  margin-bottom: rhythm(2);
+  //@include clearfix;
+  //padding: rhythm(1);
+  //background: #FFFFFF;
+}
+
+.page-content__box {
+  @include clearfix;
+  padding: rhythm(1);
+  background: #FFFFFF;
+}
+
+.page-section-header {
+    @include adjust-font-size-to(18px);
+    font-family: 'Inconsolata';
+    text-transform: uppercase;
+    font-weight: 700;
+    font-style: normal;
+    border-bottom: 3px solid $devblue;
+    margin-bottom: rhythm(1);
+}
+
+.button {
+  background: $devblue;
+  padding: rhythm(.25);
+  color: #FFFFFF;
+  text-align: center;
+  cursor: pointer;
+  &:hover {
+    background: $devyellow;
+  }
+}
+
+.button--loadmore {
+  clear: both;
+  width: 25%;
+  margin: 0 auto;
+}
+
+/* ------------ BLOG LISTING*/
+
+.blog-listing-item {
+  border: 2px solid $devblue;
+  //padding: rhythm(1);
+  @include span(12);
+  padding-top: rhythm(.5);
+  padding-bottom: rhythm(.5);
+  margin-bottom: rhythm(1);
+}
+
+.blog-listing-item__date {
+  @include span(12);
+  //padding: rhythm(.5);
+  margin-bottom: rhythm(.5);
+  @include adjust-font-size-to(16px);
+  color: #FFFFFF;
+  font-weight: 700;
+  font-face: 'Inconsolata';
+  .listing-date__day::after, .listing-date__month::after {
+    content: " .";
+  }
+  @include breakpoint($deskwidth) {
+    @include adjust-font-size-to(28px);
+    @include span(2);
+    text-align: center;
+    .listing-date__day::after, .listing-date__month::after {
+      content: none;
+    }
+    span {
+      display: block;
+    }
+  }
+
+  .blog-listing-date-box {
+    background: $devblue;
+    padding: rhythm(.5);
+    @include breakpoint($deskwidth) {
+      padding: rhythm(1) 0;
+    }
+  }
+}
+
+.blog-listing-item__details {
+  @include adjust-font-size-to(12px);
+  color: $devgray;
+}
+
+.blog-listing-item__content {
+  @include span(12);
+  @include breakpoint($deskwidth) {
+    @include span(10);
+  }
+  h2 {
+    @include adjust-font-size-to(32px);
+    a {
+      color: $devblue;
+      &:hover {
+        color: $devyellow;
+      }
+    }
+  }
+}
+
+a.blog-listing-item__tag {
+  color: $devgray;
+  &:hover {
+    color: $devyellow;
+  }
+}
+
+.blog-post {
+  .blog-article-image {
+    margin-bottom: rhythm(.5);
+  }
+  h1 {
+    @include adjust-font-size-to(36px);
+    margin-bottom: rhythm(.5);
+  }
+  .blog-post__details {
+    color: $devgray;
+  }
+  a.blog-post__tag {
+    color: $devgray;
+    &:hover{
+      color:$devyellow;
+    }
+  }
+  
+}
+

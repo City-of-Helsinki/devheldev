@@ -1,5 +1,6 @@
 $devblue: #003380;
 $devblack: #333333;
+$devgray: #969696;
 $devyellow: #ffc61e;
 
 $deskwidth: 640px;
@@ -9,10 +10,10 @@ $susy: (
   math: fluid,
   output: float,
   gutter-position: inside,
-  container: 60em,
+  container: 70em,
   container-position: center,
   columns: 12,
-  gutters: .25,
+  gutters: 2em/5em,
   column-width: false,
   global-box-sizing: content-box,
   last-flow: to,

@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load static %}
+{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
+{% block content %}
+
+          <div class="layout-header">
+            <div class="layout-header__wrapper">
+
+              <a href="/"><h1 class="site-logo">dev.hel.fi</h1></a>
+              <nav id="desk-nav" class="desktop-navigation" role="navigation">
+                <ul>
+                    <li><a href="#">Projects</a></li>
+                    <li><a href="#">Open APIs</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Events</a></li>
+                    <li><a href="#">Current Tenders</a></li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          <div class="layout-main">
+
+            <div class="layout-page-content">
+
+              <div class="page-content">
+                <div class="page-content__box">
+                  <h5 class="page-section-header">Blog</h5>
+
+                  <div class="blog-listing-item">
+                    <div class="blog-listing-item__date">
+                      <div class="blog-listing-date-box">
+                        <span class="listing-date__day">12</span>
+                        <span class="listing-date__month">09</span>
+                        <span class="listing-date__year">15</span>
+                      </div>
+                    </div>
+                    <div class="blog-listing-item__content">
+                      <a href="/blog-post/" class="blog-listing-item__image"><img src="{% static "images/front-banner-image-default.png" %}" alt="blog-article-image" /></a>
+                      <h2><a href="/blog-post/">Blog Article Headline</a></h2>
+                      <div class="blog-listing-item__details">
+                        <span class="blog-listing-item__author">Kalle Päätalo</span> / 
+                        <a href="#" class="blog-listing-item__tag">#opendata</a> 
+                        <a href="#" class="blog-listing-item__tag">#design</a> 
+                        <a href="#" class="blog-listing-item__tag">#education</a> 
+                        <a href="#" class="blog-listing-item__tag">#public</a>
+                      </div>
+                      <p>{% lorem 30 w random %}</p>
+                    </div>
+                  </div>
+                  <div class="blog-listing-item">
+                    <div class="blog-listing-item__date">
+                      <div class="blog-listing-date-box">
+                        <span class="listing-date__day">12</span>
+                        <span class="listing-date__month">09</span>
+                        <span class="listing-date__year">15</span>
+                      </div>
+                    </div>
+                    <div class="blog-listing-item__content">
+                      <a href="/blog-post/" class="blog-listing-item__image"><img src="{% static "images/front-banner-image-default.png" %}" alt="blog-article-image" /></a>
+                      <h2><a href="/blog-post/">Blog Article Headline</a></h2>
+                      <div class="blog-listing-item__details">
+                        <span class="blog-listing-item__author">Kalle Päätalo</span> / 
+                        <a href="#" class="blog-listing-item__tag">#opendata</a> 
+                        <a href="#" class="blog-listing-item__tag">#design</a> 
+                        <a href="#" class="blog-listing-item__tag">#education</a> 
+                        <a href="#" class="blog-listing-item__tag">#public</a>
+                      </div>
+                      <p>{% lorem 30 w random %}</p>
+                    </div>
+                  </div>
+                  <div class="button button--loadmore">Load more</div>
+                </div>
+              </div>
+            </div>
+
+            <aside class="layout-side-content">
+              <div class="list-banner list-banner--blogposts">
+                <h3>RECENT POSTS</h3>
+                <ul>
+                  <li class="blog-list__item">
+                    <a href="/blog-post/">
+                    <span class="blog-list__date">18.9.2015</span>
+                    <span class="blog-list__header">{% lorem 5 w random %}</span>
+                    </a>
+                  </li>
+                  <li class="blog-list__item">
+                    <a href="/blog-post/">
+                    <span class="blog-list__date">18.9.2015</span>
+                    <span class="blog-list__header">{% lorem 5 w random %}</span>
+                    </a>
+                  </li>
+                  <li class="blog-list__item">
+                    <a href="/blog-post/">
+                    <span class="blog-list__date">18.9.2015</span>
+                    <span class="blog-list__header">{% lorem 5 w random %}</span>
+                    </a>
+                  </li>
+                </ul>
+                <div class="list-banner__full-link">
+                  <a href="#">Archive >></a>
+                  <ul>
+                    <li>August (1)</li>
+                    <li>July (2)</li>
+                    <li>June (0)</li>
+                    <li>May (3)</li>
+                    <li>April (5)</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="some-banner">
+                <a href="#">
+                  <i class="fa fa-facebook-official fa-2x"></i>
+                  We are in Facebook
+                </a>
+              </div>
+              <div class="some-banner">
+                <a href="#">
+                  <i class="fa fa-github fa-2x"></i>
+                  Find us in GitHub
+                </a>
+              </div>
+            </aside>
+          </div>
+
+
+{% endblock %}
