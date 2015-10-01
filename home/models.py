@@ -14,33 +14,3 @@ class HomePage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('body', classname="full")
     ]
-
-
-class BlogPage(Page):
-    body = RichTextField()
-    date = models.DateField("Post date")
-    feed_image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-
-    content_panels = Page.content_panels + [
-        FieldPanel('date'),
-        FieldPanel('body', classname="full"),
-    ]
-
-    promote_panels = [
-        MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-        ImageChooserPanel('feed_image'),
-    ]
-
-
-class BlogPageListing(Page):
-    body = RichTextField(blank=True)
-
-    content_panels = Page.content_panels + [
-        FieldPanel('body', classname="full")
-    ]
