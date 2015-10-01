@@ -30,8 +30,9 @@ def create_homepage(apps, schema_editor):
     )
 
     # Create a site with the new homepage set as the root
-    Site.objects.create(
-        hostname='localhost', root_page=homepage, is_default_site=True)
+    site = Site.objects.get(hostname='localhost')
+    site.root_page_id = homepage.page_ptr_id
+    site.save()
 
 
 class Migration(migrations.Migration):
