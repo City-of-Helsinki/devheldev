@@ -8,7 +8,7 @@ import wagtail.wagtailcore.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0020_auto_20151001_1037'),
+        ('wagtailcore', '0019_verbose_names_cleanup'),
         ('apimanager', '0001_initial'),
     ]
 
