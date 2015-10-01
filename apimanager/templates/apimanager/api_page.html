@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+{% load static %}
+{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
+{% block content %}
+
+          <div class="layout-header layout-header--frontpage">
+            <div class="layout-header__wrapper">
+
+              <a href="/"><h1 class="site-logo site-logo--frontpage">dev.hel.fi</h1></a>
+              <nav id="desk-nav" class="desktop-navigation" role="navigation">
+                <ul>
+                    <li><a href="#">Projects</a></li>
+                    <li><a href="#">Open APIs</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Events</a></li>
+                    <li><a href="#">Current Tenders</a></li>
+                </ul>
+              </nav>
+
+            <!-- start front-banner content -->
+            <div class="layout-front-banner">
+              <div class="front-banner__content front-banner__background">
+                <img src="{% static 'images/front-banner-image-default.png' %}" class="front-banner-bg-image">
+                <div class="front-banner__text">
+                    <h1>Helsinki Loves APIs</h1>
+                    <div>{{ self.name }}</div>
+                    <div>{{ self.location }}</div>
+                    <div>{{ self.short_description }}</div>
+                    {{ self.full_description|richtext }}
+                </div>
+              </div>
+            </div>
+            <!-- end front-banner content -->
+            </div>
+          </div>
+          <div class="layout-main">
+            <!-- start promoted content -->
+            <div class="layout-promoted">
+              <div class="layout-promoted__first">
+                <div class="list-banner list-banner--commit-watch">
+                  <h3>Commit Watch</h3>
+                  <ul>
+                    <li class="commit-list__item">
+                      <a href="#">
+                      <span class="commit-list__date">32 minutes ago</span>
+                      <span class="commit-list__description">jyrjola pushed to master at City-of-Helsinki/openhjo</span>
+                      </a>
+                    </li>
+                    <li class="commit-list__item">
+                      <a href="">
+                        <span class="commit-list__date">32 minutes ago</span>
+                        <span class="commit-list__description">jyrjola pushed to master at City-of-Helsinki/openhjo</span>
+                      </a>
+                    </li>
+                  </ul>
+                  <div class="list-banner__full-link">
+                    <a href="#">Full list of events >></a>
+                  </div>
+                </div>
+              </div>
+              <div class="layout-promoted__second">
+                <div class="list-banner list-banner--available-apis">
+                  <h3>Available APIs</h3>
+                  <ul>
+                    <li class="api-list__item">
+                      <a href="#">
+                      <span class="api-list__icon"><i class="fa fa-share-alt-square"></i></span>
+                      <span class="api-list__header">Open Ajo API</span>
+                      </a>
+                    </li>
+                    <li class="api-list__item">
+                      <a href="#">
+                      <span class="api-list__icon"><i class="fa fa-share-alt-square"></i></span>
+                      <span class="api-list__header">Open Ajo API</span>
+                      </a>
+                    </li>
+                    <li class="api-list__item">
+                      <a href="#">
+                      <span class="api-list__icon"><i class="fa fa-share-alt-square"></i></span>
+                      <span class="api-list__header">Open Ajo API</span>
+                      </a>
+                    </li>
+                    <li class="api-list__item">
+                      <a href="#">
+                      <span class="api-list__icon"><i class="fa fa-share-alt-square"></i></span>
+                      <span class="api-list__header">Open Ajo API</span>
+                      </a>
+                    </li>
+                  </ul>
+                  <div class="list-banner__full-link">
+                    <a href="#">Full list of available APIs >></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- end promoted content -->
+            <div class="layout-page-content">
+              <div class="hilight-banner hilight-banner--full">
+                <div class="hilight-banner__box">
+                  <div class="hilight-banner__content">
+                    <h5 class="hilight-banner__section">Blog</h5>
+                    <h3>{% lorem 5 w random %}</h3>
+                    <p>{% lorem 30 w random %}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="hilight-banner hilight-banner--full">
+                <div class="hilight-banner__box">
+                  <div class="hilight-banner__content">
+                    <h5 class="hilight-banner__section">Projects</h5>
+                    <h3>{% lorem 5 w random %}</h3>
+                    <p>{% lorem 30 w random %}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="hilight-banner hilight-banner--half">
+                <div class="hilight-banner__box">
+                  <div class="hilight-banner__content">
+                    <h5 class="hilight-banner__section">Events</h5>
+                    <h3>{% lorem 5 w random %}</h3>
+                    <p>{% lorem 30 w random %}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="hilight-banner hilight-banner--half">
+                <div class="hilight-banner__box">
+                  <div class="hilight-banner__content">
+                    <h5 class="hilight-banner__section">Blog</h5>
+                    <h3>{% lorem 5 w random %}</h3>
+                    <p>{% lorem 30 w random %}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <aside class="layout-side-content">
+              <div class="list-banner list-banner--events">
+                <h3>Events</h3>
+                <ul>
+                  <li class="event-list__item">
+                    <span class="event-list__date">18.9.2015</span>
+                    <span class="event-list__header">{% lorem 2 w random %}</span>
+                    <span class="event-list__description">{% lorem 5 w random %}</span>
+                    <span class="event-list__link"><a href="#">Read more >></a></span>
+                  </li>
+                  <li class="event-list__item">
+                    <span class="event-list__date">18.9.2015</span>
+                    <span class="event-list__header">{% lorem 2 w random %}</span>
+                    <span class="event-list__description">{% lorem 5 w random %}</span>
+                    <span class="event-list__link"><a href="#">Read more >></a></span>
+                  </li>
+                  <li class="event-list__item">
+                    <span class="event-list__date">18.9.2015</span>
+                    <span class="event-list__header">{% lorem 2 w random %}</span>
+                    <span class="event-list__description">{% lorem 5 w random %}</span>
+                    <span class="event-list__link"><a href="#">Read more >></a></span>
+                  </li>
+                </ul>
+                <div class="list-banner__full-link">
+                  <a href="#">Full list of events >></a>
+                </div>
+              </div>
+              <div class="some-banner">
+                <a href="#">
+                  <i class="fa fa-facebook-official fa-2x"></i>
+                  We are in Facebook
+                </a>
+              </div>
+              <div class="some-banner">
+                <a href="#">
+                  <i class="fa fa-github fa-2x"></i>
+                  Find us in GitHub
+                </a>
+              </div>
+            </aside>
+          </div>
+
+
+{% endblock %}
