@@ -26,9 +26,10 @@
                 <img src="{% static 'images/front-banner-image-default.png' %}" class="front-banner-bg-image">
                 <div class="front-banner__text">
                     <h1>Helsinki Loves APIs</h1>
-                    <div>{{ self.name }}</div>
-                    <div>{{ self.location }}</div>
-                    <div>{{ self.short_description }}</div>
+                    <div>API name: {{ self.name }}</div>
+                    <div>API location: {{ self.location }}</div>
+                    <div>Description: {{ self.short_description }}</div>
+                    Full description:
                     {{ self.full_description|richtext }}
                 </div>
               </div>
