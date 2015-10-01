@@ -1,3 +1,4 @@
+import blog
 from django.conf.urls import include, url
 from django.conf import settings
 from django.contrib import admin
@@ -12,7 +13,7 @@ urlpatterns = [
 
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
-
+    url(r'^blog/', include('blog.urls', namespace="blog")),
     url(r'^search/$', 'search.views.search', name='search'),
 
     url(r'', include(wagtail_urls)),
