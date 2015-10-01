@@ -46,12 +46,13 @@ INSTALLED_APPS = (
     'wagtail.wagtailembeds',
     'wagtail.wagtailredirects',
     'wagtail.wagtailforms',
+
     'blog',
+    'djangobower',
 
     'search',
     'home',
-    'djangobower',
-    'livereload',
+    'apimanager',
 )
 
 MIDDLEWARE_CLASSES = (

@@ -19,6 +19,10 @@ DATABASES = {
     }
 }
 
+INSTALLED_APPS += (
+    'livereload',
+)
+
 
 try:
     from .local import *
