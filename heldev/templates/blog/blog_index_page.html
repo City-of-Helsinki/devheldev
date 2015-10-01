@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% load static %}
+{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
+{% block content %}
+{% if blogs %}
+  <div class="layout-main">
+    <div class="layout-page-content">
+      <div class="page-content">
+        <div class="page-content__box">
+          <h5 class="page-section-header">Blog</h5>
+          {% for blog in blogs %}
+          <div class="blog-listing-item">
+            <div class="blog-listing-item__date">
+              <div class="blog-listing-date-box">
+                <span class="listing-date__day">{{ blog.date|date:'d' }}</span>
+                <span class="listing-date__month">{{ blog.date|date:'m' }}</span>
+                <span class="listing-date__year">{{ blog.date|date:'y' }}</span>
+              </div>
+            </div>
+            <div class="blog-listing-item__content">
+              <a href="/blog-post/" class="blog-listing-item__image">
+                {% if blog.header_image %}
+                {% image blog.header_image width-535 as blog_photo %}
+                <img src="{{ blog_photo.url }}" alt="{{ blog.header_image.title }}" />
+                {% else %}
+                <img src="{% static "images/front-banner-image-default.png" %}" alt="blog-article-image" />
+                {% endif %}
+              </a>
+              <h2><a href="/blog-post/">{{ blog.title }}</a></h2>
+              <div class="blog-listing-item__details">
+                {% if blog.owner %}
+                <span class="blog-listing-item__author">{{ blog.owner.get_full_name }}</span> / 
+                {% endif %}
+                <a href="#" class="blog-listing-item__tag">#opendata</a> 
+                <a href="#" class="blog-listing-item__tag">#design</a> 
+                <a href="#" class="blog-listing-item__tag">#education</a> 
+                <a href="#" class="blog-listing-item__tag">#public</a>
+              </div>
+              <div class="blog-content">
+                {{ blog.body|richtext }}
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          <div class="button button--loadmore">Load more</div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="layout-side-content">
+      <div class="list-banner list-banner--blogposts">
+        <h3>RECENT POSTS</h3>
+        <ul>
+          <li class="blog-list__item">
+            <a href="/blog-post/">
+            <span class="blog-list__date">18.9.2015</span>
+            <span class="blog-list__header">{% lorem 5 w random %}</span>
+            </a>
+          </li>
+          <li class="blog-list__item">
+            <a href="/blog-post/">
+            <span class="blog-list__date">18.9.2015</span>
+            <span class="blog-list__header">{% lorem 5 w random %}</span>
+            </a>
+          </li>
+          <li class="blog-list__item">
+            <a href="/blog-post/">
+            <span class="blog-list__date">18.9.2015</span>
+            <span class="blog-list__header">{% lorem 5 w random %}</span>
+            </a>
+          </li>
+        </ul>
+        <div class="list-banner__full-link">
+          <a href="#">Archive >></a>
+          <ul>
+            <li>August (1)</li>
+            <li>July (2)</li>
+            <li>June (0)</li>
+            <li>May (3)</li>
+            <li>April (5)</li>
+          </ul>
+        </div>
+      </div>
+      <div class="some-banner">
+        <a href="#">
+          <i class="fa fa-facebook-official fa-2x"></i>
+          We are in Facebook
+        </a>
+      </div>
+      <div class="some-banner">
+        <a href="#">
+          <i class="fa fa-github fa-2x"></i>
+          Find us in GitHub
+        </a>
+      </div>
+    </aside>
+  </div>
+{% endif %}
+{% endblock %}
