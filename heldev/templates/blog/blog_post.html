@@ -1,0 +1,33 @@
+{% load wagtailcore_tags wagtailimages_tags static %}
+
+<div class="blog-listing-item">
+  <div class="blog-listing-item__date">
+    <div class="blog-listing-date-box">
+      <span class="listing-date__day">{{ blog.date|date:'d' }}</span>
+      <span class="listing-date__month">{{ blog.date|date:'m' }}</span>
+      <span class="listing-date__year">{{ blog.date|date:'y' }}</span>
+    </div>
+  </div>
+  <div class="blog-listing-item__content">
+    <a href="{% pageurl blog %}" class="blog-listing-item__image">
+      {% if blog.header_image %}
+      {% image blog.header_image width-535 as blog_photo %}
+      <img src="{{ blog_photo.url }}" alt="{{ blog.header_image.title }}" />
+      {% else %}
+      <img src="{% static "images/front-banner-image-default.png" %}" alt="blog-article-image" />
+      {% endif %}
+    </a>
+    <h2><a href="{% pageurl blog %}">{{ blog.title }}</a></h2>
+    <div class="blog-listing-item__details">
+      {% if blog.owner %}
+      <span class="blog-listing-item__author">{{ blog.owner.get_full_name }}</span> / 
+      {% endif %}
+      {% for tag in blog.tags.all %}
+      <a href="{% url 'blog:tag' tag.slug %}" class="blog-listing-item__tag">#{{ tag }}</a>
+      {% endfor %}
+    </div>
+    <div class="blog-content">
+      {{ blog.body|richtext }}
+    </div>
+  </div>
+</div>
