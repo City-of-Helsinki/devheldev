@@ -25,6 +25,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 INSTALLED_APPS = (
     'grappelli',
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,12 +49,20 @@ INSTALLED_APPS = (
     'wagtail.wagtailredirects',
     'wagtail.wagtailforms',
 
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'helusers.providers.helsinki',
+
     'blog',
     'djangobower',
+    'helusers',
 
     'search',
     'home',
     'apimanager',
+    'projects',
+    'users',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -157,3 +166,16 @@ MEDIA_URL = '/media/'
 # Wagtail settings
 
 WAGTAIL_SITE_NAME = "heldev"
+
+AUTH_USER_MODEL = 'users.User'
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+SITE_ID = 1
+
+SOCIALACCOUNT_PROVIDERS = {
+    'helsinki': {
+        'VERIFIED_EMAIL': True
+    }
+}

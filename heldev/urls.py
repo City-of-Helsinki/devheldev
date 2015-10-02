@@ -11,12 +11,12 @@ from wagtail.wagtailcore import urls as wagtail_urls
 urlpatterns = [
     url(r'^django-admin/', include(admin.site.urls)),
 
+    url(r'^accounts/', include('allauth.urls')),
     url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
     url(r'^blog/', include('blog.urls', namespace="blog")),
     url(r'^search/$', 'search.views.search', name='search'),
-
     url(r'', include(wagtail_urls)),
 ]
 

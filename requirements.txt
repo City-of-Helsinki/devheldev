@@ -5,3 +5,5 @@ django-bower
 django-libsass
 wagtail-blog
 django-grappelli
+django-helusers
+django-allauth
