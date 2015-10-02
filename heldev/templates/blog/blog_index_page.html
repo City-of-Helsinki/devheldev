@@ -1,74 +1,24 @@
-{% extends "base.html" %}
+{% extends "blog/base.html" %}
 {% load wagtailcore_tags %}
-{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
-{% block content %}
-{% if blogs %}
-  <div class="layout-main">
-    <div class="layout-page-content">
-      <div class="page-content">
-        <div class="page-content__box">
-          {% if category %}
-          <h5 class="page-section-header">{{ category }}</h5>
-          {% elif tag %}
-          <h5 class="page-section-header">Posts about #{{ tag }}</h5>
-          {% else %}
-          <h5 class="page-section-header">Blog</h5>
-          {% endif %}
-          {% for blog in blogs %}
-          {% include "blog/blog_post.html" %}
-          {% endfor %}
-          <div class="button button--loadmore">Load more</div>
-        </div>
-      </div>
-    </div>
 
-    <aside class="layout-side-content">
-      <div class="list-banner list-banner--blogposts">
-        <h3>RECENT POSTS</h3>
-        <ul>
-          <li class="blog-list__item">
-            <a href="/blog-post/">
-            <span class="blog-list__date">18.9.2015</span>
-            <span class="blog-list__header">{% lorem 5 w random %}</span>
-            </a>
-          </li>
-          <li class="blog-list__item">
-            <a href="/blog-post/">
-            <span class="blog-list__date">18.9.2015</span>
-            <span class="blog-list__header">{% lorem 5 w random %}</span>
-            </a>
-          </li>
-          <li class="blog-list__item">
-            <a href="/blog-post/">
-            <span class="blog-list__date">18.9.2015</span>
-            <span class="blog-list__header">{% lorem 5 w random %}</span>
-            </a>
-          </li>
-        </ul>
-        <div class="list-banner__full-link">
-          <a href="#">Archive >></a>
-          <ul>
-            <li>August (1)</li>
-            <li>July (2)</li>
-            <li>June (0)</li>
-            <li>May (3)</li>
-            <li>April (5)</li>
-          </ul>
-        </div>
-      </div>
-      <div class="some-banner">
-        <a href="#">
-          <i class="fa fa-facebook-official fa-2x"></i>
-          We are in Facebook
-        </a>
-      </div>
-      <div class="some-banner">
-        <a href="#">
-          <i class="fa fa-github fa-2x"></i>
-          Find us in GitHub
-        </a>
-      </div>
-    </aside>
+{% block blog_content %}
+{% if blogs %}
+<div class="layout-page-content">
+  <div class="page-content">
+    <div class="page-content__box">
+      {% if category %}
+      <h5 class="page-section-header">{{ category }}</h5>
+      {% elif tag %}
+      <h5 class="page-section-header">Posts about #{{ tag }}</h5>
+      {% else %}
+      <h5 class="page-section-header">Blog</h5>
+      {% endif %}
+      {% for blog in blogs %}
+      {% include "blog/blog_post.html" %}
+      {% endfor %}
+      <div class="button button--loadmore">Load more</div>
+    </div>
   </div>
+</div>
 {% endif %}
 {% endblock %}

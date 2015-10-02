@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
+
+{% block content %}
+<div class="layout-main">
+
+{% block blog_content %}{% endblock %}
+
+<aside class="layout-side-content">
+  <div class="list-banner list-banner--blogposts">
+    <h3>RECENT POSTS</h3>
+    <ul>
+      <li class="blog-list__item">
+        <a href="/blog-post/">
+        <span class="blog-list__date">18.9.2015</span>
+        <span class="blog-list__header">{% lorem 5 w random %}</span>
+        </a>
+      </li>
+      <li class="blog-list__item">
+        <a href="/blog-post/">
+        <span class="blog-list__date">18.9.2015</span>
+        <span class="blog-list__header">{% lorem 5 w random %}</span>
+        </a>
+      </li>
+      <li class="blog-list__item">
+        <a href="/blog-post/">
+        <span class="blog-list__date">18.9.2015</span>
+        <span class="blog-list__header">{% lorem 5 w random %}</span>
+        </a>
+      </li>
+    </ul>
+    <div class="list-banner__full-link">
+      <a href="#">Archive >></a>
+      <ul>
+        <li>August (1)</li>
+        <li>July (2)</li>
+        <li>June (0)</li>
+        <li>May (3)</li>
+        <li>April (5)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="some-banner">
+    <a href="#">
+      <i class="fa fa-facebook-official fa-2x"></i>
+      We are in Facebook
+    </a>
+  </div>
+  <div class="some-banner">
+    <a href="#">
+      <i class="fa fa-github fa-2x"></i>
+      Find us in GitHub
+    </a>
+  </div>
+</aside>
+
+</div>
+{% endblock %}
