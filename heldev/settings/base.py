@@ -100,7 +100,6 @@ BOWER_INSTALLED_APPS = (
     'pushy',
     'imagesloaded',
     'imagefill',
-    'components-font-awesome',
     'compass-breakpoint'
 )
 
