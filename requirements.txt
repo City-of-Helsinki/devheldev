@@ -4,3 +4,4 @@ psycopg2
 django-bower
 django-libsass
 wagtail-blog
+django-grappelli
