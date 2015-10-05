@@ -5,5 +5,5 @@ django-bower
 django-libsass
 wagtail-blog
 django-grappelli
-django-helusers
+-e git+https://github.com/City-of-Helsinki/django-helusers.git#egg=django-helusers
 django-allauth
