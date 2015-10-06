@@ -9,7 +9,7 @@ import wagtail.wagtailcore.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0020_auto_20151001_0849'),
+        ('wagtailcore', '__latest__'),
     ]
 
     operations = [
