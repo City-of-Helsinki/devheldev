@@ -38,6 +38,7 @@ img {
   background-size: contain;
   &.site-logo--frontpage {
     @include breakpoint($deskwidth) {
+      position: absolute;
       left: 3%;
       height: 12em;
       width: 12em;
