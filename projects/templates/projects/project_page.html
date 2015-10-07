@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+{% with project=self %}
+
+<div class="layout-page-content">
+  <div class="page-content">
+    <div class="page-content__box">
+      <h5 class="page-section-header">{{ project.title }}</h5>
+      <div>{{ project.full_description|richtext }}</div>
+    </div>
+  </div>
+</div>
+
+
+{% endwith %}
+{% endblock %}
