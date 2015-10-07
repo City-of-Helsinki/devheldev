@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags home_tags %}
 {% load static %}
 {% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
 {% block content %}
@@ -11,11 +11,11 @@
               <a href="/"><h1 class="site-logo site-logo--frontpage">dev.hel.fi</h1></a>
               <nav id="desk-nav" class="desktop-navigation" role="navigation">
                 <ul>
-                    <li><a href="#">Projects</a></li>
-                    <li><a href="#">Open APIs</a></li>
+                    <li><a href="/projects/">Projects</a></li>
+                    <li><a href="/apis/">Open APIs</a></li>
                     <li><a href="/blog/">Blog</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Events</a></li>
+                    <li><a href="/about/">About Us</a></li>
+                    <li><a href="/events/">Events</a></li>
                     <li><a href="#">Current Tenders</a></li>
                 </ul>
               </nav>
@@ -43,13 +43,13 @@
                     <li class="commit-list__item">
                       <a href="#">
                       <span class="commit-list__date">32 minutes ago</span>
-                      <span class="commit-list__description">jyrjola pushed to master at City-of-Helsinki/openhjo</span>
+                      <span class="commit-list__description">jyrjola pushed to master at City-of-Helsinki/openahjo</span>
                       </a>
                     </li>
                     <li class="commit-list__item">
                       <a href="">
                         <span class="commit-list__date">32 minutes ago</span>
-                        <span class="commit-list__description">jyrjola pushed to master at City-of-Helsinki/openhjo</span>
+                        <span class="commit-list__description">jyrjola pushed to master at City-of-Helsinki/openahjo</span>
                       </a>
                     </li>
                   </ul>
@@ -60,35 +60,19 @@
               </div>
               <div class="layout-promoted__second">
                 <div class="list-banner list-banner--available-apis">
-                  <h3>Available APIs</h3>
+                  <h3>Ongoing projects</h3>
                   <ul>
+                    {% for project in self.project_index.projects %}
                     <li class="api-list__item">
-                      <a href="#">
+                      <a href="{% pageurl project %}">
                       <span class="api-list__icon"><i class="fa fa-share-alt-square"></i></span>
-                      <span class="api-list__header">Open Ajo API</span>
+                      <span class="api-list__header">{{ project.title }}</span>
                       </a>
                     </li>
-                    <li class="api-list__item">
-                      <a href="#">
-                      <span class="api-list__icon"><i class="fa fa-share-alt-square"></i></span>
-                      <span class="api-list__header">Open Ajo API</span>
-                      </a>
-                    </li>
-                    <li class="api-list__item">
-                      <a href="#">
-                      <span class="api-list__icon"><i class="fa fa-share-alt-square"></i></span>
-                      <span class="api-list__header">Open Ajo API</span>
-                      </a>
-                    </li>
-                    <li class="api-list__item">
-                      <a href="#">
-                      <span class="api-list__icon"><i class="fa fa-share-alt-square"></i></span>
-                      <span class="api-list__header">Open Ajo API</span>
-                      </a>
-                    </li>
+                    {% endfor %}
                   </ul>
                   <div class="list-banner__full-link">
-                    <a href="#">Full list of available APIs >></a>
+                    <a href="{% pageurl self.project_index %}">Full list of ongoing projects >></a>
                   </div>
                 </div>
               </div>
@@ -98,9 +82,11 @@
               <div class="hilight-banner hilight-banner--full">
                 <div class="hilight-banner__box">
                   <div class="hilight-banner__content">
+                    {% with blog=self.blog_index.blogs.first %}
                     <h5 class="hilight-banner__section">Blog</h5>
-                    <h3>{% lorem 5 w random %}</h3>
-                    <p>{% lorem 30 w random %}</p>
+                    <h3>{{blog.title}}</h3>
+                    <p>{{blog.body|first_p|richtext}}</p>
+                    {% endwith %}
                   </div>
                 </div>
               </div>
