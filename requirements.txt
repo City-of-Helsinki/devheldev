@@ -7,3 +7,4 @@ wagtail-blog
 django-grappelli
 -e git+https://github.com/City-of-Helsinki/django-helusers.git#egg=django-helusers
 django-allauth
+django-modelcluster
