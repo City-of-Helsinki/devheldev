@@ -1,3 +1,5 @@
+*~
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -60,3 +62,6 @@ target/
 
 #OS files
 .DS_Store
+
+local_settings.py
+.django_secret

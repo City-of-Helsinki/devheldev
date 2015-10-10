@@ -13,13 +13,12 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
-PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
-
 
 # Application definition
 
@@ -122,8 +121,8 @@ COMPRESS_PRECOMPILERS = (
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'heldev'
     }
 }
 
@@ -179,3 +178,31 @@ SOCIALACCOUNT_PROVIDERS = {
         'VERIFIED_EMAIL': True
     }
 }
+
+DEBUG = False
+TEMPLATE_DEBUG = False
+
+try:
+    from local_settings import *
+except ImportError:
+    raise
+
+if 'CUSTOM_INSTALLED_APPS' in locals():
+    INSTALLED_APPS = INSTALLED_APPS + CUSTOM_INSTALLED_APPS
+
+if 'SECRET_KEY' not in locals():
+    secret_file = os.path.join(BASE_DIR, '.django_secret')
+    try:
+        SECRET_KEY = open(secret_file).read().strip()
+    except IOError:
+        import random
+        system_random = random.SystemRandom()
+        try:
+            SECRET_KEY = ''.join([system_random.choice('abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)') for i in range(64)])
+            secret = open(secret_file, 'w')
+            import os
+            os.chmod(secret_file, 0o0600)
+            secret.write(SECRET_KEY)
+            secret.close()
+        except IOError:
+            Exception('Please create a %s file with random characters to generate your secret key!' % secret_file)
