@@ -28,19 +28,28 @@
     </head>
 
     <body class="{% block body_class %}{% endblock %}">
-      
-        {% wagtailuserbar %}
-
-          <nav id="side-nav" class="pushy pushy-left" role="navigation">
-            <ul>
-                <li><a href="/projects/">Projects</a></li>
-                <li><a href="/apis/">Open APIs</a></li>
-                <li><a href="/blog/">Blog</a></li>
-                <li><a href="/about/">About Us</a></li>
-                <li><a href="/events/">Events</a></li>
-                <li><a href="#">Current Tenders</a></li>
-            </ul>
-         </nav>
+          {% wagtailuserbar %}
+          {% if self.slug != 'home' %}
+          <div class="layout-header">
+            <div class="layout-header__wrapper">
+              <a href="/"><h1 class="site-logo">dev.hel.fi</h1></a>
+              <nav id="desk-nav" class="desktop-navigation" role="navigation">
+                <ul>
+                    <li><a href="/projects/">Projects</a></li>
+                    <li><a href="/apis/">Open APIs</a></li>
+                    <li><a href="/blog/">Blog</a></li>
+                    <li><a href="/about/">About Us</a></li>
+                    <li><a href="/events/">Events</a></li>
+                    {% if request.user.is_authenticated %}
+                    <li><a href="/accounts/logout/">{{ request.user.get_full_name }}</a></li>
+                    {% else %}
+                    <li><a href="/accounts/helsinki/login/">Log in</a></li>
+                    {% endif %}
+                </ul>
+              </nav>
+            </div>
+          </div>
+          {% endif %}
          <!-- Site Overlay -->
          <div class="site-overlay"></div>
          <div id="menu-toggle" class="menu-btn">&#9776;</div>

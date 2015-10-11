@@ -16,7 +16,11 @@
                     <li><a href="/blog/">Blog</a></li>
                     <li><a href="/about/">About Us</a></li>
                     <li><a href="/events/">Events</a></li>
-                    <li><a href="#">Current Tenders</a></li>
+                    {% if request.user.is_authenticated %}
+                    <li><a href="/accounts/logout/">{{ request.user.get_full_name }}</a></li>
+                    {% else %}
+                    <li><a href="/accounts/helsinki/login/">Log in</a></li>
+                    {% endif %}
                 </ul>
               </nav>
 
