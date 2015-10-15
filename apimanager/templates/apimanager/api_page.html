@@ -101,4 +101,19 @@
 
 {% block body_class %}swagger-section{% endblock %}
 
+{% block content %}
 
+    <div class="layout-page-content">
+      <div class="page-content">
+        <div class="page-content__box">
+          <h5 class="page-section-header">{{ self.name }}</h5>
+          <div>API location: {{ self.location }}</div>
+          <div>{{ self.short_description }}</div>
+          <div>{{ self.full_description|richtext }}</div>
+          <div id="message-bar" class="swagger-ui-wrap" data-sw-translate>&nbsp;</div>
+          <div id="swagger-ui-container" class="swagger-ui-wrap"></div>
+        </div>
+      </div>
+    </div>
+
+{%  endblock %}
