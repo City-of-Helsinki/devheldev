@@ -1,182 +1,123 @@
 {% extends "base.html" %}
 
-{% load wagtailcore_tags %}
-{% load static %}
-{% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
+{% load static wagtailcore_tags %}
+
+{% block extra_css %}
+  <link rel="icon" type="image/png" href="{% static "apimanager/swagger-ui/images/favicon-32x32.png" %}" sizes="32x32" />
+  <link rel="icon" type="image/png" href="{% static "apimanager/swagger-ui/images/favicon-16x16.png" %}" sizes="16x16" />
+  <link href="{% static 'apimanager/swagger-ui/css/typography.css' %}" media='screen' rel='stylesheet' type='text/css'/>
+  <link href="{% static 'apimanager/swagger-ui/css/reset.css' %}" media='screen' rel='stylesheet' type='text/css'/>
+  <link href="{% static 'apimanager/swagger-ui/css/screen.css' %}" media='screen' rel='stylesheet' type='text/css'/>
+  <link href="{% static 'apimanager/swagger-ui/css/reset.css' %}" media='print' rel='stylesheet' type='text/css'/>
+  <link href="{% static 'apimanager/swagger-ui/css/print.css' %}" media='print' rel='stylesheet' type='text/css'/>
+
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'apimanager/swagger-ui/lib/jquery-1.8.0.min.js' %}" type='text/javascript'></script>
+  <script src="{% static 'apimanager/swagger-ui/lib/jquery.slideto.min.js' %}" type='text/javascript'></script>
+  <script src="{% static 'apimanager/swagger-ui/lib/jquery.wiggle.min.js' %}" type='text/javascript'></script>
+  <script src="{% static 'apimanager/swagger-ui/lib/jquery.ba-bbq.min.js' %}" type='text/javascript'></script>
+  <script src="{% static 'apimanager/swagger-ui/lib/handlebars-2.0.0.js' %}" type='text/javascript'></script>
+  <script src="{% static 'apimanager/swagger-ui/lib/underscore-min.js' %}" type='text/javascript'></script>
+  <script src="{% static 'apimanager/swagger-ui/lib/backbone-min.js' %}" type='text/javascript'></script>
+  <script src="{% static 'apimanager/swagger-ui/swagger-ui.js' %}" type='text/javascript'></script>
+  <script src="{% static 'apimanager/swagger-ui/lib/highlight.7.3.pack.js' %}" type='text/javascript'></script>
+  <script src="{% static 'apimanager/swagger-ui/lib/marked.js' %}" type='text/javascript'></script>
+  <script src="{% static 'apimanager/swagger-ui/lib/swagger-oauth.js' %}" type='text/javascript'></script>
+
+  <script type="text/javascript">
+    $(function () {
+      var url = window.location.search.match(/url=([^&]+)/);
+      if (url && url.length > 1) {
+        url = decodeURIComponent(url[1]);
+      } else {
+        url = "{{ self.documentation }}";
+      }
+
+      // Pre load translate...
+      if(window.SwaggerTranslator) {
+        window.SwaggerTranslator.translate();
+      }
+      window.swaggerUi = new SwaggerUi({
+        url: url,
+        dom_id: "swagger-ui-container",
+        supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
+        onComplete: function(swaggerApi, swaggerUi){
+          if(typeof initOAuth == "function") {
+            initOAuth({
+              clientId: "your-client-id",
+              clientSecret: "your-client-secret",
+              realm: "your-realms",
+              appName: "your-app-name",
+              scopeSeparator: ","
+            });
+          }
+
+          if(window.SwaggerTranslator) {
+            window.SwaggerTranslator.translate();
+          }
+
+          $('pre code').each(function(i, e) {
+            hljs.highlightBlock(e)
+          });
+
+          addApiKeyAuthorization();
+        },
+        onFailure: function(data) {
+          log("Unable to Load SwaggerUI");
+        },
+        docExpansion: "none",
+        apisSorter: "alpha",
+        showRequestHeaders: false
+      });
+
+      function addApiKeyAuthorization(){
+        var key = encodeURIComponent($('#input_apiKey')[0].value);
+        if(key && key.trim() != "") {
+            var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization("api_key", key, "query");
+            window.swaggerUi.api.clientAuthorizations.add("api_key", apiKeyAuth);
+            log("added key " + key);
+        }
+      }
+
+      $('#input_apiKey').change(addApiKeyAuthorization);
+
+      // if you have an apiKey you would like to pre-populate on the page for demonstration purposes...
+      /*
+        var apiKey = "myApiKeyXXXX123456789";
+        $('#input_apiKey').val(apiKey);
+      */
+
+      window.swaggerUi.load();
+
+      function log() {
+        if ('console' in window) {
+          console.log.apply(console, arguments);
+        }
+      }
+  });
+  </script>
+
+{% endblock %}
+
+{% block body_class %}swagger-section{% endblock %}
+
 {% block content %}
 
-          <div class="layout-header layout-header--frontpage">
-            <div class="layout-header__wrapper">
-
-              <a href="/"><h1 class="site-logo site-logo--frontpage">dev.hel.fi</h1></a>
-              <nav id="desk-nav" class="desktop-navigation" role="navigation">
-                <ul>
-                    <li><a href="#">Projects</a></li>
-                    <li><a href="#">Open APIs</a></li>
-                    <li><a href="/blog/">Blog</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Events</a></li>
-                    <li><a href="#">Current Tenders</a></li>
-                </ul>
-              </nav>
-
-            <!-- start front-banner content -->
-            <div class="layout-front-banner">
-              <div class="front-banner__content front-banner__background">
-                <img src="{% static 'images/front-banner-image-default.png' %}" class="front-banner-bg-image">
-                <div class="front-banner__text">
-                    <h1>Helsinki Loves APIs</h1>
-                    <div>API name: {{ self.name }}</div>
-                    <div>API location: {{ self.location }}</div>
-                    <div>Description: {{ self.short_description }}</div>
-                    Full description:
-                    {{ self.full_description|richtext }}
-                </div>
-              </div>
-            </div>
-            <!-- end front-banner content -->
-            </div>
-          </div>
-          <div class="layout-main">
-            <!-- start promoted content -->
-            <div class="layout-promoted">
-              <div class="layout-promoted__first">
-                <div class="list-banner list-banner--commit-watch">
-                  <h3>Commit Watch</h3>
-                  <ul>
-                    <li class="commit-list__item">
-                      <a href="#">
-                      <span class="commit-list__date">32 minutes ago</span>
-                      <span class="commit-list__description">jyrjola pushed to master at City-of-Helsinki/openhjo</span>
-                      </a>
-                    </li>
-                    <li class="commit-list__item">
-                      <a href="">
-                        <span class="commit-list__date">32 minutes ago</span>
-                        <span class="commit-list__description">jyrjola pushed to master at City-of-Helsinki/openhjo</span>
-                      </a>
-                    </li>
-                  </ul>
-                  <div class="list-banner__full-link">
-                    <a href="#">Full list of events >></a>
-                  </div>
-                </div>
-              </div>
-              <div class="layout-promoted__second">
-                <div class="list-banner list-banner--available-apis">
-                  <h3>Available APIs</h3>
-                  <ul>
-                    <li class="api-list__item">
-                      <a href="#">
-                      <span class="api-list__icon"><i class="fa fa-share-alt-square"></i></span>
-                      <span class="api-list__header">Open Ajo API</span>
-                      </a>
-                    </li>
-                    <li class="api-list__item">
-                      <a href="#">
-                      <span class="api-list__icon"><i class="fa fa-share-alt-square"></i></span>
-                      <span class="api-list__header">Open Ajo API</span>
-                      </a>
-                    </li>
-                    <li class="api-list__item">
-                      <a href="#">
-                      <span class="api-list__icon"><i class="fa fa-share-alt-square"></i></span>
-                      <span class="api-list__header">Open Ajo API</span>
-                      </a>
-                    </li>
-                    <li class="api-list__item">
-                      <a href="#">
-                      <span class="api-list__icon"><i class="fa fa-share-alt-square"></i></span>
-                      <span class="api-list__header">Open Ajo API</span>
-                      </a>
-                    </li>
-                  </ul>
-                  <div class="list-banner__full-link">
-                    <a href="#">Full list of available APIs >></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- end promoted content -->
-            <div class="layout-page-content">
-              <div class="hilight-banner hilight-banner--full">
-                <div class="hilight-banner__box">
-                  <div class="hilight-banner__content">
-                    <h5 class="hilight-banner__section">Blog</h5>
-                    <h3>{% lorem 5 w random %}</h3>
-                    <p>{% lorem 30 w random %}</p>
-                  </div>
-                </div>
-              </div>
-              <div class="hilight-banner hilight-banner--full">
-                <div class="hilight-banner__box">
-                  <div class="hilight-banner__content">
-                    <h5 class="hilight-banner__section">Projects</h5>
-                    <h3>{% lorem 5 w random %}</h3>
-                    <p>{% lorem 30 w random %}</p>
-                  </div>
-                </div>
-              </div>
-              <div class="hilight-banner hilight-banner--half">
-                <div class="hilight-banner__box">
-                  <div class="hilight-banner__content">
-                    <h5 class="hilight-banner__section">Events</h5>
-                    <h3>{% lorem 5 w random %}</h3>
-                    <p>{% lorem 30 w random %}</p>
-                  </div>
-                </div>
-              </div>
-              <div class="hilight-banner hilight-banner--half">
-                <div class="hilight-banner__box">
-                  <div class="hilight-banner__content">
-                    <h5 class="hilight-banner__section">Blog</h5>
-                    <h3>{% lorem 5 w random %}</h3>
-                    <p>{% lorem 30 w random %}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <aside class="layout-side-content">
-              <div class="list-banner list-banner--events">
-                <h3>Events</h3>
-                <ul>
-                  <li class="event-list__item">
-                    <span class="event-list__date">18.9.2015</span>
-                    <span class="event-list__header">{% lorem 2 w random %}</span>
-                    <span class="event-list__description">{% lorem 5 w random %}</span>
-                    <span class="event-list__link"><a href="#">Read more >></a></span>
-                  </li>
-                  <li class="event-list__item">
-                    <span class="event-list__date">18.9.2015</span>
-                    <span class="event-list__header">{% lorem 2 w random %}</span>
-                    <span class="event-list__description">{% lorem 5 w random %}</span>
-                    <span class="event-list__link"><a href="#">Read more >></a></span>
-                  </li>
-                  <li class="event-list__item">
-                    <span class="event-list__date">18.9.2015</span>
-                    <span class="event-list__header">{% lorem 2 w random %}</span>
-                    <span class="event-list__description">{% lorem 5 w random %}</span>
-                    <span class="event-list__link"><a href="#">Read more >></a></span>
-                  </li>
-                </ul>
-                <div class="list-banner__full-link">
-                  <a href="#">Full list of events >></a>
-                </div>
-              </div>
-              <div class="some-banner">
-                <a href="#">
-                  <i class="fa fa-facebook-official fa-2x"></i>
-                  We are in Facebook
-                </a>
-              </div>
-              <div class="some-banner">
-                <a href="#">
-                  <i class="fa fa-github fa-2x"></i>
-                  Find us in GitHub
-                </a>
-              </div>
-            </aside>
-          </div>
+    <div class="layout-page-content">
+      <div class="page-content">
+        <div class="page-content__box">
+          <h5 class="page-section-header">{{ self.name }}</h5>
+          <div>API location: {{ self.location }}</div>
+          <div>{{ self.short_description }}</div>
+          <div>{{ self.full_description|richtext }}</div>
+          <div id="message-bar" class="swagger-ui-wrap" data-sw-translate>&nbsp;</div>
+          <div id="swagger-ui-container" class="swagger-ui-wrap"></div>
+        </div>
+      </div>
+    </div>
 
 
 {% endblock %}
+
