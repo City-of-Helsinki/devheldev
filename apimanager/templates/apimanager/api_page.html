@@ -26,12 +26,7 @@
 
   <script type="text/javascript">
     $(function () {
-      var url = window.location.search.match(/url=([^&]+)/);
-      if (url && url.length > 1) {
-        url = decodeURIComponent(url[1]);
-      } else {
-        url = "{{ self.documentation }}";
-      }
+      var url = "{{ self.documentation }}";
 
       // Pre load translate...
       if(window.SwaggerTranslator) {
@@ -110,6 +105,7 @@
           <div>API location: {{ self.location }}</div>
           <div>{{ self.short_description }}</div>
           <div>{{ self.full_description|richtext }}</div>
+          <div class='input'><input placeholder="api_key" id="input_apiKey" name="apiKey" type="text"/></div>
           <div id="message-bar" class="swagger-ui-wrap" data-sw-translate>&nbsp;</div>
           <div id="swagger-ui-container" class="swagger-ui-wrap"></div>
         </div>
