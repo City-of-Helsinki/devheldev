@@ -189,7 +189,7 @@ TEMPLATE_DEBUG = False
 try:
     from local_settings import *
 except ImportError:
-    raise
+    pass
 
 if 'CUSTOM_INSTALLED_APPS' in locals():
     INSTALLED_APPS = INSTALLED_APPS + CUSTOM_INSTALLED_APPS
