@@ -110,7 +110,7 @@ BOWER_INSTALLED_APPS = (
     'imagesloaded',
     'imagefill',
     'compass-breakpoint',
-    'angular-swagger-ui'
+    'swagger-ui'
 )
 
 COMPRESS_PRECOMPILERS = (
