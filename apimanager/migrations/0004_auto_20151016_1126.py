@@ -7,7 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '0020_auto_20151014_2106'),
+        ('wagtailcore', '__latest__'),
         ('apimanager', '0003_apipage_documentation'),
     ]
 
