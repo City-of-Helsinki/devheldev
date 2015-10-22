@@ -9,7 +9,7 @@ from django.core.exceptions import ImproperlyConfigured
 import kong.client
 
 
-def _kong_client():
+def _kong_api_client():
     """
     If Kong URL is in settings, retuns a APIAdminClient instance configured
     there
@@ -17,7 +17,7 @@ def _kong_client():
     :return:kong.client.APIAdminClient
     """
     if settings.KONG_URL:
-        return kong.client.APIAdminClient('http://' + settings.KONG_URL)
+        return kong.client.APIAdminClient('http://' + settings.KONG_URL + ':8001')
     else:
         raise ImproperlyConfigured('Kong installation URL missing')
 
@@ -29,7 +29,7 @@ def get_api_count():
     :return:int
     """
 
-    kcli = _kong_client()
+    kcli = _kong_api_client()
     return kcli.count()
 
 
@@ -43,7 +43,7 @@ def create_api(name, upstream_url, request_host):
     :return:
     """
 
-    kcli = _kong_client()
+    kcli = _kong_api_client()
     result = kcli.create(upstream_url=upstream_url, name=name, request_host=request_host)
     if result['id']:
         return True
@@ -59,6 +59,23 @@ def remove_api(name):
     :return:None
     """
 
-    kcli = _kong_client()
+    kcli = _kong_api_client()
     kcli.delete(name)
 
+
+def update_api(name, **kwargs):
+    kcli = _kong_api_client()
+    result = kcli.update(name=name, **kwargs)
+    if result['id']:
+        return True
+    else:
+        return False
+
+
+def list_apis():
+    """
+
+    :return:Kong data
+    """
+    kcli = _kong_api_client()
+    return kcli.list()
