@@ -121,3 +121,12 @@ def delete_consumer(username, cid):
     ucli = _kong_consumer_client()
     ucli.delete(username or cid)
 
+
+def list_consumers():
+    """
+    List consumers from Kong
+
+    :return: Kong data
+    """
+    ucli = _kong_consumer_client()
+    return ucli.list()
