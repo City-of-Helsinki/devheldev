@@ -213,6 +213,8 @@ p {
   }
 
   .layout-site-footer {
+    @include clearfix;
+    width: 100%;
     background: #333333;
     margin-top: rhythm(2);
     padding: rhythm(2) 0 rhythm(4) 0;
