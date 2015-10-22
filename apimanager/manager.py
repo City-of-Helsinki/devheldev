@@ -161,10 +161,23 @@ def request_api_key(consumer_id):
     :return: API key
     """
     ucli = _kong_consumer_client()
-    kcli= ucli.key_auth(consumer_id)
+    kcli = ucli.key_auth(consumer_id)
     result = kcli.create()
     if result['key']:
-        return result['key']
+        return result
     else:
         print(result)
         return None
+
+
+def delete_api_key(consumer_id, key):
+    """
+    Delete given API key belonging given consumer
+
+    :param consumer_id: Kong consuemr id
+    :param key: API key
+    :return: None (Kong API does not return anything)
+    """
+    ucli = _kong_consumer_client()
+    kcli = ucli.key_auth(consumer_id)
+    kcli.delete(key)
