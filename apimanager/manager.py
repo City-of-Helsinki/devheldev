@@ -153,6 +153,18 @@ def list_consumers():
     return ucli.list()
 
 
-def get_api_key(consumer):
-    ucli = _kong_consumer_client()
+def request_api_key(consumer_id):
+    """
+    Request an API key for given consumer id
 
+    :param consumer_id: Kong consumer id
+    :return: API key
+    """
+    ucli = _kong_consumer_client()
+    kcli= ucli.key_auth(consumer_id)
+    result = kcli.create()
+    if result['key']:
+        return result['key']
+    else:
+        print(result)
+        return None
