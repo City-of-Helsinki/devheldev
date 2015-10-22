@@ -61,6 +61,7 @@ def create_api(name, upstream_url, request_host):
     if result['id']:
         return result
     else:
+        print(result)
         return False
 
 
@@ -82,7 +83,27 @@ def update_api(name, **kwargs):
     if result['id']:
         return result
     else:
+        print(result)
         return False
+
+
+def enable_plugin(name, plugin, options={"enabled" : True}):
+    """
+    Enable given plugin for given API and set its options
+
+    :param name: API name
+    :param plugin: Kong Plugin name, eg. Key-Auth
+    :param options: as Kong plugin requires
+    :return:
+    """
+    kcli = _kong_api_client()
+    plugin_conf = kcli.plugins(name)
+    result = plugin_conf.create(plugin, **options)
+    if result['api_id']:
+        return result
+    else:
+        print(result)
+        return None
 
 
 def list_apis():
@@ -130,3 +151,8 @@ def list_consumers():
     """
     ucli = _kong_consumer_client()
     return ucli.list()
+
+
+def get_api_key(consumer):
+    ucli = _kong_consumer_client()
+
