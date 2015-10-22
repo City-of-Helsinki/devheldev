@@ -2,6 +2,8 @@
 
 {% load wagtailcore_tags home_tags %}
 {% load static %}
+{% load humanize %}
+
 {% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
 {% block content %}
 
@@ -45,10 +47,44 @@
                   <ul>
                     {% for event in self.commit_index.events %}
                     <li class="commit-list__item">
-                      <a href="{{ event.repo.url }}">
-                      <span class="commit-list__date">{{ event.created_at }}</span>
-                      <span class="commit-list__description">{{ event.type }} - {{event.actor.login}} - {{event.repo.name}}</span>
-                      </a>
+                        {% if event.type == "PushEvent" %}
+                            <a href={{event.repo.url}}>
+                            <span class="commit-list__date">{{ event.created_at | naturaltime }}</span>
+                            <span class="commit-list__description">{{event.actor.login}} pushed to {{event.payload.ref|cut:"refs/heads/"}} at {{event.repo.name}}</span>
+                        {% elif event.type == "IssueCommentEvent" %}
+                            <a href={{event.payload.issue.html_url}}>
+                            <span class="commit-list__date">{{ event.created_at | naturaltime }}</span>
+                            <span class="commit-list__description">{{event.actor.login}} {{event.payload.action}} comment on issue #{{ event.payload.issue.number }} at {{event.repo.name}}</span>
+                        {% elif event.type == "IssuesEvent" %}
+                            <a href={{event.payload.issue.html_url}}>
+                            <span class="commit-list__date">{{ event.created_at | naturaltime }}</span>
+                            <span class="commit-list__description">{{event.actor.login}} {{event.payload.action}} issue #{{ event.payload.issue.number }} at {{event.repo.name}}</span>
+                        {% elif event.type == "PullRequestEvent" %}
+                            <a href={{event.payload.pull_request.html_url}}>
+                            <span class="commit-list__date">{{ event.created_at | naturaltime }}</span>
+                            <span class="commit-list__description">{{event.actor.login}} {{event.payload.action}} pull request #{{ event.payload.pull_request.number }} at {{event.repo.name}}</span>
+                        {% elif event.type == "MemberEvent" %}
+                            <a href={{event.payload.member.html_url}}>
+                            <span class="commit-list__date">{{ event.created_at | naturaltime }}</span>
+                            <span class="commit-list__description">{{event.actor.login}} {{event.payload.action}} {{ event.payload.member.login }} to {{event.repo.name}}</span>
+                        {% elif event.type == "ForkEvent" %}
+                            <a href={{event.payload.forkee.html_url}}>
+                            <span class="commit-list__date">{{ event.created_at | naturaltime }}</span>
+                            <span class="commit-list__description">{{event.actor.login}} forked {{event.repo.name}} to {{event.payload.forkee.full_name}}</span>
+                        {% elif event.type == "WatchEvent" %}
+                            <a href={{event.repo.url}}>
+                            <span class="commit-list__date">{{ event.created_at | naturaltime }}</span>
+                            <span class="commit-list__description">{{event.actor.login}} {{event.payload.action}} watching {{event.repo.name}}</span>
+                        {% elif event.type == "PullRequestReviewCommentEvent" %}
+                            <a href={{event.payload.comment.html_url}}>
+                            <span class="commit-list__date">{{ event.created_at | naturaltime }}</span>
+                            <span class="commit-list__description">{{event.actor.login}} {{event.payload.action}} comment on pull request #{{event.payload.pull_request.number}} at {{event.repo.name}}</span>
+                        {% else %}
+                            <a href={{event.repo.url}}>
+                            <span class="commit-list__date">{{ event.created_at | naturaltime }}</span>
+                            <span class="commit-list__description">{{event.actor.login}} - {{ event.type }} - {{event.repo.name}}</span>
+                        {% endif %}
+                        </a>
                     </li>
                     {% endfor %}
                   </ul>
