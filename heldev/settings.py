@@ -109,7 +109,6 @@ BOWER_INSTALLED_APPS = (
     'jquery',
     'pushy',
     'imagesloaded',
-    'imagefill',
     'compass-breakpoint',
     'swagger-ui'
 )

@@ -61,6 +61,7 @@ def create_api(name, upstream_url, request_host):
     if result['id']:
         return result
     else:
+        print(result)
         return False
 
 
@@ -82,7 +83,27 @@ def update_api(name, **kwargs):
     if result['id']:
         return result
     else:
+        print(result)
         return False
+
+
+def enable_plugin(name, plugin, options={"enabled" : True}):
+    """
+    Enable given plugin for given API and set its options
+
+    :param name: API name
+    :param plugin: Kong Plugin name, eg. Key-Auth
+    :param options: as Kong plugin requires
+    :return:
+    """
+    kcli = _kong_api_client()
+    plugin_conf = kcli.plugins(name)
+    result = plugin_conf.create(plugin, **options)
+    if result['api_id']:
+        return result
+    else:
+        print(result)
+        return None
 
 
 def list_apis():
@@ -130,3 +151,33 @@ def list_consumers():
     """
     ucli = _kong_consumer_client()
     return ucli.list()
+
+
+def request_api_key(consumer_id):
+    """
+    Request an API key for given consumer id
+
+    :param consumer_id: Kong consumer id
+    :return: API key
+    """
+    ucli = _kong_consumer_client()
+    kcli = ucli.key_auth(consumer_id)
+    result = kcli.create()
+    if result['key']:
+        return result
+    else:
+        print(result)
+        return None
+
+
+def delete_api_key(consumer_id, key):
+    """
+    Delete given API key belonging given consumer
+
+    :param consumer_id: Kong consuemr id
+    :param key: API key
+    :return: None (Kong API does not return anything)
+    """
+    ucli = _kong_consumer_client()
+    kcli = ucli.key_auth(consumer_id)
+    kcli.delete(key)

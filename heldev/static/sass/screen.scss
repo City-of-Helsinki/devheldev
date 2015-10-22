@@ -213,6 +213,8 @@ p {
   }
 
   .layout-site-footer {
+    @include clearfix;
+    width: 100%;
     background: #333333;
     margin-top: rhythm(2);
     padding: rhythm(2) 0 rhythm(4) 0;
@@ -314,18 +316,18 @@ p {
 /* ------------ FRONT BANNER */
 
 .front-banner__background {
-  overflow: hidden;
+  background: no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-attachment: local;
   width: 100%;
   height: 100%;
 }
 
 .front-banner__content {
-  //position: relative;
-  //@include clearfix;
-  //padding: 1em;
-  //margin-right: 1em;
-  //margin-bottom: .5em;
-  background: $devyellow;
+  @include clearfix;
   box-shadow: .5em .5em 0 0 darken($devblue,25%);
 }
 
