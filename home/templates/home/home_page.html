@@ -44,21 +44,17 @@
                 <div class="list-banner list-banner--commit-watch">
                   <h3>Commit Watch</h3>
                   <ul>
+                    {% for event in self.commit_index.events %}
                     <li class="commit-list__item">
-                      <a href="#">
-                      <span class="commit-list__date">32 minutes ago</span>
-                      <span class="commit-list__description">jyrjola pushed to master at City-of-Helsinki/openahjo</span>
+                      <a href="{{ event.repo.url }}">
+                      <span class="commit-list__date">{{ event.created_at }}</span>
+                      <span class="commit-list__description">{{ event.type }} - {{event.actor.login}} - {{event.repo.name}}</span>
                       </a>
                     </li>
-                    <li class="commit-list__item">
-                      <a href="">
-                        <span class="commit-list__date">32 minutes ago</span>
-                        <span class="commit-list__description">jyrjola pushed to master at City-of-Helsinki/openahjo</span>
-                      </a>
-                    </li>
+                    {% endfor %}
                   </ul>
                   <div class="list-banner__full-link">
-                    <a href="#">Full list of events >></a>
+                    <a href="{% pageurl self.commit_index %}">Full list of events >></a>
                   </div>
                 </div>
               </div>
