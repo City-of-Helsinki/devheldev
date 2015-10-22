@@ -14,6 +14,7 @@ from blog.models import BlogIndexPage
 
 class HomePage(Page):
     body = RichTextField(blank=True)
+    template_name = models.CharField(max_length=50, null=True, blank=True)
 
     @cached_property
     def blog_index(self):
@@ -27,6 +28,13 @@ class HomePage(Page):
     def api_index(self):
         return APIIndexPage.objects.live().first()
 
+    def get_template(self, request, *args, **kwargs):
+        if self.template_name:
+            template = "%s/%s.html" % (self._meta.app_label, self.template_name)
+            return template
+        return super(HomePage, self).get_template(request, *args, **kwargs)
+
     content_panels = Page.content_panels + [
-        FieldPanel('body', classname="full")
+        FieldPanel('body', classname="full"),
+        FieldPanel('template_name')
     ]
