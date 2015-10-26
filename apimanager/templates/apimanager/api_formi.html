@@ -1,5 +1,17 @@
 {% load wtforms %}
+<h1>Application registration</h1>
+<div>
+    {{ form.name.label }}: {% form_field form.name %}
+</div>
+<div>
+    {{ form.description.label }}: {% form_field form.description rows=20 cols=50 %}</div>
+<div>
+    {{ form.location.label }}: {% form_field form.location %}
+</div>
 
-{{ form.name.label }}: {% form_field form.name %}
-{{ form.description.label }}: {% form_field form.description rows=20 cols=50 %}
-
+<h2>Subscriptions</h2>
+{%  for subscription in form.subscriptions %}
+    <div>
+        {% form_field subscription %}
+    </div>
+{% endfor %}
