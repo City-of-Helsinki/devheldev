@@ -60,10 +60,11 @@ INSTALLED_APPS = (
 
     'search',
     'home',
+    'aboutus',
     'apimanager',
     'projects',
     'users',
-    'github',
+    'github'
 )
 
 MIDDLEWARE_CLASSES = (

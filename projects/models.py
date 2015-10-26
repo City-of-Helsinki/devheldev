@@ -9,9 +9,15 @@ from modelcluster.fields import ParentalKey
 
 
 class ProjectPage(Orderable, Page):
+    STATUSES = (
+        ('discovery', 'Discovery'),
+        ('alpha', 'Alpha'),
+        ('beta', 'Beta'),
+        ('live', 'LIVE')
+    )
     short_description = models.TextField()
     full_description = RichTextField(blank=True)
-
+    status = models.CharField(max_length=20, choices=STATUSES, default='discovery')
     def save(self, *args, **kwargs):
         if not self.title:
             if self.project:
@@ -24,10 +30,30 @@ class ProjectPage(Orderable, Page):
     )
 
     content_panels = Page.content_panels + [
+        FieldPanel('status'),
         FieldPanel('short_description'),
         FieldPanel('full_description'),
+        InlinePanel('kpis', label="Key performance indicators"),
+        InlinePanel('roles', label="Contact us"),
         InlinePanel('links', label="Links"),
     ]
+
+
+class ProjectRole(models.Model):
+    TYPES = (
+        ('owner', 'Product owner'),
+        ('tech', 'Tech lead'),
+    )
+    project = ParentalKey('projects.ProjectPage', related_name='roles')
+    type = models.CharField(max_length=20, choices=TYPES)
+    person = ParentalKey('aboutus.PersonPage', related_name='roles')
+
+
+class ProjectKPI(models.Model):
+    project = ParentalKey('projects.ProjectPage', related_name='kpis')
+    name = models.CharField(max_length=20)
+    description = models.CharField(max_length=200, null=True, blank=True)
+    value = models.CharField(max_length=200)
 
 
 class ProjectLink(models.Model):

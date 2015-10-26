@@ -11,7 +11,7 @@
       <div class="project-list">
       {% for project in projects %}
         <div>
-            <a href="{% pageurl project %}">{{project.title}}</a>
+            <a href="{% pageurl project %}">{{project.title}}</a> - {{project.get_status_display}}
             <p>{{project.short_description}}</p>
         </div>
       {% endfor %}

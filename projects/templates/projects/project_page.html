@@ -8,7 +8,25 @@
   <div class="page-content">
     <div class="page-content__box">
       <h5 class="page-section-header">{{ project.title }}</h5>
-      <div>{{ project.full_description|richtext }}</div>
+        <div>Project status: {{ project.get_status_display }}</div>
+        {% if project.roles.all %}
+            <h6>People</h6>
+            <ul>
+            {% for role in project.roles.all %}
+                <li>{{ role.get_type_display }}: <a href={{role.person.contact}}>{{ role.person.name }}</a></li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+        {% if project.kpis.all %}
+            <h6>Key performance indicators</h6>
+            <ul>
+            {% for kpi in project.kpis.all %}
+                <li><p>{{ kpi.name }} {{ kpi.value }}</p>
+                <p>{{ kpi.description }}</p></li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+        <div>{{ project.full_description|richtext }}</div>
     </div>
   </div>
 </div>

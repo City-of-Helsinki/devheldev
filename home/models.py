@@ -11,6 +11,7 @@ from apimanager.models import APIIndexPage
 from projects.models import ProjectIndexPage
 from blog.models import BlogIndexPage
 from github.models import GithubIndexPage
+from aboutus.models import AboutUsIndexPage
 
 
 class HomePage(Page):
@@ -32,6 +33,10 @@ class HomePage(Page):
     @cached_property
     def commit_index(self):
         return GithubIndexPage.objects.live().first()
+
+    @cached_property
+    def about_index(self):
+        return AboutUsIndexPage.objects.live().first()
 
     def get_template(self, request, *args, **kwargs):
         if self.template_name:
