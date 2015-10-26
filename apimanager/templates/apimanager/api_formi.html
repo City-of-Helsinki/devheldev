@@ -1,0 +1,5 @@
+{% load wtforms %}
+
+{{ form.name.label }}: {% form_field form.name %}
+{{ form.description.label }}: {% form_field form.description rows=20 cols=50 %}
+

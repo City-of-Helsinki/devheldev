@@ -17,6 +17,7 @@ urlpatterns = [
     url(r'^documents/', include(wagtaildocs_urls)),
     url(r'^blog/', include('blog.urls', namespace="blog")),
     url(r'^search/$', 'search.views.search', name='search'),
+    url(r'^api/', include('apimanager.urls', namespace="apimanager")),
     url(r'', include(wagtail_urls)),
 ]
 
