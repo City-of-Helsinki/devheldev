@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% load wtforms %}
+{% block content %}
+<div class="layout-page-content">
+    <div class="page-content">
+        <div class="page-content__box">
+            <h1>Applications</h1>
+            <ul>
+                {%  for app in apps %}
+                    {{ app }}
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

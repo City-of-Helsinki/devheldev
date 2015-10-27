@@ -49,6 +49,8 @@ INSTALLED_APPS = (
     'wagtail.wagtailredirects',
     'wagtail.wagtailforms',
 
+    'wtforms_django',
+
     'allauth',
     'allauth.account',
     'allauth.socialaccount',

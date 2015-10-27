@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% load wtforms %}
+{% block content %}
+<div class="layout-page-content">
+    <div class="page-content">
+        <div class="page-content__box">
+            <h1>Application registration</h1>
+
+            <form action="." method="post">
+            {% csrf_token %}
+            {%  if ask_save %}
+                <div>Registration will commence <button type="submit" name="save_ok" value="true"> OK </button></div>
+            {% endif %}
+            <table>
+                {{ form.as_table }}
+            </table>
+            <h2>Existing subscriptions</h2>
+            <ul>
+            {% for id, sub in subscriptions %}
+                <li><button type="submit" name="unsubscribe"  value="{{ id }}">Unsubscribe from {{ sub }}</button></li>
+            {% endfor %}
+            </ul>
+            <input type="submit" name="save" value="Save">
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
