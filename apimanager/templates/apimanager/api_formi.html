@@ -9,9 +9,13 @@
 
             <form action="." method="post">
             {% csrf_token %}
+            {%  if ask_save %}
+                <div>Registration will commence <button type="submit" name="save_ok" value="true"> OK </button></div>
+            {% endif %}
             <table>
                 {{ form.as_table }}
             </table>
+            <h2>Existing subscriptions</h2>
             <ul>
             {% for id, sub in subscriptions %}
                 <li><button type="submit" name="unsubscribe"  value="{{ id }}">Unsubscribe from {{ sub }}</button></li>
