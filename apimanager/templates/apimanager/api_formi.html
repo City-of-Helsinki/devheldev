@@ -12,6 +12,11 @@
             <table>
                 {{ form.as_table }}
             </table>
+            <ul>
+            {% for id, sub in subscriptions %}
+                <li><button type="submit" name="unsubscribe"  value="{{ id }}">Unsubscribe from {{ sub }}</button></li>
+            {% endfor %}
+            </ul>
             <input type="submit" name="save" value="Save">
             </form>
         </div>
