@@ -42,6 +42,7 @@
             <!-- start promoted content -->
             <div class="layout-promoted">
               <div class="layout-promoted__first">
+                {% if self.commit_index %}
                 <div class="list-banner list-banner--commit-watch">
                   <h3>Commit Watch</h3>
                   <ul>
@@ -92,6 +93,7 @@
                     <a href="{% pageurl self.commit_index %}">Full list of events >></a>
                   </div>
                 </div>
+                {% endif %}
               </div>
               <div class="layout-promoted__second">
                 <div class="list-banner list-banner--available-apis">
