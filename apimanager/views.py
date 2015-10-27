@@ -18,8 +18,6 @@ class ApplicationForm(forms.Form):
 def register(data):
     print('registering')
 
-
-
 def add_application(request):
 
     ask_save = False
