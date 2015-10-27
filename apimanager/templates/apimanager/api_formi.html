@@ -9,29 +9,10 @@
 
             <form action="." method="post">
             {% csrf_token %}
-                <div>
-                {{ form.name.label }}: {% form_field form.name %}
-            </div>
-            <div>
-                {{ form.description.label }}: {% form_field form.description rows=20 cols=50 %}</div>
-            <div>
-                {{ form.location.label }}: {% form_field form.location %}
-            </div>
-
-            <h2>Existing subscriptions</h2>
-            <ul>
-            {% for id, sub in subscriptions %}
-                <li><button type="submit" name="unsubscribe"  value="{{ id }}">Unsubscribe from {{ sub }}</button></li>
-            {% endfor %}
-            </ul>
-
-            <h2>Add a subscription</h2>
-             {%  for api in form.subscribe %}
-                <div>
-                    {% form_field api %}
-                </div>
-            {% endfor %}
-                <input type="submit" name="save" value="Save">
+            <table>
+                {{ form.as_table }}
+            </table>
+            <input type="submit" name="save" value="Save">
             </form>
         </div>
     </div>

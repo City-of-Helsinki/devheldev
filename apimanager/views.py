@@ -1,36 +1,28 @@
 from django.shortcuts import render
-import wtforms
+import django.forms as forms
 
 from .models import APIPage
 
 def add_application(request):
 
-    class APISubscriptionForm(wtforms.Form):
-        api = wtforms.SelectField("Subscribe to an API", default=0,
-            choices=[(0, '---')], coerce=int)
+    class ApplicationForm(forms.Form):
+        name = forms.CharField(label='name')
+        description = forms.CharField(label='description', widget=forms.Textarea)
+        location = forms.URLField(label='homepage location')
 
-    class ApplicationForm(wtforms.Form):
-        name = wtforms.StringField('name', [wtforms.validators.Length(min=5, max=300),
-                                            wtforms.validators.InputRequired()])
-        description = wtforms.TextAreaField('description', [wtforms.validators.optional()])
-        location = wtforms.StringField('homepage location', [wtforms.validators.URL(),
-                                                    wtforms.validators.optional()])
-
-        subscribe = wtforms.FieldList(wtforms.FormField(APISubscriptionForm), min_entries=1)
+        subscribe = forms.MultipleChoiceField(label="Subscribe to an API", choices=get_api_choices,
+                                              widget=forms.CheckboxSelectMultiple)
 
     if request.POST:
         form = ApplicationForm(request.POST)
-        add_extra(form)
     else:
         form = ApplicationForm()
 
     # All entries fields share their choices apparently
-    form.subscribe.entries[0].api.choices.extend([(api.pk, api.name) for api in APIPage.objects.all()])
-    subs = ((1, 'Vanha respa'), (2, 'Toinen API'))
 
+    subs = ((1, 'Vanha respa'), (2, 'Toinen API'))
 
     return render(request, 'apimanager/api_formi.html', {'form': form, 'subscriptions' : subs})
 
-def add_extra(form):
-    if form.subscribe.entries[-1].api.data:
-        form.subscribe.append_entry()
+def get_api_choices():
+    return [(api.pk, api.name) for api in APIPage.objects.all()]

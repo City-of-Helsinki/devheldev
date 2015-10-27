@@ -8,5 +8,3 @@ django-grappelli
 -e git+https://github.com/City-of-Helsinki/django-helusers.git#egg=django-helusers
 django-allauth
 django-modelcluster
-WTForms==2.0.2
-WTForms-Django==0.2.dev0
