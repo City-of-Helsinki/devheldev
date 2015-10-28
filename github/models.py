@@ -6,14 +6,14 @@ from django.db import models
 
 
 class GithubOrgIndexPage(Page):
-    api_url = models.URLField(default='https://api.github.com/orgs/City-of-Helsinki/events?per_page=5')
+    github_org_name = models.CharField(default='City-of-Helsinki', max_length=200)
 
     content_panels = Page.content_panels + [
-        FieldPanel('api_url'),
+        FieldPanel('github_org_name'),
      ]
 
     def events(self):
-        response = requests.get(self.api_url)
+        response = requests.get('https://api.github.com/orgs/' + self.github_org_name + '/events?per_page=5')
         events = response.json()
         for index, event in enumerate(events):
             events[index]['created_at'] = dateparse.parse_datetime(event['created_at'])
