@@ -197,5 +197,9 @@
             </aside>
           </div>
 
+    {% block menu %}
+            {% get_site_root as site_root %}
+            {% top_menu parent=site_root calling_page=self %}
+        {% endblock %}
 
 {% endblock %}
