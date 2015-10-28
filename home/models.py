@@ -10,7 +10,7 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from apimanager.models import APIIndexPage
 from projects.models import ProjectIndexPage
 from blog.models import BlogIndexPage
-from github.models import GithubIndexPage
+from github.models import GithubOrgIndexPage
 from aboutus.models import AboutUsIndexPage
 
 
@@ -32,7 +32,7 @@ class HomePage(Page):
 
     @cached_property
     def commit_index(self):
-        return GithubIndexPage.objects.live().first()
+        return GithubOrgIndexPage.objects.live().first()
 
     @cached_property
     def about_index(self):
