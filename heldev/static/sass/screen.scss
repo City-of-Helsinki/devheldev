@@ -1,9 +1,10 @@
 @import 'compass-mixins/lib/compass';
 @import "susy/sass/susy";
+@import 'compass-breakpoint/stylesheets/breakpoint';
 @import 'typography';
 @import 'variables';
 @import 'pushycss';
-@import 'compass-breakpoint/stylesheets/breakpoint';
+
 
 //@import 'bower_components/compass-mixins/lib/compass/reset';
 
@@ -28,36 +29,42 @@ img {
 }
 
 .site-logo {
-  position: fixed;
-  z-index: 9999;
+  position: absolute;
+  display: inline-block;
+  //z-index: 10000;
+ // @include span(2);
   height: rhythm(2);
   width: 6em;
   top: rhythm(.5);
-  left: rhythm(.25);
+  //left: rhythm(.25);
   @include replace-text(url("/static/images/heldev-logo-mini-white.svg"));
   background-size: contain;
-  &.site-logo--frontpage {
+}
+
+.template-home-page .site-logo {
     @include breakpoint($deskwidth) {
       position: absolute;
-      left: 3%;
       height: 12em;
       width: 12em;
       @include replace-text(url("/static/images/heldev-logo-white.svg"));
-    }
-  }
+    }  
 }
 
 /* headings() */
 h1, h2, h3, h4, h5, h6, h7 {
 	font-family: 'Lato', sans-serif;
     font-style: italic;
-    font-weight: 700;
+    font-weight: 900;
 	/* Set font-family to all headings */
 }
 
-a, a:visited, a:active, a:hover {
+a, a:hover {
   color: $devyellow;
   text-decoration: none;
+}
+
+a:visited, a:active {
+  //color: inherit;
 }
 
 p {
@@ -74,22 +81,27 @@ p {
 
   .layout-header {
     display: block;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
     width: 100%; 
     min-height: rhythm(3);
     margin-bottom: rhythm(2);
     background-color: $devblue;
-    &.layout-header--frontpage {
-      background-image: url("/static/images/heldev-sitebg-blue.png");
-      background-position: center top;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-    }
+  }
+
+  .template-home-page .layout-header {
+    position: relative;
+    background-image: url("/static/images/heldev-sitebg-blue.png");
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
   }
 
   .menu-btn { 
     display: block;
     position: fixed;
-    z-index: 2000;
+    z-index: 10001;
     top: .25em;
     right: .25em;
     padding: .25em; 
@@ -106,42 +118,22 @@ p {
     color: $devyellow; 
   }
 
-  .pushy-active .menu-btn {  
-    display: none;
-  }
+@media (min-width: 640px) {
+    .pushy-left{
+        -webkit-transform: translate3d(0,0,0);
+        -moz-transform: translate3d(0,0,0);
+        -ms-transform: translate3d(0,0,0);
+        -o-transform: translate3d(0,0,0);
+        transform: translate3d(0,0,0);
+    }
+}
 
-  nav.pushy {
-      height: 100%;
-      padding: rhythm(1) 0;
-      background: $devblue;
-      font-weight: 700;
-      font-style: italic;
-      font-size: 1.2em;
-      letter-spacing: .04em;
-  }
-
-  nav.pushy a{
-      display: block;
-      padding: rhythm(.25) rhythm(.5);
-      border: 0;
-      color: #ffffff;
-      text-decoration: none;
-  }
-
-  nav.pushy a:hover{
-      background: $devyellow;
-      color: #FFF;
-  }
-  nav.pushy a:hover{
-      background: $devyellow;
-      color: #FFF;
-  }
-
-  .desktop-navigation {
-    display: none;
+  .pushy {
     @include breakpoint($deskwidth) {
       display: block;
-      @include pre(2);
+      position: relative;
+      padding: 0;
+      @include push(2);
       @include span(10);
       text-align: right;
       margin-top: rhythm(1);
@@ -164,13 +156,17 @@ p {
 /*-----------------------*/
   .layout-main, .layout-header__wrapper, .layout-site-footer__wrapper {
     @include container;
-    padding: 0 rhythm(.25);
+    //padding: 0 rhythm(.25);
     @include breakpoint($deskwidth) {
-      padding: 0 rhythm(1);
+      //padding: 0 rhythm(1);
     }
   }
   
   .layout-main {
+    margin-top:  rhythm(5);
+  }
+
+  .template-home-page .layout-main {
     margin-top:  rhythm(2);
   }
 
@@ -237,7 +233,7 @@ p {
       @include adjust-font-size-to(16px);
       font-family: 'Inconsolata';
       text-transform: uppercase;
-      font-weight: 700;
+      font-weight: 900;
       font-style: normal;
       color: $devyellow;
     }
@@ -335,7 +331,7 @@ p {
   position: relative;
   float: right;
 
-  min-height: rhythm(14);
+  min-height: rhythm(6);
   padding: rhythm(1) 2em;
   background: rgba($devblue, 0.5);
   color: #ffffff;
@@ -361,7 +357,7 @@ p {
     clear: both;
     font-family: 'Inconsolata';
     text-transform: uppercase;
-    font-weight: 700;
+    font-weight: 900;
     font-style: normal;
     border-bottom: 3px solid #FFFFFF;
     margin-bottom: rhythm(1);
@@ -377,7 +373,7 @@ p {
   margin-bottom: rhythm(1);
 }
 .event-list__date {
-  font-weight: 700;
+  font-weight: 900;
   display: block;
 }
 .event-list__header {
@@ -387,10 +383,10 @@ p {
   display: block;
 }
 .event-list__link {
-  font-weight: 700;
+  font-weight: 900;
 }
 .list-banner__full-link {
-  font-weight: 700;
+  font-weight: 900;
 }
 
 .blog-list__item {
@@ -475,7 +471,7 @@ p {
     @include adjust-font-size-to(18px);
     font-family: 'Inconsolata';
     text-transform: uppercase;
-    font-weight: 700;
+    font-weight: 900;
     font-style: normal;
     border-bottom: 3px solid $devblue;
     margin-bottom: rhythm(1);
@@ -515,7 +511,7 @@ p {
   margin-bottom: rhythm(.5);
   @include adjust-font-size-to(16px);
   color: #FFFFFF;
-  font-weight: 700;
+  font-weight: 900;
   font-face: 'Inconsolata';
   .listing-date__day::after, .listing-date__month::after {
     content: " .";

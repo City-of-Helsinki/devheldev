@@ -5,40 +5,21 @@
 {% load humanize %}
 
 {% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
+
+{% block frontbanner %}
+<!-- start front-banner content -->
+<div class="layout-front-banner">
+  <div class="front-banner__content front-banner__background" style="background-image: url({% static 'images/front-banner-image-default.png' %})">
+    <div class="front-banner__text">
+          {{ self.body|richtext }}
+    </div>
+  </div>
+</div>
+<!-- end front-banner content -->
+{% endblock %}
+
 {% block content %}
 
-          <div class="layout-header layout-header--frontpage">
-            <div class="layout-header__wrapper">
-
-              <a href="/"><h1 class="site-logo site-logo--frontpage">dev.hel.fi</h1></a>
-              <nav id="desk-nav" class="desktop-navigation" role="navigation">
-                <ul>
-                    <li><a href="/projects/">Projects</a></li>
-                    <li><a href="/apis/">Open APIs</a></li>
-                    <li><a href="/blog/">Blog</a></li>
-                    <li><a href="/about/">About Us</a></li>
-                    <li><a href="/events/">Events</a></li>
-                    {% if request.user.is_authenticated %}
-                    <li><a href="/accounts/logout/">{{ request.user.get_full_name }}</a></li>
-                    {% else %}
-                    <li><a href="/accounts/helsinki/login/">Log in</a></li>
-                    {% endif %}
-                </ul>
-              </nav>
-
-            <!-- start front-banner content -->
-            <div class="layout-front-banner">
-              <div class="front-banner__content front-banner__background" style="background-image: url({% static 'images/front-banner-image-default.png' %})">
-                <div class="front-banner__text">
-                      <h1>Helsinki Loves Developers</h1>
-                      {{ self.body|richtext }}
-                </div>
-              </div>
-            </div>
-            <!-- end front-banner content -->
-            </div>
-          </div>
-          <div class="layout-main">
             <!-- start promoted content -->
             <div class="layout-promoted">
               <div class="layout-promoted__first">
@@ -195,7 +176,7 @@
                 </a>
               </div>
             </aside>
-          </div>
+
 
 
 {% endblock %}
