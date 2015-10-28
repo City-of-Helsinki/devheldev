@@ -17,6 +17,7 @@ class ProjectPage(Orderable, Page):
     )
     short_description = models.TextField()
     full_description = RichTextField(blank=True)
+    image = models.ImageField(upload_to='project_images', blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUSES, default='discovery')
     def save(self, *args, **kwargs):
         if not self.title:
@@ -33,6 +34,7 @@ class ProjectPage(Orderable, Page):
         FieldPanel('status'),
         FieldPanel('short_description'),
         FieldPanel('full_description'),
+        FieldPanel('image'),
         InlinePanel('kpis', label="Key performance indicators"),
         InlinePanel('roles', label="Contact us"),
         InlinePanel('links', label="Links"),
