@@ -47,20 +47,13 @@ class KongAPIConfiguration(models.Model):
 
 
 from django.conf import settings
-class APICustomer(models.Model):
-    """
-    Link between user account and API customer
-    """
-    account = models.ForeignKey(settings.AUTH_USER_MODEL)
-    enabled = models.BooleanField(default=False)
-
 
 class Application(models.Model):
     """
     Individual application for the API customer
     containing one Kong consumer and its API key
     """
-    customer = models.ForeignKey(APICustomer)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     subscriptions = models.ManyToManyField(KongAPIConfiguration, through='APISubscription')
     name = models.CharField(max_length=300)
     description = models.TextField(blank=True, null=True)
