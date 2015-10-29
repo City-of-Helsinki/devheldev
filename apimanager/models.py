@@ -39,7 +39,7 @@ class APIIndexPage(Page):
 
 
 class KongAPIConfiguration(models.Model):
-    api_page = models.ForeignKey(APIPage)
+    api_page = models.OneToOneField(APIPage)
     request_host = models.CharField('Hostname for API management platform', max_length=150,
                                     default="api.hel.fi",
                                     help_text="Similar to HTTP virtual hosts; changing this from default is required if user visible API host is publicly different")
