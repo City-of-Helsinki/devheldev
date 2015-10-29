@@ -12,6 +12,7 @@
       <div class="event-list">
       {% for event in events %}
         <div>
+            <img src={{event.actor.avatar_url}} alt="{{event.actor.login}}" height=50 width=50>
         {% if event.type == "PushEvent" %}
             <a href={{event.repo.url}}>{{ event.created_at | naturaltime }}</a>
             <p>{{event.actor.login}} pushed to {{event.payload.ref|cut:"refs/heads/"}} at {{event.repo.name}}</p>

@@ -11,6 +11,7 @@
       <div class="people-list">
       {% for person in people%}
         <div>
+            <img src="{{person.avatar_url}}" alt="{{person.name}}" height=50 width=50>
             <a href={{person.contact}}>{{person.name}}</a> - {{person.job_title}}
             <ul>
             {% for role in person.roles.all %}
