@@ -63,7 +63,7 @@ class Application(models.Model):
 class APISubscription(models.Model):
     api = models.ForeignKey(KongAPIConfiguration)
     application = models.ForeignKey(Application)
-    consumer_id = models.CharField(max_length=300)
-    consumer_kong_id = models.CharField(max_length=300)
-    key = models.CharField(max_length=300)
-    key_kong_id = models.CharField(max_length=300)
+    consumer_id = models.CharField(max_length=300, blank=True, null=True)
+    consumer_kong_id = models.CharField(max_length=300, blank=True, null=True)
+    key = models.CharField(max_length=300, blank=True, null=True)
+    key_kong_id = models.CharField(max_length=300, blank=True, null=True)
