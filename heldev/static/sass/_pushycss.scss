@@ -4,42 +4,53 @@
 * by Christopher Yee */
 
 /* Menu Appearance */
+$pushy-width: 300px;
+
 
 .pushy{
+  @include breakpoint($nondesk) {
     position: fixed;
-    width: 200px;
+    width: $pushy-width;
     height: 100%;
+    padding: rhythm(1) 0;
+    background: $devblue;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 1.2em;
+    letter-spacing: .04em;
     top: 0;
     z-index: 9999;
-    background: #333332;
-    font-size: 0.9em;
-    font-weight: bold;
     overflow: auto;
     -webkit-overflow-scrolling: touch; /* enables momentum scrolling in iOS overflow elements */
+  }
 }
 
 .pushy a{
+  @include breakpoint($nondesk) {
     display: block;
+    padding: rhythm(.25) rhythm(.5);
     color: #b3b3b1;
     padding: 15px 30px;
-    border-bottom: 1px solid rgba(0, 0, 0, .1);
-    border-top: 1px solid rgba(255, 255, 255, .1);
+    border: 0;
     text-decoration: none;
+  }
 }
 
 .pushy a:hover{
-    background: #00b4ff;
+  @include breakpoint($nondesk) {
+    background: $devyellow;
     color: #FFF;
+  }
 }
 
 /* Menu Movement */
 
 .pushy-left{
-    -webkit-transform: translate3d(-200px,0,0);
-    -moz-transform: translate3d(-200px,0,0);
-    -ms-transform: translate3d(-200px,0,0);
-    -o-transform: translate3d(-200px,0,0);
-    transform: translate3d(-200px,0,0);
+    -webkit-transform: translate3d(-$pushy-width,0,0);
+    -moz-transform: translate3d(-$pushy-width,0,0);
+    -ms-transform: translate3d(-$pushy-width,0,0);
+    -o-transform: translate3d(-$pushy-width,0,0);
+    transform: translate3d(-$pushy-width,0,0);
 }
 
 .pushy-open{
@@ -51,11 +62,11 @@
 }
 
 .container-push, .push-push{
-    -webkit-transform: translate3d(200px,0,0);
-    -moz-transform: translate3d(200px,0,0);
-    -ms-transform: translate3d(200px,0,0);
-    -o-transform: translate3d(200px,0,0);
-    transform: translate3d(200px,0,0);
+    -webkit-transform: translate3d($pushy-width,0,0);
+    -moz-transform: translate3d($pushy-width,0,0);
+    -ms-transform: translate3d($pushy-width,0,0);
+    -o-transform: translate3d($pushy-width,0,0);
+    transform: translate3d($pushy-width,0,0);
 }
 
 /* Menu Transitions */

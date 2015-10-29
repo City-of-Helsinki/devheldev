@@ -29,11 +29,11 @@
 
     <body class="{% block body_class %}{% endblock %}">
           {% wagtailuserbar %}
-          {% if self.slug != 'home' %}
+
           <div class="layout-header">
             <div class="layout-header__wrapper">
               <a href="/"><h1 class="site-logo">dev.hel.fi</h1></a>
-              <nav id="desk-nav" class="desktop-navigation" role="navigation">
+              <nav id="desk-nav" class="desktop-navigation pushy pushy-left" role="navigation">
                 <ul>
                     <li><a href="/projects/">Projects</a></li>
                     <li><a href="/apis/">Open APIs</a></li>
@@ -47,14 +47,17 @@
                     {% endif %}
                 </ul>
               </nav>
+              {% block frontbanner %}{% endblock %}
             </div>
           </div>
-          {% endif %}
+
          <!-- Site Overlay -->
          <div class="site-overlay"></div>
          <div id="menu-toggle" class="menu-btn">&#9776;</div>
           <div id="container">
-          {% block content %}{% endblock %}
+          <div class="layout-main">
+            {% block content %}{% endblock %}
+          </div>
           <div class="layout-site-footer">
             <div class="site-footer layout-site-footer__wrapper">
               <div class="site-footer-partners">
