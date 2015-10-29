@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
-{% load wtforms %}
 {% block content %}
 <div class="layout-page-content">
     <div class="page-content">
@@ -8,7 +7,13 @@
             <h1>Applications</h1>
             <ul>
                 {%  for app in apps %}
-                    {{ app }}
+                    {{ app.name }}
+                    <h2>Subscriptions</h2>
+                    <ul>
+                    {% for sub in app.subscriptions.all %}
+                        <li>{{ sub.api_page.name }}</li>
+                    {% endfor %}
+                    </ul>
                 {% endfor %}
             </ul>
         </div>
