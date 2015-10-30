@@ -61,6 +61,10 @@
                             <a href={{event.payload.comment.html_url}}>
                             <span class="commit-list__date">{{ event.created_at | naturaltime }}</span>
                             <span class="commit-list__description">{{event.actor.login}} {{event.payload.action}} comment on pull request #{{event.payload.pull_request.number}} at {{event.repo.name}}</span>
+                        {% elif event.type == "CreateEvent" %}
+                            <a href={{event.repo.url}}>
+                            <span class="commit-list__date">{{ event.created_at | naturaltime }}</span>
+                            <span class="commit-list__description">{{event.actor.login}} created {{event.payload.ref_type}} {{event.payload.ref}} at {{event.repo.name}}</span>
                         {% else %}
                             <a href={{event.repo.url}}>
                             <span class="commit-list__date">{{ event.created_at | naturaltime }}</span>

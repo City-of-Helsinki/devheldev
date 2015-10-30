@@ -11,35 +11,38 @@
       {% if events %}
       <div class="event-list">
       {% for event in events %}
-        <div>
+        <div class="commit-list__item">
             <img src={{event.actor.avatar_url}} alt="{{event.actor.login}}" height=50 width=50>
         {% if event.type == "PushEvent" %}
             <a href={{event.repo.url}}>{{ event.created_at | naturaltime }}</a>
-            <p>{{event.actor.login}} pushed to {{event.payload.ref|cut:"refs/heads/"}} at {{event.repo.name}}</p>
+            <p><a href="https://github.com/{{event.actor.login}}">{{event.actor.login}}</a> pushed to {{event.payload.ref|cut:"refs/heads/"}} at {{event.repo.name}}</p>
         {% elif event.type == "IssueCommentEvent" %}
             <a href={{event.payload.issue.html_url}}>{{ event.created_at | naturaltime }}</a>
-            <p>{{event.actor.login}} {{event.payload.action}} comment on issue #{{ event.payload.issue.number }} at {{event.repo.name}}</p>
+            <p><a href="https://github.com/{{event.actor.login}}">{{event.actor.login}}</a> {{event.payload.action}} comment on issue #{{ event.payload.issue.number }} at {{event.repo.name}}</p>
         {% elif event.type == "IssuesEvent" %}
             <a href={{event.payload.issue.html_url}}>{{ event.created_at | naturaltime }}</a>
-            <p>{{event.actor.login}} {{event.payload.action}} issue #{{ event.payload.issue.number }} at {{event.repo.name}}</p>
+            <p><a href="https://github.com/{{event.actor.login}}">{{event.actor.login}}</a> {{event.payload.action}} issue #{{ event.payload.issue.number }} at {{event.repo.name}}</p>
         {% elif event.type == "PullRequestEvent" %}
             <a href={{event.payload.pull_request.html_url}}>{{ event.created_at | naturaltime }}</a>
-            <p>{{event.actor.login}} {{event.payload.action}} pull request #{{ event.payload.pull_request.number }} at {{event.repo.name}}</p>
+            <p><a href="https://github.com/{{event.actor.login}}">{{event.actor.login}}</a> {{event.payload.action}} pull request #{{ event.payload.pull_request.number }} at {{event.repo.name}}</p>
         {% elif event.type == "MemberEvent" %}
             <a href={{event.payload.member.html_url}}>{{ event.created_at | naturaltime }}</a>
-            <p>{{event.actor.login}} {{event.payload.action}} {{ event.payload.member.login }} to {{event.repo.name}}</p>
+            <p><a href="https://github.com/{{event.actor.login}}">{{event.actor.login}}</a> {{event.payload.action}} {{ event.payload.member.login }} to {{event.repo.name}}</p>
         {% elif event.type == "ForkEvent" %}
             <a href={{event.payload.forkee.html_url}}>{{ event.created_at | naturaltime }}</a>
-            <p>{{event.actor.login}} forked {{event.repo.name}} to {{event.payload.forkee.full_name}}</p>
+            <p><a href="https://github.com/{{event.actor.login}}">{{event.actor.login}}</a> forked {{event.repo.name}} to {{event.payload.forkee.full_name}}</p>
         {% elif event.type == "WatchEvent" %}
             <a href={{event.repo.url}}>{{ event.created_at | naturaltime }}</a>
-            <p>{{event.actor.login}} {{event.payload.action}} watching {{event.repo.name}}</p>
+            <p><a href="https://github.com/{{event.actor.login}}">{{event.actor.login}}</a> {{event.payload.action}} watching {{event.repo.name}}</p>
         {% elif event.type == "PullRequestReviewCommentEvent" %}
             <a href={{event.payload.comment.html_url}}>{{ event.created_at | naturaltime }}</a>
-            <p>{{event.actor.login}} {{event.payload.action}} comment on pull request #{{event.payload.pull_request.number}} at {{event.repo.name}}</p>
+            <p><a href="https://github.com/{{event.actor.login}}">{{event.actor.login}}</a> {{event.payload.action}} comment on pull request #{{event.payload.pull_request.number}} at {{event.repo.name}}</p>
+        {% elif event.type == "CreateEvent" %}
+            <a href={{event.repo.url}}>{{ event.created_at | naturaltime }}</a>
+            <p><a href="https://github.com/{{event.actor.login}}">{{event.actor.login}}</a> created {{event.payload.ref_type}} {{event.payload.ref}} at {{event.repo.name}}</p>
         {% else %}
             <a href={{event.repo.url}}>{{ event.created_at | naturaltime }}</a>
-            <p>{{event.actor.login}} - {{ event.type }} - {{event.repo.name}}</p>
+            <p><a href="https://github.com/{{event.actor.login}}">{{event.actor.login}}</a> - {{ event.type }} - {{event.repo.name}}</p>
         {% endif %}
         </div>
       {% endfor %}
