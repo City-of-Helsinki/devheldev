@@ -10,7 +10,7 @@
       <h5 class="page-section-header">Projects</h5>
       {% if projects %}
       <div class="project-list">
-      {% for project in projects %}
+      {% for project in top_projects %}
         <div>
             {% image project.image fill-50x50 %}
             <a href="{% pageurl project %}">{{project.title}}</a> - {{project.get_status_display}}

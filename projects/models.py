@@ -78,3 +78,6 @@ class ProjectIndexPage(Page):
 
     def projects(self):
         return ProjectPage.objects.live()
+
+    def top_projects(self):
+        return self.projects[:5]
