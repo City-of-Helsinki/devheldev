@@ -45,6 +45,9 @@ class KongAPIConfiguration(models.Model):
                                     help_text="Similar to HTTP virtual hosts; changing this from default is required if user visible API host is publicly different")
     kong_api_id = models.CharField(max_length=300, editable=False, null=True)
 
+    def __str__(self):
+        return u'Configuration for ' + self.api_page.name
+
 
 from django.conf import settings
 
@@ -59,6 +62,9 @@ class Application(models.Model):
     description = models.TextField(blank=True, null=True)
     location = models.URLField(blank=True, null=True)
 
+    def __str__(self):
+        return u'Application of ' + self.user.username
+
 
 class APISubscription(models.Model):
     api = models.ForeignKey(KongAPIConfiguration)
@@ -67,3 +73,6 @@ class APISubscription(models.Model):
     consumer_kong_id = models.CharField(max_length=300, blank=True, null=True)
     key = models.CharField(max_length=300, blank=True, null=True)
     key_kong_id = models.CharField(max_length=300, blank=True, null=True)
+
+    def __str__(self):
+        return u'API subscription for ' + self.api.api_page.name
