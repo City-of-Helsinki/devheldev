@@ -17,7 +17,7 @@ class GithubOrgIndexPage(Page):
         events = cache.get('events')
         if not events:
             cache.add('events',
-                               requests.get('https://api.github.com/orgs/' + self.github_org_name + '/events?per_page=5').json(), 60)
+                               requests.get('https://api.github.com/orgs/' + self.github_org_name + '/events?per_page=20').json(), 60)
             events = cache.get('events')
         for index, event in enumerate(events):
             events[index]['created_at'] = dateparse.parse_datetime(event['created_at'])
