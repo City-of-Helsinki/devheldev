@@ -116,18 +116,22 @@
               <div class="hilight-banner hilight-banner--full">
                 <div class="hilight-banner__box">
                   <div class="hilight-banner__content">
+                    {% with project=self.project_index.projects.first %}
                     <h5 class="hilight-banner__section">Projects</h5>
-                    <h3>{% lorem 5 w random %}</h3>
-                    <p>{% lorem 30 w random %}</p>
+                    <h3>{{project.title}}</h3>
+                    <p>{{project.full_description|first_p|richtext}}</p>
+                    {% endwith %}
                   </div>
                 </div>
               </div>
               <div class="hilight-banner hilight-banner--half">
                 <div class="hilight-banner__box">
                   <div class="hilight-banner__content">
-                    <h5 class="hilight-banner__section">Events</h5>
-                    <h3>{% lorem 5 w random %}</h3>
-                    <p>{% lorem 30 w random %}</p>
+                    {% with api=self.api_index.apis.first %}
+                    <h5 class="hilight-banner__section">APIs</h5>
+                    <h3>{{api.title}}</h3>
+                    <p>{{api.full_description|first_p|richtext}}</p>
+                    {% endwith %}
                   </div>
                 </div>
               </div>
@@ -169,13 +173,13 @@
                 </div>
               </div>
               <div class="some-banner">
-                <a href="#">
+                <a href="https://www.facebook.com/groups/heldev">
                   <i class="fa fa-facebook-official fa-2x"></i>
                   We are in Facebook
                 </a>
               </div>
               <div class="some-banner">
-                <a href="#">
+                <a href="https://github.com/City-of-Helsinki">
                   <i class="fa fa-github fa-2x"></i>
                   Find us in GitHub
                 </a>
