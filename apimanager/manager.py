@@ -115,7 +115,7 @@ def list_apis():
     return kcli.list()
 
 
-def add_consumer(username, custom_id):
+def add_consumer(username, custom_id=None):
     """
     Add a consumer to kong using either username or custom id
 
@@ -124,9 +124,9 @@ def add_consumer(username, custom_id):
     :return: Kong data including created consumer's id
     """
     ucli = _kong_consumer_client()
-    result = ucli.create()
+    result = ucli.create(username, custom_id)
     if result['id']:
-        return True
+        return result
     else:
         return False
 
@@ -181,3 +181,4 @@ def delete_api_key(consumer_id, key):
     ucli = _kong_consumer_client()
     kcli = ucli.key_auth(consumer_id)
     kcli.delete(key)
+

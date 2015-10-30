@@ -50,6 +50,7 @@ class KongAPIConfiguration(models.Model):
 
 
 from django.conf import settings
+from . import manager
 
 class Application(models.Model):
     """
@@ -76,3 +77,24 @@ class APISubscription(models.Model):
 
     def __str__(self):
         return u'API subscription for ' + self.api.api_page.name
+
+    def add_consumer(self):
+        """
+        Add consumer to Kong for this APISubscription using username
+        and subscription id
+        """
+        res = manager.add_consumer(self.application.user.username + '_' + str(self.pk))
+        if res:
+            self.consumer_kong_id = res['id']
+            self.save()
+
+    def get_api_key(self):
+        """
+        Register API key in Kong for this subscription using
+        its consumer id
+        """
+        res = manager.request_api_key(self.consumer_kong_id)
+        if res:
+            self.key = res['key']
+            self.key_kong_id = res['id']
+            self.save()
