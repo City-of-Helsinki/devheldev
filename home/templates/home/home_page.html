@@ -27,8 +27,9 @@
                 <div class="list-banner list-banner--commit-watch">
                   <h3>Commit Watch</h3>
                   <ul>
-                    {% for event in self.commit_index.events %}
+                    {% for event in self.commit_index.top_events %}
                     <li class="commit-list__item">
+                        <img src={{event.actor.avatar_url}} alt="{{event.actor.login}}" height=50 width=50>
                         {% if event.type == "PushEvent" %}
                             <a href={{event.repo.url}}>
                             <span class="commit-list__date">{{ event.created_at | naturaltime }}</span>

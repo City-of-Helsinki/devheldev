@@ -22,3 +22,6 @@ class GithubOrgIndexPage(Page):
         for index, event in enumerate(events):
             events[index]['created_at'] = dateparse.parse_datetime(event['created_at'])
         return events
+
+    def top_events(self):
+        return self.events()[:3]
