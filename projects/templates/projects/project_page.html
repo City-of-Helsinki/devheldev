@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
 
 {% block content %}
 {% with project=self %}
@@ -8,16 +9,20 @@
   <div class="page-content">
     <div class="page-content__box">
       <h5 class="page-section-header">{{ project.title }}</h5>
+        {% image project.image width-500 %}
         <div>Project status: {{ project.get_status_display }}</div>
         {% if project.roles.all %}
+            <div class="project-people">
             <h6>People</h6>
             <ul>
             {% for role in project.roles.all %}
                 <li>{{ role.get_type_display }}: <a href={{role.person.contact}}>{{ role.person.name }}</a></li>
             {% endfor %}
             </ul>
+            </div>
         {% endif %}
         {% if project.kpis.all %}
+            <div class="project-kpis">
             <h6>Key performance indicators</h6>
             <ul>
             {% for kpi in project.kpis.all %}
@@ -25,6 +30,7 @@
                 <p>{{ kpi.description }}</p></li>
             {% endfor %}
             </ul>
+            </div>
         {% endif %}
         <div>{{ project.full_description|richtext }}</div>
     </div>
