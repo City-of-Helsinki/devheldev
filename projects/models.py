@@ -3,6 +3,8 @@ from django.db import models
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
+from wagtail.wagtailimages.models import Image
+from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsearch import index
 
 from modelcluster.fields import ParentalKey
@@ -17,7 +19,13 @@ class ProjectPage(Orderable, Page):
     )
     short_description = models.TextField()
     full_description = RichTextField(blank=True)
-    image = models.ImageField(upload_to='project_images', blank=True, null=True)
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
     status = models.CharField(max_length=20, choices=STATUSES, default='discovery')
     def save(self, *args, **kwargs):
         if not self.title:
@@ -34,7 +42,7 @@ class ProjectPage(Orderable, Page):
         FieldPanel('status'),
         FieldPanel('short_description'),
         FieldPanel('full_description'),
-        FieldPanel('image'),
+        ImageChooserPanel('image'),
         InlinePanel('kpis', label="Key performance indicators"),
         InlinePanel('roles', label="Contact us"),
         InlinePanel('links', label="Links"),
