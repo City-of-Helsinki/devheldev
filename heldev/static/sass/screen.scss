@@ -156,6 +156,7 @@ p {
 /*-----------------------*/
   .layout-main, .layout-header__wrapper, .layout-site-footer__wrapper {
     @include container;
+    @include show-grid(overlay);
     //padding: 0 rhythm(.25);
     @include breakpoint($deskwidth) {
       //padding: 0 rhythm(1);
@@ -192,6 +193,10 @@ p {
     @include breakpoint($deskwidth) {
       @include span(6);
     }
+  }
+
+  .layout-page-content--full {
+    @include span(12 nest);
   }
 
   .layout-page-content {
@@ -408,7 +413,6 @@ p {
 }
 
 
-
 .commit-list__item {
   img {
     @include border-radius(25px);
@@ -587,3 +591,51 @@ a.blog-listing-item__tag {
   
 }
 
+/* ------------ PROJECTS LISTING*/
+
+.project-list__header {
+  @include span(12);
+}
+.project-list {  
+}
+
+.layout-project-list-item {
+  @include span(12);
+  @include breakpoint($deskwidth) {
+    @include gallery(4 of 12);
+  }
+}
+
+.project-list-item {
+  padding: rhythm(.5);
+  margin-bottom: rhythm(1);
+  background: #FFFFFF;
+  a {
+    color: $devblue;
+  }
+  h4 {
+    @include adjust-font-size-to(24px);
+  }
+}
+
+.project-status {
+  font-weight: 900;
+  text-transform: uppercase;
+  font-family: 'Inconsolata';
+}
+
+.project-status--discovery {
+  color: #cccccc; 
+}
+
+.project-status--alpha {
+  color: #4665aa; 
+}
+
+.project-status--beta {
+  color: #46aa7c; 
+}
+
+.project-status--live {
+  color: #aa4665; 
+}

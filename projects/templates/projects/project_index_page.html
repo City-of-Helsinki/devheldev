@@ -1,26 +1,28 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
-{% load wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags static %}
 
 {% block content %}
 {% with projects=self.projects %}
-<div class="layout-page-content">
-  <div class="page-content">
-    <div class="page-content__box">
-      <h5 class="page-section-header">Projects</h5>
-      {% if projects %}
+<div class="layout-page-content--full">
+      <div class="project-list__header">
+        <h5 class="page-section-header">Projects</h5>
+        {% if projects %}
+      </div>
       <div class="project-list">
       {% for project in projects %}
-        <div>
+        <div class="layout-project-list-item">
+          <div class="project-list-item">
             {% image project.image fill-50x50 %}
-            <a href="{% pageurl project %}">{{project.title}}</a> - {{project.get_status_display}}
+            <img src="{% static "images/front-banner-image-default.png" %}" alt="project-image" />
+            <a href="{% pageurl project %}"><h4>{{project.title}}</h4></a>
+            <span class="project-status project-status--{{project.status}}">{{project.get_status_display}}</span>
             <p>{{project.short_description}}</p>
         </div>
+        </div>
       {% endfor %}
-      </div>
+        </div>
       {% endif %}
-    </div>
-  </div>
+
 </div>
 {% endwith %}
 {% endblock %}
