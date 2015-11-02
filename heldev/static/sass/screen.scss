@@ -591,7 +591,7 @@ a.blog-listing-item__tag {
   
 }
 
-/* ------------ PROJECTS LISTING*/
+/* ------------ PROJECTS LISTING */
 
 .project-list__header {
   @include span(12);
@@ -639,3 +639,59 @@ a.blog-listing-item__tag {
 .project-status--live {
   color: #aa4665; 
 }
+
+/* ------------ ABOUT PAGE */
+
+.people-list {
+  
+}
+
+.people-list__person {
+  border: 3px solid $devblue;
+  padding-top: rhythm(1);
+  padding-bottom: rhythm(1);
+  margin-bottom: rhythm(1);
+  @include span(12);
+  
+  h4 {
+    @include adjust-font-size-to(24px);
+  }
+  .person-title {
+    display: block;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-family: 'Inconsolata';
+  }
+  .person-contact {
+    @extend .button;
+  }
+}
+
+.people-list__person-avatar {
+  @include span(6);
+  @include breakpoint($deskwidth) {
+    @include span(3);
+  }
+  img {
+    max-height: rhythm(5);
+  }
+}
+
+.people-list__person-details {
+  @include span(6);
+    @include breakpoint($deskwidth) {
+  @include span(4);
+  }
+}
+
+.people-list__person-projects {
+  @include span(12);
+  @include breakpoint($deskwidth) {
+    @include span(5);
+  }
+}
+
+
+
+
+
