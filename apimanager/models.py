@@ -9,7 +9,7 @@ from wagtail.wagtailsearch import index
 class APIPage(Orderable, Page):
     name = models.CharField(max_length=300, blank=False, null=False)
     api_path = models.CharField("Root path for API Management platform", max_length=50, default="",
-                                help_text="User visible path; example usage: api.hel.fi/{path}/")
+                                help_text="Actual public API root endpoint; example usage: api.hel.fi/{path}/")
     location = models.URLField(blank=False, null=False)
     documentation = models.URLField(blank=True)
     short_description = models.TextField(blank=False)
@@ -25,6 +25,7 @@ class APIPage(Orderable, Page):
     content_panels = Page.content_panels + [
         FieldPanel('name'),
         FieldPanel('location'),
+        FieldPanel('api_path'),
         FieldPanel('documentation'),
         FieldPanel('short_description', classname="full"),
         FieldPanel('full_description', classname="full")
