@@ -1,0 +1,20 @@
+language: python
+
+python:
+- '3.4'
+
+env:
+- DJANGO=Django>=1.8
+
+install:
+- pip install -r requirements.txt --use-mirrors
+
+before_script:
+- echo "DEBUG = True" >> local_settings.py
+- python manage.py runserver
+- sleep 3
+
+script: py.test heldev
+
+addons:
+  postgresql: "9.4"
