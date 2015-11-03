@@ -8,7 +8,7 @@ from . import manager
 
 
 class APIPage(Orderable, Page):
-    name = models.CharField(max_length=300, blank=False, null=False)
+    name = models.CharField("Short and unique identifier for API", max_length=300, blank=False, null=False)
     api_path = models.CharField("Root path for API Management platform", max_length=50, default="",
                                 help_text="Actual public API root endpoint; example usage: api.hel.fi/{path}/")
     location = models.URLField(blank=False, null=False)
@@ -62,15 +62,15 @@ class KongAPIConfiguration(models.Model):
         """
         existing = manager.check_api(self.api_page.name)
         if existing:
-            res = manager.update_api(name=self.api_page.name,
+            res = manager.update_api(api_id=self.kong_api_id,
                                      upstream_url=self.api_page.api_path,
                                      request_host=self.request_host)
         else:
             res = manager.create_api(name=self.api_page.name,
                                      upstream_url=self.api_page.api_path,
                                      request_host=self.request_host)
-        self.kong_api_id = res['id']
-        self.save()
+            self.kong_api_id = res['id']
+            self.save()
 
         if enable_key_auth:
             manager.enable_plugin(self.api_page.name, manager.PLUGINS['key'])

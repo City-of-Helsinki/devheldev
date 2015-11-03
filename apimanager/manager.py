@@ -82,9 +82,9 @@ def delete_api(name):
     kcli.delete(name)
 
 
-def update_api(name, **kwargs):
+def update_api(api_id, **kwargs):
     kcli = _kong_api_client()
-    result = kcli.update(name=name, **kwargs)
+    result = kcli.update(api_id, **kwargs)
     if result['id']:
         return result
     else:
@@ -92,7 +92,7 @@ def update_api(name, **kwargs):
         return False
 
 
-def enable_plugin(name, plugin, options={"enabled" : True}):
+def enable_plugin(name, plugin, options=None):
     """
     Enable given plugin for given API and set its options
 
@@ -101,6 +101,9 @@ def enable_plugin(name, plugin, options={"enabled" : True}):
     :param options: as Kong plugin requires
     :return:
     """
+    if not options:
+        options = {"enabled": True}
+
     kcli = _kong_api_client()
     plugin_conf = kcli.plugins(name)
     result = plugin_conf.create(plugin, **options)
