@@ -9,9 +9,6 @@ env:
 install:
 - pip install -r requirements.txt --use-mirrors
 
-before_script:
-- python manage.py collectstatic --noinput
-
 script: py.test --reuse-db heldev
 
 addons:
