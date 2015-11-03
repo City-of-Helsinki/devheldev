@@ -10,15 +10,23 @@
       {% if people %}
       <div class="people-list">
       {% for person in people%}
-        <div>
-            <img src="{{person.avatar_url}}" alt="{{person.name}}" height=50 width=50>
-            <a href={{person.contact}}>{{person.name}}</a> - {{person.job_title}}
+        <div class="people-list__person">
+          <div class="people-list__person-avatar">
+            <img src="{{person.avatar_url}}" alt="{{person.name}}">
+          </div>
+          <div class="people-list__person-details">
+            <h4>{{person.name}}</h4>
+            <span class="person-title">{{person.job_title}}</span>
+            <a href={{person.contact}} class="person-contact">Contact</a>
+          </div>
+          <div class="people-list__person-projects">
             <ul>
             {% for role in person.roles.all %}
                 <li>{{role.get_type_display}} in <a href={% pageurl role.project %}>{{role.project.title}}</a></li>
             {% endfor %}
                 <li>{{person.description}}</li>
             </ul>
+          </div>
         </div>
       {% endfor %}
       </div>
