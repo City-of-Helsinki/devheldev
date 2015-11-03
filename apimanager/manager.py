@@ -8,6 +8,11 @@ from django.core.exceptions import ImproperlyConfigured
 
 import kong.client
 
+# One place to store references to Kong plugin names
+PLUGINS = {
+    'key': 'key-auth'
+}
+
 
 def _kong_api_client():
     """
@@ -115,12 +120,22 @@ def list_apis():
     return kcli.list()
 
 
+def check_api(name):
+    kcli = _kong_api_client()
+    apis = kcli.list()
+    matching_api = [api for api in apis['data'] if api['name'] is name]
+    if matching_api:
+        return matching_api[0]
+    else:
+        return None
+
+
 def add_consumer(username, custom_id=None):
     """
     Add a consumer to kong using either username or custom id
 
     :param username: username
-    :param cid: custom id or Kong id
+    :param custom_id: custom id or Kong id
     :return: Kong data including created consumer's id
     """
     ucli = _kong_consumer_client()
