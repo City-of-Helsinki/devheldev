@@ -44,4 +44,6 @@ class Command(BaseCommand):
                 image.file = ImageFile(tmpf)
                 image.save()
 
-            browser.quit()
+            project.image = image
+            project.save(update_fields=['image'])
+        browser.quit()
