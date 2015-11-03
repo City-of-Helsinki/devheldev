@@ -10,4 +10,4 @@ django-grappelli
 django-allauth
 django-modelcluster
 python-kong==0.4.0
-
+splinter

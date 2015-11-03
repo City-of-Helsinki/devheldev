@@ -74,6 +74,7 @@ class ProjectLink(models.Model):
 
     project = ParentalKey('projects.ProjectPage', related_name='links')
     type = models.CharField(max_length=20, choices=TYPES)
+    public = models.BooleanField(default=True)
     description = models.CharField(max_length=200, null=True, blank=True)
     url = models.URLField()
 
