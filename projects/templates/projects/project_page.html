@@ -16,7 +16,7 @@
             <h6>People</h6>
             <ul>
             {% for role in project.roles.all %}
-                <li>{{ role.get_type_display }}: <a href={{role.person.contact}}>{{ role.person.name }}</a></li>
+                <li>{{ role.type }}: <a href={{role.person.contact}}>{{ role.person.name }}</a></li>
             {% endfor %}
             </ul>
             </div>

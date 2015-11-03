@@ -49,14 +49,24 @@ class ProjectPage(Orderable, Page):
     ]
 
 
+class ProjectRoleType(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+
 class ProjectRole(models.Model):
     TYPES = (
         ('service_manager', 'Service manager'),
         ('tech', 'Tech lead'),
     )
     project = ParentalKey('projects.ProjectPage', related_name='roles')
-    type = models.CharField(max_length=20, choices=TYPES)
+    type = ParentalKey(ProjectRoleType, related_name='roles')
     person = ParentalKey('aboutus.PersonPage', related_name='roles')
+
+    def __str__(self):
+        return "%s as %s for %s" % (self.person, self.type, self.project.title)
 
 
 class ProjectKPI(models.Model):
