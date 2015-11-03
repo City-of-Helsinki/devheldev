@@ -8,6 +8,7 @@ env:
 
 install:
 - pip install -r requirements.txt --use-mirrors
+- python manage.py bower install
 
 script: py.test --reuse-db heldev
 
