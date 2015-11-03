@@ -14,7 +14,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         browser = Browser('phantomjs')
-        browser.driver.set_window_size(1600, 900)
+        dims = (1600, 1000)
+        browser.driver.set_window_size(dims[0], dims[1])
 
         for project in ProjectPage.objects.all():
             links = project.links.filter(public=True, type='main')
@@ -31,7 +32,7 @@ class Command(BaseCommand):
                 browser.driver.save_screenshot(tmpf.name)
 
                 pil_image = PILImage.open(tmpf)
-                pil_image = pil_image.crop((0, 0, 1600, 900))
+                pil_image = pil_image.crop((0, 0, dims[0], dims[1]))
                 tmpf.seek(0)
                 tmpf.truncate(0)
                 pil_image.save(tmpf, format='PNG')
