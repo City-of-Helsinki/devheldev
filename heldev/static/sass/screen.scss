@@ -1,21 +1,19 @@
 @import 'compass-mixins/lib/compass';
+@include global-reset;
+
 @import "susy/sass/susy";
 @import 'compass-breakpoint/stylesheets/breakpoint';
 @import 'typography';
+@import 'components-font-awesome/scss/font-awesome';
 @import 'variables';
 @import 'sidr';
 
-
-//@import 'bower_components/compass-mixins/lib/compass/reset';
-
-@include global-reset;
 @include establish-baseline;
   
 body {
-  font-family: 'Lato', sans-serif;
-  font-weight: 400;
+  font-family: $base-font-family;
+  @extend %t-regular;
   color: $devblue;
-  //letter-spacing: 0.0625em;
   background-color: #eee;
   background-image: url("/static/images/heldev-sitebg-gray.png");
   background-position: center top;
@@ -31,12 +29,10 @@ img {
 .site-logo {
   position: absolute;
   display: inline-block;
-  //z-index: 10000;
- // @include span(2);
   height: rhythm(2);
   width: 6em;
   top: rhythm(.5);
-  //left: rhythm(.25);
+  @extend %t-base;
   @include replace-text(url("/static/images/heldev-logo-mini-white.svg"));
   background-size: contain;
 }
@@ -87,15 +83,15 @@ p {
     width: 100%; 
     min-height: rhythm(3);
     margin-bottom: rhythm(2);
+    background-image: url("/static/images/heldev-sitebg-blue.png");
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     background-color: $devblue;
   }
 
   .template-home-page .layout-header {
     position: relative;
-    background-image: url("/static/images/heldev-sitebg-blue.png");
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
   }
 
   #toggle {
@@ -656,10 +652,18 @@ a.blog-listing-item__tag {
 
 /* ------------ PROJECTS LISTING */
 
-.project-list__header {
+
+.project-list {  
+}
+
+.layout-page-header--full {
   @include span(12);
 }
-.project-list {  
+
+.page-header--full {
+  padding: rhythm(.25) rhythm(1);
+  margin-bottom: rhythm(1);
+  background: #FFFFFF;
 }
 
 .layout-project-list-item {
@@ -668,39 +672,67 @@ a.blog-listing-item__tag {
     @include gallery(4 of 12);
   }
 }
-
 .project-list-item {
-  padding: rhythm(.5);
+  //padding: rhythm(.2);
   margin-bottom: rhythm(1);
   background: #FFFFFF;
+}
+
+.project-list-item__content {
+  padding: rhythm(.5);
+  border: 2px solid $devblue;
   a {
     color: $devblue;
   }
   h4 {
     @include adjust-font-size-to(24px);
   }
+  &:hover {
+    border: 2px solid $devyellow;
+  }
 }
 
 .project-status {
-  font-weight: 900;
+  //display: inline-block;
+  padding: rhythm(.25) rhythm(.5);
+  
+  color: #FFFFFF;
+  @extend %t-small;
+  @extend %t-strong;
   text-transform: uppercase;
-  font-family: 'Inconsolata';
+  font-family: $code-font-family;
+  &:before {
+    margin-right: .5em;
+    @include fa-icon; 
+  }
 }
 
 .project-status--discovery {
-  color: #cccccc; 
+  background: #666666; 
+  &:before {
+    @extend .fa-binoculars;
+  }
 }
 
 .project-status--alpha {
-  color: #4665aa; 
+  background: #4665aa; 
+  &:before {
+    @extend .fa-thumbs-up;
+  }
 }
 
 .project-status--beta {
-  color: #46aa7c; 
+  background: #46aa7c; 
+  &:before {
+    @extend .fa-heart;
+  }
 }
 
 .project-status--live {
-  color: #aa4665; 
+  background: #aa4665; 
+  &:before {
+    @extend .fa-heartbeat;
+  }
 }
 
 /* ------------ ABOUT PAGE */

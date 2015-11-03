@@ -112,7 +112,8 @@ BOWER_INSTALLED_APPS = (
     'compass-breakpoint',
     'swagger-ui',
     'sidr',
-    'enquire'
+    'enquire',
+    'components-font-awesome'
 )
 
 COMPRESS_PRECOMPILERS = (

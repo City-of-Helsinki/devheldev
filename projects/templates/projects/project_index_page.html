@@ -4,23 +4,28 @@
 {% block content %}
 {% with projects=self.projects %}
 <div class="layout-page-content--full">
-      <div class="project-list__header">
-        <h5 class="page-section-header">Projects</h5>
-        {% if projects %}
+      <div class="layout-page-header--full">
+        <div class="page-header page-header--full">
+          <h1>Projects</h1>
+        </div>
       </div>
+      {% if projects %}
       <div class="project-list">
       {% for project in projects %}
         <div class="layout-project-list-item">
           <div class="project-list-item">
+            <div class="project-list-item__content">
+            <a href="{% pageurl project %}">
+              <div class="project-status project-status--{{project.status}}">{{project.get_status_display}}</div>
             {% if project.image %}
             {% image project.image fill-1280x800 as image %}
             <img src="{{image.url}}" width="{{image.width}}" height="{{image.height}}" alt="{{project.image.title}}" />
             {% else %}
             <img src="{% static "images/front-banner-image-default.png" %}" alt="No project image" />
             {% endif %}
-            <a href="{% pageurl project %}"><h4>{{project.title}}</h4></a>
-            <span class="project-status project-status--{{project.status}}">{{project.get_status_display}}</span>
-            <p>{{project.short_description}}</p>
+            <h2>{{project.title}}</h2></a>
+            <div class="project-description">{{project.short_description}}</div>
+            </div>
         </div>
         </div>
       {% endfor %}

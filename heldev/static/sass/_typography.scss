@@ -16,7 +16,26 @@ Font weights (ticked ones are downloaded/usable):
 [x] Bold 700
 */
 
-$latofont: 'Lato';
+$tiny-font-size: 9px;
+$tiny-font-leading: 0.75;
+
+$small-font-size: 12px;
+$small-font-leading: 0.75;
+
+$base-font-size: 16px;
+$base-font-leading: 1;
+
+$medium-font-size: 21.328px;
+$medium-font-leading: 1.25;
+
+$large-font-size: 28.43px;
+$large-font-leading: 1.25;
+
+$xlarge-font-size: 37.897px;
+$xlarge-font-leading: 1.5;
+
+$xxlarge-font-size: 50.517px;
+$xxlarge-font-leading: 1.5;
 
 
 $base-font-size:        16px;
@@ -24,3 +43,110 @@ $base-line-height:      24px;
 $rhythm-unit:           "rem";
 $rem-with-px-fallback:  true;
 $round-to-nearest-half-line: true;
+
+$base-font-family: 'Lato', Helvetica, Arial, sans-serif;
+$code-font-family: 'Inconsolata', 'Courier New', 'Courier', monospace;
+$base-font-weight: 400;
+$base-font-color: #303033;
+
+
+@mixin typeSize($size) {
+ @if $size == "tiny" {
+  @include adjust-font-size-to($tiny-font-size);
+  @include adjust-leading-to($tiny-font-leading);
+ }
+ @if $size == "small" {
+  @include adjust-font-size-to($small-font-size);
+  @include adjust-leading-to($small-font-leading);
+ }
+ @if $size == "base" {
+  @include adjust-font-size-to($base-font-size);
+  @include adjust-leading-to($base-font-leading);
+ }
+ @if $size == "medium" {
+  @include adjust-font-size-to($medium-font-size);
+  @include adjust-leading-to($medium-font-leading);
+ }
+ @if $size == "large" {
+  @include adjust-font-size-to($large-font-size);
+  @include adjust-leading-to($large-font-leading);
+ }
+ @if $size == "xlarge" {
+  @include adjust-font-size-to($xlarge-font-size);
+  @include adjust-leading-to($xlarge-font-leading);
+ }
+ @if $size == "xxlarge" {
+  @include adjust-font-size-to($xlarge-font-size);
+  @include adjust-leading-to($xlarge-font-leading);
+ }
+}
+
+%t-ultrastrong {
+ font-weight: 900;
+}
+%t-strong {
+ font-weight: 700;
+}
+%t-regular {
+ font-weight: 400;
+}
+%t-light {
+ font-weight: 300;
+}
+%t-ultralight {
+ font-weight: 100;
+}
+
+// Type size variants 
+%t-tiny {
+ @include typeSize(tiny);
+}
+%t-small {
+ @include typeSize(small);
+}
+%t-base {
+ @include typeSize(base);
+}
+%t-medium {
+ @include typeSize(medium);
+}
+%t-large {
+ @include typeSize(large);
+}
+%t-xlarge {
+ @include typeSize(xlarge);
+}
+.t-tiny {
+ @include typeSize(tiny);
+}
+.t-small {
+ @include typeSize(small);
+}
+.t-base {
+ @include typeSize(base);
+}
+.t-medium {
+ @include typeSize(medium);
+}
+.t-large {
+ @include typeSize(large);
+}
+.t-xlarge {
+ @include typeSize(xlarge);
+}
+// Type — headings
+#{headings(4)} {
+ margin: 0;
+}
+h1 {
+ @extend %t-xlarge;
+}
+h2 {
+ @extend %t-large;
+}
+h3 {
+ @extend %t-medium;
+}
+h4 {
+ @extend %t-base;
+}
