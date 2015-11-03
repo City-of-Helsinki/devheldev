@@ -24,8 +24,9 @@ var/
 *.egg-info/
 .installed.cfg
 *.egg
-bower_components/
-./static/
+/bower_components
+/static
+/media
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
