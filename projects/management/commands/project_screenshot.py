@@ -34,7 +34,7 @@ class Command(BaseCommand):
                 pil_image = pil_image.crop((0, 0, 1600, 900))
                 tmpf.seek(0)
                 tmpf.truncate(0)
-                pil_image.save(tmpf)
+                pil_image.save(tmpf, format='PNG')
 
                 title = '%s screenshot' % project.title
                 try:
