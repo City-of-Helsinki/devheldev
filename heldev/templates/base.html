@@ -33,7 +33,7 @@
           <div class="layout-header">
             <div class="layout-header__wrapper">
               <a href="/"><h1 class="site-logo">dev.hel.fi</h1></a>
-              <nav id="desk-nav" class="desktop-navigation pushy pushy-left" role="navigation">
+              <nav id="sidr" class="main-navigation" role="navigation">
                 <ul>
                     <li><a href="/projects/">Projects</a></li>
                     <li><a href="/apis/">Open APIs</a></li>
@@ -53,7 +53,9 @@
 
          <!-- Site Overlay -->
          <div class="site-overlay"></div>
-         <div id="menu-toggle" class="menu-btn">&#9776;</div>
+          <div id="toggle" class="mmmenu-btn">      
+           <div class="bar"></div>
+          </div>
           <div id="container">
           <div class="layout-main">
             {% block content %}{% endblock %}
@@ -91,11 +93,8 @@
         {# Global javascript #}
         {% compress js %}
           <script type="text/javascript" src="{% static 'js/heldev.js' %}"></script>
-          <script type="text/javascript" src="{% static 'pushy/js/pushy.js' %}"></script>
-          <script type="text/javascript" src="{% static 'eventEmitter/EventEmitter.js' %}"></script>
-          <script type="text/javascript" src="{% static 'eventie/eventie.js' %}"></script>
-          <script type="text/javascript" src="{% static 'imagesloaded/imagesloaded.js' %}"></script>
-          <script type="text/javascript" src="{% static 'imagefill/js/jquery-imagefill.js' %}"></script>
+          <script type="text/javascript" src="{% static 'sidr/jquery.sidr.min.js' %}"></script>
+          <script type="text/javascript" src="{% static 'enquire/dist/enquire.js' %}"></script>
         {% endcompress %}
         {% block extra_js %}
             {# Override this in templates to add extra javascript #}
