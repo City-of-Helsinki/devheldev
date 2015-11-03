@@ -16,8 +16,8 @@
             </table>
             <h2>Existing subscriptions</h2>
             <ul>
-            {% for id, sub in subscriptions %}
-                <li><button type="submit" name="unsubscribe"  value="{{ id }}">Unsubscribe from {{ sub }}</button></li>
+            {% for sub in subscriptions %}
+                <li><button type="submit" name="unsubscribe"  value="{{ sub.pk }}">Unsubscribe from {{ sub.api.api_page.name }}</button></li>
             {% endfor %}
             </ul>
             <input type="submit" name="save" value="Save">
