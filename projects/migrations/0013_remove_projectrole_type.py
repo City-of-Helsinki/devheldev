@@ -6,9 +6,8 @@ import modelcluster.fields
 
 
 def remove_broken_revisions(apps, schema_editor):
-    ProjectPage = apps.get_model('projects', 'ProjectPage')
     PageRevision = apps.get_model('wagtailcore', 'PageRevision')
-    PageRevision.objects.filter(page__in=ProjectPage.objects.all()).delete()
+    PageRevision.objects.all().delete()
 
 
 class Migration(migrations.Migration):
