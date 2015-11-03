@@ -51,7 +51,7 @@ class ProjectPage(Orderable, Page):
 
 class ProjectRole(models.Model):
     TYPES = (
-        ('owner', 'Product owner'),
+        ('service_manager', 'Service manager'),
         ('tech', 'Tech lead'),
     )
     project = ParentalKey('projects.ProjectPage', related_name='roles')
