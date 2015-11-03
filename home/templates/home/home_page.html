@@ -19,7 +19,6 @@
 {% endblock %}
 
 {% block content %}
-
             <!-- start promoted content -->
             <div class="layout-promoted">
               <div class="layout-promoted__first">
@@ -81,6 +80,7 @@
                 </div>
                 {% endif %}
               </div>
+              {% if self.project_index %}
               <div class="layout-promoted__second">
                 <div class="list-banner list-banner--available-apis">
                   <h3>Ongoing projects</h3>
@@ -99,6 +99,7 @@
                   </div>
                 </div>
               </div>
+              {% endif %}
             </div>
             <!-- end promoted content -->
             <div class="layout-page-content">
