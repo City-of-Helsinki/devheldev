@@ -9,14 +9,7 @@ env:
 install:
 - pip install -r requirements.txt --use-mirrors
 
-before_script:
-- createdb heldev
-- python manage.py migrate
-- echo "DEBUG = True" >> local_settings.py
-- python manage.py runserver &
-- sleep 3
-
-script: py.test heldev
+script: py.test --reuse-db heldev
 
 addons:
   postgresql: "9.4"
