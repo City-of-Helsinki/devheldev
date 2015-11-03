@@ -109,11 +109,10 @@ BOWER_INSTALLED_APPS = (
     'compass-mixins',
     'susy',
     'jquery',
-    'pushy',
-    'imagesloaded',
     'compass-breakpoint',
     'swagger-ui',
-    'imagefills',
+    'sidr',
+    'enquire'
 )
 
 COMPRESS_PRECOMPILERS = (
