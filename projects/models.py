@@ -51,7 +51,7 @@ class ProjectPage(Orderable, Page):
 
 class ProjectRole(models.Model):
     TYPES = (
-        ('owner', 'Product owner'),
+        ('service_manager', 'Service manager'),
         ('tech', 'Tech lead'),
     )
     project = ParentalKey('projects.ProjectPage', related_name='roles')
@@ -74,6 +74,7 @@ class ProjectLink(models.Model):
 
     project = ParentalKey('projects.ProjectPage', related_name='links')
     type = models.CharField(max_length=20, choices=TYPES)
+    public = models.BooleanField(default=True)
     description = models.CharField(max_length=200, null=True, blank=True)
     url = models.URLField()
 

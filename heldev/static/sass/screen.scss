@@ -3,7 +3,7 @@
 @import 'compass-breakpoint/stylesheets/breakpoint';
 @import 'typography';
 @import 'variables';
-@import 'pushycss';
+@import 'sidr';
 
 
 //@import 'bower_components/compass-mixins/lib/compass/reset';
@@ -98,6 +98,72 @@ p {
     background-attachment: fixed;
   }
 
+  #toggle {
+    $bar-width: 2.5em;
+    $bar-height: .4em;
+    $bar-spacing: .75em;
+    z-index: 10001;
+    position: fixed;
+    top: 1.25em;
+    right: 1.25em;
+    width: $bar-width;
+    height: $bar-height + $bar-spacing*2;
+    cursor: pointer;
+
+
+      .bar,
+      .bar:after,
+      .bar:before {
+        width: $bar-width;
+          height: $bar-height;
+      }
+
+      .bar {
+          position: relative;
+          transform: translateY($bar-spacing);
+          background: rgba(255, 255, 255, 1);
+          transition: all 0ms 300ms;
+
+        &.animate {
+          background: rgba(255, 255, 255, 0); 
+        }
+      }
+
+      .bar:before {
+          content: "";
+          position: absolute;
+          left: 0;
+          bottom: $bar-spacing;
+          background: rgba(255, 255, 255, 1);
+          transition: bottom 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms cubic-bezier(0.23, 1, 0.32, 1);
+      }
+
+      .bar:after {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: $bar-spacing;
+          background: rgba(255, 255, 255, 1);
+          transition: top 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms cubic-bezier(0.23, 1, 0.32, 1);
+      }
+
+      .bar.animate:after {
+          top: 0;
+          transform: rotate(45deg);
+          transition: top 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1);;
+      }
+
+      .bar.animate:before {
+          bottom: 0;
+          transform: rotate(-45deg);
+          transition: bottom 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1);;
+      }
+    @include breakpoint($deskwidth) {
+      display: none;
+    }
+  }
+
+
   .menu-btn { 
     display: block;
     position: fixed;
@@ -118,17 +184,14 @@ p {
     color: $devyellow; 
   }
 
-@media (min-width: 640px) {
-    .pushy-left{
-        -webkit-transform: translate3d(0,0,0);
-        -moz-transform: translate3d(0,0,0);
-        -ms-transform: translate3d(0,0,0);
-        -o-transform: translate3d(0,0,0);
-        transform: translate3d(0,0,0);
+  #sidr-main {
+    @include breakpoint($deskwidth) {
+      display: none;
     }
-}
+  }
 
-  .pushy {
+  .main-navigation {
+    display: none;
     @include breakpoint($deskwidth) {
       display: block;
       position: relative;

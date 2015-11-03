@@ -12,8 +12,12 @@
       {% for project in projects %}
         <div class="layout-project-list-item">
           <div class="project-list-item">
-            {% image project.image fill-50x50 %}
-            <img src="{% static "images/front-banner-image-default.png" %}" alt="project-image" />
+            {% if project.image %}
+            {% image project.image fill-1280x800 as image %}
+            <img src="{{image.url}}" width="{{image.width}}" height="{{image.height}}" alt="{{project.image.title}}" />
+            {% else %}
+            <img src="{% static "images/front-banner-image-default.png" %}" alt="No project image" />
+            {% endif %}
             <a href="{% pageurl project %}"><h4>{{project.title}}</h4></a>
             <span class="project-status project-status--{{project.status}}">{{project.get_status_display}}</span>
             <p>{{project.short_description}}</p>
