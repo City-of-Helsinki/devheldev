@@ -44,7 +44,7 @@ class ProjectPage(Orderable, Page):
         FieldPanel('full_description'),
         ImageChooserPanel('image'),
         InlinePanel('kpis', label="Key performance indicators"),
-        InlinePanel('roles', label="Contact us"),
+        InlinePanel('roles', label="Roles"),
         InlinePanel('links', label="Links"),
     ]
 
@@ -62,7 +62,7 @@ class ProjectRole(models.Model):
         ('tech', 'Tech lead'),
     )
     project = ParentalKey('projects.ProjectPage', related_name='roles')
-    type = ParentalKey(ProjectRoleType, related_name='roles')
+    type = models.ForeignKey(ProjectRoleType, related_name='roles')
     person = ParentalKey('aboutus.PersonPage', related_name='roles')
 
     def __str__(self):
