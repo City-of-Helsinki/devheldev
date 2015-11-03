@@ -1,14 +1,9 @@
-from django.test import TestCase, Client
-import urllib.request
+import pytest
 
-class HomePageTestCase(TestCase):
-    client = Client()
 
-    def test_home(self):
-        # Wagtail doesn't accept django client without subpage url
-        # response = self.client.get('/')
-        # Therefore, successful test requires running web server
-        response = urllib.request.urlopen('http://localhost:8000')
-        self.assertEquals(response.status, 200)
-        self.assertIn('Code for Europe', response.read().decode())
-
+@pytest.mark.django_db
+def test_home_page(client):
+    response = client.get('/')
+    assert response.status_code == 200
+    print(response.content)
+    assert 'Code for Europe' in str(response.content)
