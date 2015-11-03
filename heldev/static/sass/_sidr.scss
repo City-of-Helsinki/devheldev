@@ -1,9 +1,9 @@
 // Fonts
 $sidr-font-family: 'Lato',verdana,arial,sans-serif;
-$sidr-font-size: 1.2em;
+$sidr-font-size: 1.5em;
 
 // Colors
-$sidr-background : $devblue;
+$sidr-background : #333333;
 $sidr-background-shadow-color : $devblue;
 $sidr-text-color: #FFF;
 
@@ -82,8 +82,7 @@ $sidr-text-color: #FFF;
         li {
             display: block;
             margin: 0;
-            line-height: 3em;
-
+            line-height: 2em;
             &:hover,
             &.active,
             &.sidr-class-active {

@@ -3,9 +3,11 @@
 
 @import "susy/sass/susy";
 @import 'compass-breakpoint/stylesheets/breakpoint';
-@import 'typography';
 @import 'components-font-awesome/scss/font-awesome';
+
 @import 'variables';
+@import 'typography';
+@import 'formhack';
 @import 'sidr';
 
 @include establish-baseline;
@@ -19,6 +21,10 @@ body {
   background-position: center top;
   background-repeat: no-repeat;
   background-attachment: fixed;
+}
+
+td, th {
+ vertical-align: top;  
 }
 
 img {
@@ -737,7 +743,7 @@ a.blog-listing-item__tag {
 }
 
 .project-people {
-  padding: rhythm(.5);
+  padding: rhythm(1);
   border: 2px solid $devblue;
 } 
 
@@ -793,6 +799,29 @@ a.blog-listing-item__tag {
 }
 
 
+
+.api-explorer {
+  padding: rhythm(1) 0;
+  border-top: 3px solid $devblue;
+  border-bottom: 3px solid $devblue;
+  background: #ededed;
+  @include breakpoint($deskwidth) {
+    padding: rhythm(1);
+    //border: 2px solid $devblue;
+  }
+}
+
+.api-details__location {
+  
+}
+
+.api-details__short-description {
+  @extend %t-strong;
+}
+
+.api-details__short-description {
+  
+}
 
 
 
