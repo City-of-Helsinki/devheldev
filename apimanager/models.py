@@ -27,6 +27,7 @@ class APIPage(Orderable, Page):
     content_panels = Page.content_panels + [
         FieldPanel('name'),
         FieldPanel('location'),
+        FieldPanel('use_api_gateway'),
         FieldPanel('api_path'),
         FieldPanel('documentation'),
         FieldPanel('short_description', classname="full"),
