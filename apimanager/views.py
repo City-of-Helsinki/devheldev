@@ -44,7 +44,7 @@ def register(data, user, app=False):
             user=user,
             name=data['name'],
             description=data['description'],
-            location=data['app_url']
+            app_url=data['app_url']
         )
     else:
         app.name = data.get('name')
