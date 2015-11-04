@@ -37,6 +37,7 @@ img {
   display: inline-block;
   height: rhythm(2);
   width: 6em;
+  left: 0;
   top: rhythm(.5);
   @extend %t-base;
   @include replace-text(url("/static/images/heldev-logo-mini-white.svg"));
@@ -220,12 +221,10 @@ p {
 
 /*-----------------------*/
   .layout-main, .layout-header__wrapper, .layout-site-footer__wrapper {
+    position: relative;
     @include container;
     @include show-grid(overlay);
-    //padding: 0 rhythm(.25);
-    @include breakpoint($deskwidth) {
-      //padding: 0 rhythm(1);
-    }
+
   }
   
   .layout-main {
@@ -238,7 +237,7 @@ p {
 
   .layout-front-banner {
     @include span(12);
-    margin-top: rhythm(3);
+    margin-top: rhythm(4);
     margin-bottom: rhythm(2);
     @include breakpoint($deskwidth) {
       @include pre(2);
@@ -394,22 +393,22 @@ p {
 
 .front-banner__content {
   @include clearfix;
-  box-shadow: .5em .5em 0 0 darken($devblue,25%);
+  @include breakpoint($deskwidth) {
+    box-shadow: .5em .5em 0 0 darken($devblue,25%);
+  }
 }
 
 .front-banner__text {
   position: relative;
   float: right;
-
   min-height: rhythm(6);
-  padding: rhythm(1) 2em;
+  padding: rhythm(1) 2em 0 2em;
   background: rgba($devblue, 0.5);
   color: #ffffff;
   h1 {
     @include adjust-font-size-to(36px);
     margin-bottom: rhythm(.5);
   }
-
   @include breakpoint($deskwidth) {
     width: 50%;
   }
@@ -482,15 +481,18 @@ p {
 .commit-list__item {
   @include clearfix;
   margin-bottom: rhythm(.5);
-  //@extend %t-small;
   a {
     display: block;
-    width: 80%;
-    margin-left: 25%;
+    width: 85%;
+    margin-left: 20%;
     margin-bottom: rhythm(.5);
     color: #FFFFFF;
     &:hover {
       color: $devyellow;
+    }
+    @include breakpoint($deskwidth) {
+      width: 80%;
+      margin-left: 25%;
     }
   }
   border-bottom: 1px solid #FFFFFF;
@@ -498,12 +500,15 @@ p {
 
 .commit-list__avatar {
   float: left;
-  width: 20%;
+  width: 15%;
   background-color: #FFFFFF;
   margin-bottom: rhythm(.5);
   img {
     display: block;
   }
+  @include breakpoint($deskwidth) {
+    width: 20%;
+  }  
 }
 
 .commit-list__actor {
