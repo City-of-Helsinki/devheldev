@@ -20,7 +20,9 @@ class GithubOrgIndexPage(Page):
                                requests.get('https://api.github.com/orgs/' + self.github_org_name + '/events?per_page=20').json(), 60)
             events = cache.get('github')
         for index, event in enumerate(events):
-            events[index]['created_at'] = dateparse.parse_datetime(event['created_at'])
+            event['created_at'] = dateparse.parse_datetime(event['created_at'])
+            # get html repo url
+            event['repo']['url'] = event['repo']['url'].replace('https://api.github.com/repos/', 'https://github.com/')
         return events
 
     def top_events(self):
