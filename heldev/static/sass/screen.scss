@@ -32,6 +32,11 @@ img {
 	height: auto;
 }
 
+/* formatted text list styles for areas where applicable  */
+.rich-text, .page-content {
+  @extend %t-list-styles;
+}
+
 .site-logo {
   position: absolute;
   display: inline-block;
@@ -42,6 +47,9 @@ img {
   @extend %t-base;
   @include replace-text(url("/static/images/heldev-logo-mini-white.svg"));
   background-size: contain;
+    @include breakpoint($deskwidth) {
+      left: rhythm(2);
+    }  
 }
 
 .template-home-page .site-logo {
@@ -224,7 +232,9 @@ p {
     position: relative;
     @include container;
     @include show-grid(overlay);
-
+    @include breakpoint($deskwidth) {
+      padding: 0 rhythm(2);
+    }
   }
   
   .layout-main {
