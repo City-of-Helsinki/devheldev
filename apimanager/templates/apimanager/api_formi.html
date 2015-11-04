@@ -1,12 +1,16 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
 {% block content %}
-<div class="layout-page-content">
+<div class="layout-page-content--full">
     <div class="page-content">
         <div class="page-content__box">
-            <h1>Application registration</h1>
+            <h1>Application register</h1>
 
-            <form action="." method="post">
+            {% if app %}
+            <form action="{% url "apimanager:update_application" app.pk %}" method="post">
+            {% else %}
+            <form action="{% url "apimanager:add_application" %}" method="post">
+            {% endif %}
             {% csrf_token %}
             {%  if ask_save %}
                 <div>Registration will commence <button type="submit" name="save_ok" value="true"> OK </button></div>
@@ -14,13 +18,15 @@
             <table>
                 {{ form.as_table }}
             </table>
+            <input type="submit" name="save" value="Save">
+
             <h2>Existing subscriptions</h2>
             <ul>
-            {% for id, sub in subscriptions %}
-                <li><button type="submit" name="unsubscribe"  value="{{ id }}">Unsubscribe from {{ sub }}</button></li>
+            {% for sub in subscriptions %}
+                <li><button type="submit" name="unsubscribe"  value="{{ sub.pk }}">Unsubscribe from {{ sub.api.api_page.name }}</button></li>
             {% endfor %}
             </ul>
-            <input type="submit" name="save" value="Save">
+
             </form>
         </div>
     </div>

@@ -3,9 +3,11 @@
 
 @import "susy/sass/susy";
 @import 'compass-breakpoint/stylesheets/breakpoint';
-@import 'typography';
 @import 'components-font-awesome/scss/font-awesome';
+
 @import 'variables';
+@import 'typography';
+@import 'formhack';
 @import 'sidr';
 
 @include establish-baseline;
@@ -19,6 +21,10 @@ body {
   background-position: center top;
   background-repeat: no-repeat;
   background-attachment: fixed;
+}
+
+td, th {
+ vertical-align: top;  
 }
 
 img {
@@ -83,14 +89,14 @@ p {
     width: 100%; 
     min-height: rhythm(3);
     margin-bottom: rhythm(2);
-    background-image: url("/static/images/heldev-sitebg-blue.png");
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
     background-color: $devblue;
   }
 
   .template-home-page .layout-header {
+    background-image: url("/static/images/heldev-sitebg-blue.png");
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     position: relative;
   }
 
@@ -471,25 +477,48 @@ p {
   display: block;
 }
 
+/* ------------ COMMIT WATCH */
 
 .commit-list__item {
-  img {
-    @include border-radius(25px);
+  @include clearfix;
+  margin-bottom: rhythm(.5);
+  //@extend %t-small;
+  a {
+    display: block;
+    width: 80%;
+    margin-left: 25%;
+    margin-bottom: rhythm(.5);
+    color: #FFFFFF;
+    &:hover {
+      color: $devyellow;
+    }
   }
+  border-bottom: 1px solid #FFFFFF;
+}
+
+.commit-list__avatar {
+  float: left;
+  width: 20%;
+  background-color: #FFFFFF;
+  margin-bottom: rhythm(.5);
+  img {
+    display: block;
+  }
+}
+
+.commit-list__actor {
+  @extend %t-strong;
 }
 
 .commit-list__date {
-  font-weight: 700;
-  display: block;
-  color: #FFFFFF;
-  &:hover {
-    color: $devyellow;
-  }
+  @extend %t-small;
 }
 .commit-list__description {
-  display: block;
-  color: #FFFFFF;
+
 }
+
+/* ------------  */
+
 
 .list-banner__full-link {
 
@@ -673,14 +702,15 @@ a.blog-listing-item__tag {
   }
 }
 .project-list-item {
-  //padding: rhythm(.2);
+  padding: rhythm(.2);
   margin-bottom: rhythm(1);
   background: #FFFFFF;
 }
 
 .project-list-item__content {
-  padding: rhythm(.5);
-  border: 2px solid $devblue;
+  padding: rhythm(.25);
+  border: 2px solid #FFFFFF;
+  transition: border 1s;
   a {
     color: $devblue;
   }
@@ -688,7 +718,7 @@ a.blog-listing-item__tag {
     @include adjust-font-size-to(24px);
   }
   &:hover {
-    border: 2px solid $devyellow;
+    border: 2px solid $devblue;
   }
 }
 
@@ -734,6 +764,12 @@ a.blog-listing-item__tag {
     @extend .fa-heartbeat;
   }
 }
+
+.project-people {
+  padding: rhythm(1);
+  border: 2px solid $devblue;
+  margin-bottom: rhythm(1);
+} 
 
 /* ------------ ABOUT PAGE */
 
@@ -787,6 +823,29 @@ a.blog-listing-item__tag {
 }
 
 
+
+.api-explorer {
+  padding: rhythm(1) 0;
+  border-top: 3px solid $devblue;
+  border-bottom: 3px solid $devblue;
+  background: #ededed;
+  @include breakpoint($deskwidth) {
+    padding: rhythm(1);
+    //border: 2px solid $devblue;
+  }
+}
+
+.api-details__location {
+  
+}
+
+.api-details__short-description {
+  @extend %t-strong;
+}
+
+.api-details__short-description {
+  
+}
 
 
 

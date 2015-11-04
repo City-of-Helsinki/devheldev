@@ -35,8 +35,9 @@ class PersonPage(Orderable, Page):
 
     def save(self, *args, **kwargs):
         # update the avatar url
-        self.avatar_url\
-            = requests.get('https://api.github.com/users/' + self.github_user).json()['avatar_url']
+        if self.github_user:
+            self.avatar_url\
+                = requests.get('https://api.github.com/users/' + self.github_user).json()['avatar_url']
         super().save(*args, **kwargs)
         print(self.avatar_url)
 

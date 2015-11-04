@@ -18,7 +18,7 @@
             <a href="{% pageurl project %}">
               <div class="project-status project-status--{{project.status}}">{{project.get_status_display}}</div>
             {% if project.image %}
-            {% image project.image fill-1280x800 as image %}
+            {% image project.image fill-400x250 as image %}
             <img src="{{image.url}}" width="{{image.width}}" height="{{image.height}}" alt="{{project.image.title}}" />
             {% else %}
             <img src="{% static "images/front-banner-image-default.png" %}" alt="No project image" />

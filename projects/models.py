@@ -44,9 +44,16 @@ class ProjectPage(Orderable, Page):
         FieldPanel('full_description'),
         ImageChooserPanel('image'),
         InlinePanel('kpis', label="Key performance indicators"),
-        InlinePanel('roles', label="Contact us"),
+        InlinePanel('roles', label="Roles"),
         InlinePanel('links', label="Links"),
     ]
+
+
+class ProjectRoleType(Orderable, models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
 
 
 class ProjectRole(models.Model):
@@ -55,8 +62,14 @@ class ProjectRole(models.Model):
         ('tech', 'Tech lead'),
     )
     project = ParentalKey('projects.ProjectPage', related_name='roles')
-    type = models.CharField(max_length=20, choices=TYPES)
+    type = models.ForeignKey(ProjectRoleType, related_name='roles')
     person = ParentalKey('aboutus.PersonPage', related_name='roles')
+
+    def __str__(self):
+        return "%s as %s for %s" % (self.person, self.type, self.project.title)
+
+    class Meta:
+        ordering = ('type__sort_order',)
 
 
 class ProjectKPI(models.Model):

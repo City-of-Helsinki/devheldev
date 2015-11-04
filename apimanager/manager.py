@@ -8,6 +8,11 @@ from django.core.exceptions import ImproperlyConfigured
 
 import kong.client
 
+# One place to store references to Kong plugin names
+PLUGINS = {
+    'key': 'key-auth'
+}
+
 
 def _kong_api_client():
     """
@@ -77,9 +82,9 @@ def delete_api(name):
     kcli.delete(name)
 
 
-def update_api(name, **kwargs):
+def update_api(api_id, **kwargs):
     kcli = _kong_api_client()
-    result = kcli.update(name=name, **kwargs)
+    result = kcli.update(api_id, **kwargs)
     if result['id']:
         return result
     else:
@@ -87,7 +92,7 @@ def update_api(name, **kwargs):
         return False
 
 
-def enable_plugin(name, plugin, options={"enabled" : True}):
+def enable_plugin(name, plugin, options=None):
     """
     Enable given plugin for given API and set its options
 
@@ -96,6 +101,9 @@ def enable_plugin(name, plugin, options={"enabled" : True}):
     :param options: as Kong plugin requires
     :return:
     """
+    if not options:
+        options = {"enabled": True}
+
     kcli = _kong_api_client()
     plugin_conf = kcli.plugins(name)
     result = plugin_conf.create(plugin, **options)
@@ -115,12 +123,22 @@ def list_apis():
     return kcli.list()
 
 
+def check_api(name):
+    kcli = _kong_api_client()
+    apis = kcli.list()
+    matching_api = [api for api in apis['data'] if api['name'] is name]
+    if matching_api:
+        return matching_api[0]
+    else:
+        return None
+
+
 def add_consumer(username, custom_id=None):
     """
     Add a consumer to kong using either username or custom id
 
     :param username: username
-    :param cid: custom id or Kong id
+    :param custom_id: custom id or Kong id
     :return: Kong data including created consumer's id
     """
     ucli = _kong_consumer_client()
@@ -168,6 +186,20 @@ def request_api_key(consumer_id):
     else:
         print(result)
         return None
+
+
+def delete_api_key(consumer_id, key_id):
+    """
+    Delete API key
+
+    :param consumer_id: Kong consumer id
+    :param key_id: Kong Key id
+    :return: None
+    """
+
+    ucli = _kong_consumer_client()
+    kcli = ucli.key_auth(consumer_id)
+    kcli.delete(key_id)
 
 
 def delete_api_key(consumer_id, key):

@@ -1,14 +1,16 @@
 from django.db import models
-
-
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from wagtail.wagtailsearch import index
+from django.conf import settings
+from . import manager
+
 
 class APIPage(Orderable, Page):
-    name = models.CharField(max_length=300, blank=False, null=False)
-    api_path = models.CharField("Root path for API Management platform", max_length=50, default="",
+    name = models.CharField("Short and unique identifier for API", max_length=300, blank=False, null=False, unique=True)
+    use_api_gateway = models.BooleanField(default=False, help_text="Set to false for APIs not managed by the api.hel.fi API gateway.")
+    api_path = models.CharField("Root path for API Management platform", max_length=50, default="", blank=True, null=True,
                                 help_text="Actual public API root endpoint; example usage: api.hel.fi/{path}/")
     location = models.URLField(blank=False, null=False)
     documentation = models.URLField(blank=True)
@@ -25,6 +27,7 @@ class APIPage(Orderable, Page):
     content_panels = Page.content_panels + [
         FieldPanel('name'),
         FieldPanel('location'),
+        FieldPanel('use_api_gateway'),
         FieldPanel('api_path'),
         FieldPanel('documentation'),
         FieldPanel('short_description', classname="full"),
@@ -43,15 +46,37 @@ class KongAPIConfiguration(models.Model):
     api_page = models.OneToOneField(APIPage)
     request_host = models.CharField('Host and domain name', max_length=150,
                                     unique=True,
-                                    help_text="Kong requires that API has a unique host name, f.x. name.api.hel.fi -> api.hel.fi/name")
+                                    help_text="Kong requires that API has a unique host name,"
+                                              " f.x. name.api.hel.fi -> api.hel.fi/name")
     kong_api_id = models.CharField(max_length=300, editable=False, null=True)
 
     def __str__(self):
         return u'Configuration for ' + self.api_page.name
 
+    def save_to_kong(self, enable_key_auth=False):
+        """
+        Create or update API configuration in Kong
 
-from django.conf import settings
-from . import manager
+        :param enable_key_auth: to enable key auth for API
+        :type enable_key_auth: str
+        :return: None
+        :rtype: None
+        """
+        existing = manager.check_api(self.api_page.name)
+        if existing:
+            res = manager.update_api(api_id=self.kong_api_id,
+                                     upstream_url=self.api_page.api_path,
+                                     request_host=self.request_host)
+        else:
+            res = manager.create_api(name=self.api_page.name,
+                                     upstream_url=self.api_page.api_path,
+                                     request_host=self.request_host)
+            self.kong_api_id = res['id']
+            self.save()
+
+        if enable_key_auth:
+            manager.enable_plugin(self.api_page.name, manager.PLUGINS['key'])
+
 
 class Application(models.Model):
     """
@@ -99,3 +124,23 @@ class APISubscription(models.Model):
             self.key = res['key']
             self.key_kong_id = res['id']
             self.save()
+
+    def delete_consumer(self):
+        """
+        Delete subscription's Consumer from Kong
+        :return: None
+        """
+        manager.delete_consumer(cid=self.consumer_kong_id)
+        self.consumer_kong_id = None
+        self.save()
+
+    def delete_api_key(self):
+        """
+        Delete API key from Kong
+        :return: None
+        """
+        manager.delete_api_key(self.consumer_kong_id, self.key_kong_id)
+        self.key = False
+        self.key_kong_id = False
+        self.save()
+
