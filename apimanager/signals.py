@@ -11,7 +11,9 @@ def handle_subscription_save(sender, **kwargs):
     if sub:
         if not sub.consumer_kong_id:
             sub.add_consumer()
-        sub.get_api_key()
+        if not sub.key:
+            sub.get_api_key()
+        print("created consumer and got api key")
 
 
 @receiver(post_delete, sender=APISubscription)
@@ -20,5 +22,6 @@ def handle_subscription_delete(sender, **kwargs):
     if sub:
         if sub.consumer_kong_id:
             sub.delete_consumer()
-            sub.delete_api_key()
-
+            if sub.key:
+                sub.delete_api_key()
+        print("deleted consumer and got api key")
