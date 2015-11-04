@@ -13,7 +13,7 @@ class APIPage(Orderable, Page):
     use_api_gateway = models.BooleanField(default=False, help_text="Set to false for APIs not managed by the api.hel.fi API gateway.")
     api_path = models.CharField("Root path for API Management platform", max_length=50, default="", blank=True, null=True,
                                 help_text="Actual public API root endpoint; example usage: api.hel.fi/{path}/")
-    location = models.URLField(blank=False, null=False)
+    api_url = models.URLField(blank=False, null=False)
     documentation = models.URLField(blank=True)
     short_description = models.TextField(blank=False)
     full_description = RichTextField(blank=True)
@@ -27,14 +27,14 @@ class APIPage(Orderable, Page):
 
     search_fields = Page.search_fields + (
         index.SearchField('name'),
-        index.SearchField('location'),
+        index.SearchField('api_url'),
         index.SearchField('short_description'),
         index.SearchField('full_description'),
     )
 
     content_panels = Page.content_panels + [
         FieldPanel('name'),
-        FieldPanel('location'),
+        FieldPanel('api_url'),
         FieldPanel('use_api_gateway'),
         FieldPanel('api_path'),
         FieldPanel('documentation'),
