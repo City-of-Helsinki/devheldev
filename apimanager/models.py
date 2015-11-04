@@ -123,3 +123,23 @@ class APISubscription(models.Model):
             self.key = res['key']
             self.key_kong_id = res['id']
             self.save()
+
+    def delete_consumer(self):
+        """
+        Delete subscription's Consumer from Kong
+        :return: None
+        """
+        manager.delete_consumer(cid=self.consumer_kong_id)
+        self.consumer_kong_id = None
+        self.save()
+
+    def delete_api_key(self):
+        """
+        Delete API key from Kong
+        :return: None
+        """
+        manager.delete_api_key(self.consumer_kong_id, self.key_kong_id)
+        self.key = False
+        self.key_kong_id = False
+        self.save()
+
