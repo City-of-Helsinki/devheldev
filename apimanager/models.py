@@ -1,33 +1,44 @@
 from django.db import models
+from django.conf import settings
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
+from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsearch import index
-from django.conf import settings
 from . import manager
 
 
 class APIPage(Orderable, Page):
     name = models.CharField("Short and unique identifier for API", max_length=300, blank=False, null=False, unique=True)
-    api_path = models.CharField("Root path for API Management platform", max_length=50, default="",
+    use_api_gateway = models.BooleanField(default=False, help_text="Set to false for APIs not managed by the api.hel.fi API gateway.")
+    api_path = models.CharField("Root path for API Management platform", max_length=50, default="", blank=True, null=True,
                                 help_text="Actual public API root endpoint; example usage: api.hel.fi/{path}/")
-    location = models.URLField(blank=False, null=False)
+    api_url = models.URLField(blank=False, null=False)
     documentation = models.URLField(blank=True)
     short_description = models.TextField(blank=False)
     full_description = RichTextField(blank=True)
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
 
     search_fields = Page.search_fields + (
         index.SearchField('name'),
-        index.SearchField('location'),
+        index.SearchField('api_url'),
         index.SearchField('short_description'),
         index.SearchField('full_description'),
     )
 
     content_panels = Page.content_panels + [
         FieldPanel('name'),
-        FieldPanel('location'),
+        FieldPanel('api_url'),
+        FieldPanel('use_api_gateway'),
         FieldPanel('api_path'),
         FieldPanel('documentation'),
+        ImageChooserPanel('image'),
         FieldPanel('short_description', classname="full"),
         FieldPanel('full_description', classname="full")
     ]
@@ -85,7 +96,7 @@ class Application(models.Model):
     subscriptions = models.ManyToManyField(KongAPIConfiguration, through='APISubscription')
     name = models.CharField(max_length=300)
     description = models.TextField(blank=True, null=True)
-    location = models.URLField(blank=True, null=True)
+    app_url = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return u'Application of ' + self.user.username
@@ -122,3 +133,23 @@ class APISubscription(models.Model):
             self.key = res['key']
             self.key_kong_id = res['id']
             self.save()
+
+    def delete_consumer(self):
+        """
+        Delete subscription's Consumer from Kong
+        :return: None
+        """
+        manager.delete_consumer(cid=self.consumer_kong_id)
+        self.consumer_kong_id = None
+        self.save()
+
+    def delete_api_key(self):
+        """
+        Delete API key from Kong
+        :return: None
+        """
+        manager.delete_api_key(self.consumer_kong_id, self.key_kong_id)
+        self.key = False
+        self.key_kong_id = False
+        self.save()
+

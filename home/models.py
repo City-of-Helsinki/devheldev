@@ -12,6 +12,7 @@ from projects.models import ProjectIndexPage
 from blog.models import BlogIndexPage
 from github.models import GithubOrgIndexPage
 from aboutus.models import AboutUsIndexPage
+from events.models import EventsIndexPage
 
 
 class HomePage(Page):
@@ -33,6 +34,10 @@ class HomePage(Page):
     @cached_property
     def commit_index(self):
         return GithubOrgIndexPage.objects.live().first()
+
+    @cached_property
+    def event_index(self):
+        return EventsIndexPage.objects.live().first()
 
     @cached_property
     def about_index(self):

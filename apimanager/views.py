@@ -7,17 +7,14 @@ import django.forms as forms
 from .models import APIPage, Application, APISubscription
 
 
-def get_api_choices(user):
-    all_apis = set([(api.pk, api.name) for api in APIPage.objects.all()])
-    subs = set([(api.pk, api.name) for api in APISubscription.objects.filter(user=user)])
-
-
 class ApplicationForm(forms.Form):
 
     def __init__(self, user, *args, **kwargs):
         super(ApplicationForm, self).__init__(*args, **kwargs)
         self.fields['subscribe'] = forms.ModelMultipleChoiceField(
-            APIPage.objects.exclude(kongapiconfiguration__apisubscription__application__user=user),
+            APIPage.objects.exclude(
+                    kongapiconfiguration__apisubscription__application__user=user
+                ).exclude(use_api_gateway=False).exclude(kongapiconfiguration=None),
             label="Subscribe to an API",
             widget=forms.CheckboxSelectMultiple,
             required=False)
@@ -25,7 +22,7 @@ class ApplicationForm(forms.Form):
     name = forms.CharField(label='name', required=True)
     description = forms.CharField(label='description', widget=forms.Textarea,
                                   required=True)
-    location = forms.URLField(label='homepage location', required=False)
+    app_url = forms.URLField(label='homepage url', required=False)
 
 
 def register(data, user, app=False):
@@ -47,16 +44,16 @@ def register(data, user, app=False):
             user=user,
             name=data['name'],
             description=data['description'],
-            location=data['location']
+            location=data['app_url']
         )
     else:
         app.name = data.get('name')
         app.description = data['description']
-        app.location = data['location']
+        app.app_url = data['app_url']
         app.save()
 
-    for sub in data['subscribe']:
-        api = APIPage.objects.get(pk=sub)
+    for api in data['subscribe']:
+        # api = APIPage.objects.get(pk=sub)
         apisub = APISubscription(
             api=api.kongapiconfiguration,
             application=app
@@ -125,7 +122,7 @@ def update_application(request, app_id):
         app_form = ApplicationForm(request.user, {
             "name": app.name,
             "description": app.description,
-            "location": app.location})
+            "app_url": app.app_url})
 
     subs = APISubscription.objects.filter(api__apisubscription__application__user=request.user)
 

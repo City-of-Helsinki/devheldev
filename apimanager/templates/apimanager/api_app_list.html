@@ -5,6 +5,10 @@
   <div class="page-content">
     <div class="page-content__box">
             <h1>Applications</h1>
+            <p>
+                <a href="{% url "apimanager:add_application" %}">Register an application!</a>
+            </p>
+        <h2>Your applications</h2>
             <ul>
                 {%  for app in apps %}
                     <a href="{% url "apimanager:update_application" app.pk %}">{{ app.name }}</a>
