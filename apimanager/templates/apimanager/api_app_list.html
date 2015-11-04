@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
 {% block content %}
-<div class="layout-page-content">
-    <div class="page-content">
-        <div class="page-content__box">
+<div class="layout-page-content--full">
+  <div class="page-content">
+    <div class="page-content__box">
             <h1>Applications</h1>
             <p>
                 <a href="{% url "apimanager:add_application" %}">Register an application!</a>

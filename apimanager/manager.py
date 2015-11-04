@@ -56,7 +56,7 @@ def create_api(name, upstream_url, request_host):
     Create an API gateway
 
     :param name:short name for the API
-    :param upstream_url:location of the API as an full URL
+    :param upstream_url:app_url of the API as an full URL
     :param request_host:host and domain API server is recognized by Kong (HTTP Host)
     :return: Kong data
     """
