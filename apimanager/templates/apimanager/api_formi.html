@@ -6,7 +6,11 @@
         <div class="page-content__box">
             <h1>Application registration</h1>
 
-            <form action="." method="post">
+            {% if app %}
+            <form action="{% url "apimanager:update_application" app.pk %}" method="post">
+            {% else %}
+            <form action="{% url "apimanager:add_application" %}" method="post">
+            {% endif %}
             {% csrf_token %}
             {%  if ask_save %}
                 <div>Registration will commence <button type="submit" name="save_ok" value="true"> OK </button></div>

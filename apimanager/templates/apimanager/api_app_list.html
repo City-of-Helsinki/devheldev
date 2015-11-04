@@ -7,7 +7,7 @@
             <h1>Applications</h1>
             <ul>
                 {%  for app in apps %}
-                    {{ app.name }}
+                    <a href="{% url "apimanager:update_application" app.pk %}">{{ app.name }}</a>
                     <h2>Subscriptions</h2>
                     <ul>
                     {% for sub in app.subscriptions.all %}
