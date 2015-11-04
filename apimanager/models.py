@@ -1,9 +1,10 @@
 from django.db import models
+from django.conf import settings
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
+from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsearch import index
-from django.conf import settings
 from . import manager
 
 
@@ -16,6 +17,13 @@ class APIPage(Orderable, Page):
     documentation = models.URLField(blank=True)
     short_description = models.TextField(blank=False)
     full_description = RichTextField(blank=True)
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
 
     search_fields = Page.search_fields + (
         index.SearchField('name'),
@@ -30,6 +38,7 @@ class APIPage(Orderable, Page):
         FieldPanel('use_api_gateway'),
         FieldPanel('api_path'),
         FieldPanel('documentation'),
+        ImageChooserPanel('image'),
         FieldPanel('short_description', classname="full"),
         FieldPanel('full_description', classname="full")
     ]
