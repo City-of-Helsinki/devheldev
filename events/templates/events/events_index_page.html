@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+{% load humanize %}
+
+{% block content %}
+{% with events=self.events %}
+<div class="layout-page-content">
+  <div class="page-content">
+    <div class="page-content__box">
+      <h5 class="page-section-header">Events</h5>
+      {% if events %}
+      <div class="event-list">
+      {% for event in events %}
+        <div class="event-list__item">
+            <h6>{{event.details.name}}</h6>
+            <img src={{event.details.picture.data.url}} alt="{{event.details.name}}" height=50 width=50>
+            <a href={{event.link}}>{{ event.details.start_time | naturaltime }} @ {{ event.details.place.name }}</a>
+            <p>{{event.details.description}}</p>
+        </div>
+      {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endwith %}
+{% endblock %}
