@@ -1,6 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
-{% load wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 {% block content %}
 {% with project=self %}
@@ -8,17 +7,19 @@
 <div class="layout-page-content">
   <div class="page-content">
     <div class="page-content__box">
-      <h5 class="page-section-header">{{ project.title }}</h5>
+      <a href="/projects"><h5 class="page-section-header">Projects</h5></a>
+      <h1>{{ project.title }}</h1>
         {% image project.image width-500 %}
-        <div>Project status: {{ project.get_status_display }}</div>
+        <div class="project-status project-status--{{project.status}}">Project status: {{ project.get_status_display }}</div>
         {% if project.roles.all %}
+      
             <div class="project-people">
-            <h6>People</h6>
-            <ul>
-            {% for role in project.roles.all %}
-                <li>{{ role.type }}: <a href={{role.person.contact}}>{{ role.person.name }}</a></li>
-            {% endfor %}
-            </ul>
+              <h4>People</h4>
+              <ul>
+              {% for role in project.roles.all %}
+                  <li>{{ role.type }}: <a href={{role.person.contact}}>{{ role.person.name }}</a></li>
+              {% endfor %}
+              </ul>
             </div>
         {% endif %}
         {% if project.kpis.all %}
@@ -36,7 +37,39 @@
     </div>
   </div>
 </div>
-
-
 {% endwith %}
+
+<aside class="layout-side-content">
+              <div class="list-banner list-banner--events">
+
+                <h3>Projects</h3>
+                <ul>
+
+                  <li class="project-list__item">
+                    <span class="event-list__date">18.9.2015</span>
+                    <span class="event-list__header">{% lorem 2 w random %}</span>
+                    <span class="event-list__description">{% lorem 5 w random %}</span>
+                    <span class="event-list__link"><a href="#">Read more >></a></span>
+                  </li>
+
+                </ul>
+                <div class="list-banner__full-link">
+                  <a href="/projects">Full list of projects >></a>
+                </div>
+
+              </div>
+              <div class="some-banner">
+                <a href="https://www.facebook.com/groups/heldev">
+                  <i class="fa fa-facebook-official fa-2x"></i>
+                  We are in Facebook
+                </a>
+              </div>
+              <div class="some-banner">
+                <a href="https://github.com/City-of-Helsinki">
+                  <i class="fa fa-github fa-2x"></i>
+                  Find us in GitHub
+                </a>
+              </div>
+            </aside>
+
 {% endblock %}
