@@ -56,9 +56,11 @@ img {
 }
 
 .template-home-page .site-logo {
+    left: rhythm(.5);
+    top: rhythm(.5);
     @include breakpoint($tabletwidth) {
-      height: rhythm(6);
-      width: rhythm(6);
+      height: rhythm(7);
+      width: rhythm(7);
       @include replace-text(url("/static/images/heldev-logo-white.svg"));
     }  
     @include breakpoint($deskwidth) {
@@ -104,7 +106,6 @@ p {
     top: 0;
     width: 100%; 
     min-height: rhythm(3);
-    margin-bottom: rhythm(2);
     background-color: $devblue;
   }
 
@@ -114,6 +115,10 @@ p {
     background-repeat: no-repeat;
     background-attachment: fixed;
     position: relative;
+    margin-bottom: rhythm(1);
+    @include breakpoint($tabletwidth) {
+      margin-bottom: rhythm(2);
+    }
   }
 
   #toggle {
@@ -230,19 +235,26 @@ p {
   }
   
   .layout-main {
-    margin-top:  rhythm(5);
+    margin-top:  rhythm(4);
+    @include breakpoint($tabletwidth) {
+      margin-top:  rhythm(5);
+    }
   }
 
   .template-home-page .layout-main {
-    margin-top:  rhythm(2);
+    margin-top:  rhythm(1);
+    @include breakpoint($tabletwidth) {
+      margin-top:  rhythm(2);
+    }
   }
 
   .layout-front-banner {
     @include span(12);
     margin-top: rhythm(4);
-    margin-bottom: rhythm(2);
+    margin-bottom: rhythm(1);
     @include breakpoint($tabletwidth) {
       margin-top: rhythm(1);
+      margin-bottom: rhythm(2);
       @include pre(1);
       @include span(11);
     }
@@ -272,14 +284,14 @@ p {
 
   .layout-page-content {
     @include span(12 nest);
-    @include breakpoint($tabletwidth) {
+    @include breakpoint($deskwidth) {
       @include span(8 nest);
     }
   }
 
   .layout-side-content {
     @include span(12);
-    @include breakpoint($tabletwidth) {
+    @include breakpoint($deskwidth) {
       @include span(4);
     }
   }
@@ -409,7 +421,8 @@ p {
   position: relative;
   float: right;
   min-height: rhythm(6);
-  padding: rhythm(1) 2em 0 2em;
+  margin: rhythm(.5);
+  padding: rhythm(.5) rhythm(.5) 0 rhythm(1);
   background: rgba($devblue, 0.5);
   color: #ffffff;
   h1 {
@@ -417,6 +430,9 @@ p {
     margin-bottom: rhythm(.5);
   }
   @include breakpoint($tabletwidth) {
+    width: 60%;
+  }
+  @include breakpoint($deskwidth) {
     width: 50%;
   }
 }
@@ -440,6 +456,13 @@ p {
   }
   ul {
     margin-bottom: rhythm(1);
+  }
+}
+
+.list-banner {
+  ul {
+    height: rhythm(10);
+    overflow: auto;
   }
 }
 
@@ -530,6 +553,11 @@ p {
 }
 
 .api-list__item {
+  padding: rhythm(.1) 0;
+  border-bottom: 1px solid #FFFFFF;
+  @extend %t-medium;
+  @extend %t-ultrastrong;
+  font-style: italic;
 }
 .api-list__icon {
   margin-right: .5em;
@@ -542,11 +570,17 @@ p {
 }
 
 .some-banner {
-  padding: rhythm(1);
+  padding: rhythm(.5) rhythm(1);
   margin-bottom: rhythm(1);
   background: $devblue;
-  color: #ffffff;
-  font-weight: 300;
+  @extend %t-strong;
+  line-height: 2em;
+  a:hover {
+    color: #FFFFFF;
+  }
+  i {
+    margin-right: 12px;
+  }
 }
 
 
