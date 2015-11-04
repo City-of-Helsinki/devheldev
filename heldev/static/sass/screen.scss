@@ -56,9 +56,11 @@ img {
 }
 
 .template-home-page .site-logo {
+    left: rhythm(.5);
+    top: rhythm(.5);
     @include breakpoint($tabletwidth) {
-      height: rhythm(6);
-      width: rhythm(6);
+      height: rhythm(7);
+      width: rhythm(7);
       @include replace-text(url("/static/images/heldev-logo-white.svg"));
     }  
     @include breakpoint($deskwidth) {
@@ -104,7 +106,6 @@ p {
     top: 0;
     width: 100%; 
     min-height: rhythm(3);
-    margin-bottom: rhythm(2);
     background-color: $devblue;
   }
 
@@ -114,6 +115,10 @@ p {
     background-repeat: no-repeat;
     background-attachment: fixed;
     position: relative;
+    margin-bottom: rhythm(1);
+    @include breakpoint($tabletwidth) {
+      margin-bottom: rhythm(2);
+    }
   }
 
   #toggle {
@@ -230,19 +235,26 @@ p {
   }
   
   .layout-main {
-    margin-top:  rhythm(5);
+    margin-top:  rhythm(4);
+    @include breakpoint($tabletwidth) {
+      margin-top:  rhythm(5);
+    }
   }
 
   .template-home-page .layout-main {
-    margin-top:  rhythm(2);
+    margin-top:  rhythm(1);
+    @include breakpoint($tabletwidth) {
+      margin-top:  rhythm(2);
+    }
   }
 
   .layout-front-banner {
     @include span(12);
     margin-top: rhythm(4);
-    margin-bottom: rhythm(2);
+    margin-bottom: rhythm(1);
     @include breakpoint($tabletwidth) {
       margin-top: rhythm(1);
+      margin-bottom: rhythm(2);
       @include pre(1);
       @include span(11);
     }
@@ -272,14 +284,14 @@ p {
 
   .layout-page-content {
     @include span(12 nest);
-    @include breakpoint($tabletwidth) {
+    @include breakpoint($deskwidth) {
       @include span(8 nest);
     }
   }
 
   .layout-side-content {
     @include span(12);
-    @include breakpoint($tabletwidth) {
+    @include breakpoint($deskwidth) {
       @include span(4);
     }
   }
@@ -409,7 +421,8 @@ p {
   position: relative;
   float: right;
   min-height: rhythm(6);
-  padding: rhythm(1) 2em 0 2em;
+  margin: rhythm(.5);
+  padding: rhythm(.5) rhythm(.5) 0 rhythm(1);
   background: rgba($devblue, 0.5);
   color: #ffffff;
   h1 {
@@ -417,6 +430,9 @@ p {
     margin-bottom: rhythm(.5);
   }
   @include breakpoint($tabletwidth) {
+    width: 60%;
+  }
+  @include breakpoint($deskwidth) {
     width: 50%;
   }
 }
@@ -440,6 +456,13 @@ p {
   }
   ul {
     margin-bottom: rhythm(1);
+  }
+}
+
+.list-banner {
+  ul {
+    height: rhythm(10);
+    overflow: auto;
   }
 }
 
@@ -530,6 +553,11 @@ p {
 }
 
 .api-list__item {
+  padding: rhythm(.1) 0;
+  border-bottom: 1px solid #FFFFFF;
+  @extend %t-medium;
+  @extend %t-ultrastrong;
+  font-style: italic;
 }
 .api-list__icon {
   margin-right: .5em;
@@ -542,11 +570,17 @@ p {
 }
 
 .some-banner {
-  padding: rhythm(1);
+  padding: rhythm(.5) rhythm(1);
   margin-bottom: rhythm(1);
   background: $devblue;
-  color: #ffffff;
-  font-weight: 300;
+  @extend %t-strong;
+  line-height: 2em;
+  a:hover {
+    color: #FFFFFF;
+  }
+  i {
+    margin-right: 12px;
+  }
 }
 
 
@@ -687,7 +721,7 @@ a.blog-listing-item__tag {
 /* ------------ PROJECTS LISTING */
 
 
-.project-list {  
+.project-index {  
 }
 
 .layout-page-header--full {
@@ -700,27 +734,45 @@ a.blog-listing-item__tag {
   background: #FFFFFF;
 }
 
-.layout-project-list-item {
+.layout-project-index-item {
   @include span(12);
   @include breakpoint($tabletwidth) {
+    @include gallery(6 of 12);
+  }
+  @include breakpoint($deskwidth) {
     @include gallery(4 of 12);
   }
 }
-.project-list-item {
+
+.project-index-item {
   padding: rhythm(.2);
   margin-bottom: rhythm(1);
   background: #FFFFFF;
 }
 
-.project-list-item__content {
+.project-index-image {
+  text-align: center;
+  background: #333;
+  overflow: hidden;
+  margin-bottom: rhythm(.5);
+  img {
+    display:inline-block; 
+    margin:0;
+    vertical-align:top;
+    max-height: 250px;
+    width: auto;
+  }
+}
+
+.project-index-item__content {
   padding: rhythm(.25);
   border: 2px solid #FFFFFF;
   transition: border 1s;
   a {
     color: $devblue;
   }
-  h4 {
-    @include adjust-font-size-to(24px);
+  h2 {
+    margin-bottom: 12px;
   }
   &:hover {
     border: 2px solid $devblue;
@@ -770,11 +822,109 @@ a.blog-listing-item__tag {
   }
 }
 
-.project-people {
-  padding: rhythm(1);
-  border: 2px solid $devblue;
+.project-additional-info__content {
+  //border: 2px solid $devblue;
+  background: $devblue;
+  color: #FFFFFF;
+  padding: rhythm(.5);
+  .project-status {
+    margin-bottom: rhythm(1);
+  }
+  
+  h4 {
+    border-top: 2px solid #FFFFFF;
+    font-family: $code-font-family;
+    text-transform: uppercase;
+    font-style: normal;
+    @extend %t-strong;
+  } 
+}
+
+
+.project-people, .project-kpis, .project-links {
   margin-bottom: rhythm(1);
+  font-family: $code-font-family;
+  ul {
+    margin: 0 0 0 1.5em;
+    li {
+      list-style: none;
+      margin-bottom: .5em;
+      &:before {    
+        font-family: 'FontAwesome';
+        margin:0 .7em 0 -1.5em;
+      }
+      span {
+        white-space: nowrap;
+      }
+      a {
+        color: #FFFFFF;
+        &:hover {
+          color: $devyellow;
+        }
+      }
+    }
+  }
+  .kpis-name, .links-name, .people-role {
+    @extend %t-strong;
+  }
 } 
+
+.project-people ul li {
+  &:before {
+    @extend .fa-user;
+  }
+}
+
+.project-kpis ul li {
+  &:before {
+    @extend .fa-line-chart;
+  }
+}
+
+.project-links ul li {
+  &:before {
+    @extend .fa-external-link;
+  }
+}
+
+.kpis-description, .links-description {
+  
+}
+
+.project-main-image {
+  text-align: center;
+  background: #333;
+  margin-bottom: rhythm(2);
+  img {
+    display: inline-block;
+    margin: 0;
+    vertical-align: top;
+  }
+}
+
+
+
+.layout-project-content {
+  @include span(12 nest);
+}
+
+.layout-project-header {
+  @include span(12);
+}
+
+.layout-project-main-info {
+  @include span(12);
+  @include breakpoint($deskwidth) {
+    @include span(8);
+  }
+}
+
+.layout-project-additional-info {
+  @include span(12);
+  @include breakpoint($deskwidth) {
+    @include span(4);
+  }
+}
 
 /* ------------ ABOUT PAGE */
 
