@@ -40,24 +40,31 @@ img {
 .site-logo {
   position: absolute;
   display: inline-block;
-  height: rhythm(2);
+  height: rhythm(2.5);
   width: 6em;
-  left: 0;
-  top: rhythm(.5);
+  left: rhythm(.25);
+  top: rhythm(.25);
   @extend %t-base;
   @include replace-text(url("/static/images/heldev-logo-mini-white.svg"));
   background-size: contain;
-    @include breakpoint($deskwidth) {
-      left: rhythm(2);
-    }  
+  @include breakpoint($tabletwidth) {
+    left: rhythm(.5);
+  }  
+  @include breakpoint($deskwidth) {
+    left: rhythm(2);
+  }  
 }
 
 .template-home-page .site-logo {
-    @include breakpoint($deskwidth) {
-      position: absolute;
-      height: 12em;
-      width: 12em;
+    @include breakpoint($tabletwidth) {
+      height: rhythm(6);
+      width: rhythm(6);
       @include replace-text(url("/static/images/heldev-logo-white.svg"));
+    }  
+    @include breakpoint($deskwidth) {
+      left: rhythm(3);
+      height: rhythm(10);
+      width: rhythm(10);
     }  
 }
 
@@ -113,10 +120,12 @@ p {
     $bar-width: 2.5em;
     $bar-height: .4em;
     $bar-spacing: .75em;
+    background: $devblue;
+    padding: 6px;
     z-index: 10001;
     position: fixed;
-    top: 1.25em;
-    right: 1.25em;
+    top: rhythm(.5);
+    right: rhythm(.5);
     width: $bar-width;
     height: $bar-height + $bar-spacing*2;
     cursor: pointer;
@@ -169,41 +178,21 @@ p {
           transform: rotate(-45deg);
           transition: bottom 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1);;
       }
-    @include breakpoint($deskwidth) {
+    @include breakpoint($tabletwidth) {
       display: none;
     }
   }
 
-
-  .menu-btn { 
-    display: block;
-    position: fixed;
-    z-index: 10001;
-    top: .25em;
-    right: .25em;
-    padding: .25em; 
-    font-size: 3em;
-    color: #fff; 
-    float: right; 
-    cursor: pointer;
-    @include breakpoint($deskwidth) {
-      display: none;
-    }
-  }
-
-  .menu-btn:hover {  
-    color: $devyellow; 
-  }
 
   #sidr-main {
-    @include breakpoint($deskwidth) {
+    @include breakpoint($tabletwidth) {
       display: none;
     }
   }
 
   .main-navigation {
     display: none;
-    @include breakpoint($deskwidth) {
+    @include breakpoint($tabletwidth) {
       display: block;
       position: relative;
       padding: 0;
@@ -232,6 +221,9 @@ p {
     position: relative;
     @include container;
     @include show-grid(overlay);
+    @include breakpoint($tabletwidth) {
+      padding: 0 rhythm(.5);
+    }
     @include breakpoint($deskwidth) {
       padding: 0 rhythm(2);
     }
@@ -249,9 +241,14 @@ p {
     @include span(12);
     margin-top: rhythm(4);
     margin-bottom: rhythm(2);
+    @include breakpoint($tabletwidth) {
+      margin-top: rhythm(1);
+      @include pre(1);
+      @include span(11);
+    }
     @include breakpoint($deskwidth) {
       @include pre(2);
-      @include span(10);
+      @include span(9);
       margin-top: rhythm(2);
       margin-bottom: rhythm(3);
     }
@@ -264,7 +261,7 @@ p {
   .layout-promoted__first, .layout-promoted__second {
     @include span(12);
     //margin-bottom: rhythm(1);
-    @include breakpoint($deskwidth) {
+    @include breakpoint($tabletwidth) {
       @include span(6);
     }
   }
@@ -275,14 +272,14 @@ p {
 
   .layout-page-content {
     @include span(12 nest);
-    @include breakpoint($deskwidth) {
+    @include breakpoint($tabletwidth) {
       @include span(8 nest);
     }
   }
 
   .layout-side-content {
     @include span(12);
-    @include breakpoint($deskwidth) {
+    @include breakpoint($tabletwidth) {
       @include span(4);
     }
   }
@@ -342,7 +339,7 @@ p {
 
 .site-footer-navigation {
     text-align: center;
-    @include breakpoint($deskwidth) {
+    @include breakpoint($tabletwidth) {
       text-align: left;
       @include pre(3);
       @include span(3);
@@ -351,7 +348,7 @@ p {
 
 .site-footer-links {
     text-align: center;
-    @include breakpoint($deskwidth) {
+    @include breakpoint($tabletwidth) {
       text-align: left;
       @include span(3);
     }
@@ -363,7 +360,7 @@ p {
 }
 
 .site-footer-partners {
-    @include breakpoint($deskwidth) {
+    @include breakpoint($tabletwidth) {
       @include span(3);
     }
   .partner-helsinki {
@@ -403,7 +400,7 @@ p {
 
 .front-banner__content {
   @include clearfix;
-  @include breakpoint($deskwidth) {
+  @include breakpoint($tabletwidth) {
     box-shadow: .5em .5em 0 0 darken($devblue,25%);
   }
 }
@@ -419,7 +416,7 @@ p {
     @include adjust-font-size-to(36px);
     margin-bottom: rhythm(.5);
   }
-  @include breakpoint($deskwidth) {
+  @include breakpoint($tabletwidth) {
     width: 50%;
   }
 }
@@ -494,15 +491,11 @@ p {
   a {
     display: block;
     width: 85%;
-    margin-left: 20%;
+    margin-left: 18%;
     margin-bottom: rhythm(.5);
     color: #FFFFFF;
     &:hover {
       color: $devyellow;
-    }
-    @include breakpoint($deskwidth) {
-      width: 80%;
-      margin-left: 25%;
     }
   }
   border-bottom: 1px solid #FFFFFF;
@@ -516,9 +509,6 @@ p {
   img {
     display: block;
   }
-  @include breakpoint($deskwidth) {
-    width: 20%;
-  }  
 }
 
 .commit-list__actor {
@@ -625,7 +615,7 @@ p {
   .listing-date__day::after, .listing-date__month::after {
     content: " .";
   }
-  @include breakpoint($deskwidth) {
+  @include breakpoint($tabletwidth) {
     @include adjust-font-size-to(28px);
     @include span(2);
     text-align: center;
@@ -640,7 +630,7 @@ p {
   .blog-listing-date-box {
     background: $devblue;
     padding: rhythm(.5);
-    @include breakpoint($deskwidth) {
+    @include breakpoint($tabletwidth) {
       padding: rhythm(1) 0;
     }
   }
@@ -653,7 +643,7 @@ p {
 
 .blog-listing-item__content {
   @include span(12);
-  @include breakpoint($deskwidth) {
+  @include breakpoint($tabletwidth) {
     @include span(10);
   }
   h2 {
@@ -712,7 +702,7 @@ a.blog-listing-item__tag {
 
 .layout-project-list-item {
   @include span(12);
-  @include breakpoint($deskwidth) {
+  @include breakpoint($tabletwidth) {
     @include gallery(4 of 12);
   }
 }
@@ -814,7 +804,7 @@ a.blog-listing-item__tag {
 
 .people-list__person-avatar {
   @include span(6);
-  @include breakpoint($deskwidth) {
+  @include breakpoint($tabletwidth) {
     @include span(3);
   }
   img {
@@ -824,14 +814,14 @@ a.blog-listing-item__tag {
 
 .people-list__person-details {
   @include span(6);
-    @include breakpoint($deskwidth) {
+    @include breakpoint($tabletwidth) {
   @include span(4);
   }
 }
 
 .people-list__person-projects {
   @include span(12);
-  @include breakpoint($deskwidth) {
+  @include breakpoint($tabletwidth) {
     @include span(5);
   }
 }
@@ -843,7 +833,7 @@ a.blog-listing-item__tag {
   border-top: 3px solid $devblue;
   border-bottom: 3px solid $devblue;
   background: #ededed;
-  @include breakpoint($deskwidth) {
+  @include breakpoint($tabletwidth) {
     padding: rhythm(1);
     //border: 2px solid $devblue;
   }
