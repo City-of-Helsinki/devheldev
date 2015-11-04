@@ -477,25 +477,48 @@ p {
   display: block;
 }
 
+/* ------------ COMMIT WATCH */
 
 .commit-list__item {
-  img {
-    @include border-radius(25px);
+  @include clearfix;
+  margin-bottom: rhythm(.5);
+  //@extend %t-small;
+  a {
+    display: block;
+    width: 80%;
+    margin-left: 25%;
+    margin-bottom: rhythm(.5);
+    color: #FFFFFF;
+    &:hover {
+      color: $devyellow;
+    }
   }
+  border-bottom: 1px solid #FFFFFF;
+}
+
+.commit-list__avatar {
+  float: left;
+  width: 20%;
+  background-color: #FFFFFF;
+  margin-bottom: rhythm(.5);
+  img {
+    display: block;
+  }
+}
+
+.commit-list__actor {
+  @extend %t-strong;
 }
 
 .commit-list__date {
-  font-weight: 700;
-  display: block;
-  color: #FFFFFF;
-  &:hover {
-    color: $devyellow;
-  }
+  @extend %t-small;
 }
 .commit-list__description {
-  display: block;
-  color: #FFFFFF;
+
 }
+
+/* ------------  */
+
 
 .list-banner__full-link {
 
