@@ -33,6 +33,17 @@
             </ul>
             </div>
         {% endif %}
+        {% if project.links.all %}
+            <div class="project-links">
+            <h6>Links</h6>
+            <ul>
+            {% for link in project.links.all %}
+                <li><p><a href={{ link.url }}>{{ link.type }}</a></p>
+                <p>{{ link.description }}</p></li>
+            {% endfor %}
+            </ul>
+            </div>
+        {% endif %}
         <div>{{ project.full_description|richtext }}</div>
     </div>
   </div>
