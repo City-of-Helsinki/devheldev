@@ -9,7 +9,8 @@ from . import manager
 
 class APIPage(Orderable, Page):
     name = models.CharField("Short and unique identifier for API", max_length=300, blank=False, null=False, unique=True)
-    api_path = models.CharField("Root path for API Management platform", max_length=50, default="",
+    use_api_gateway = models.BooleanField(default=False, help_text="Set to false for APIs not managed by the api.hel.fi API gateway.")
+    api_path = models.CharField("Root path for API Management platform", max_length=50, default="", blank=True, null=True,
                                 help_text="Actual public API root endpoint; example usage: api.hel.fi/{path}/")
     location = models.URLField(blank=False, null=False)
     documentation = models.URLField(blank=True)
