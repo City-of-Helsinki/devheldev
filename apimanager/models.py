@@ -96,7 +96,7 @@ class Application(models.Model):
     subscriptions = models.ManyToManyField(KongAPIConfiguration, through='APISubscription')
     name = models.CharField(max_length=300)
     description = models.TextField(blank=True, null=True)
-    location = models.URLField(blank=True, null=True)
+    app_url = models.URLField(blank=True, null=True)
 
     def __str__(self):
         return u'Application of ' + self.user.username
