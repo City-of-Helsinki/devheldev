@@ -188,6 +188,20 @@ def request_api_key(consumer_id):
         return None
 
 
+def delete_api_key(consumer_id, key_id):
+    """
+    Delete API key
+
+    :param consumer_id: Kong consumer id
+    :param key_id: Kong Key id
+    :return: None
+    """
+
+    ucli = _kong_consumer_client()
+    kcli = ucli.key_auth(consumer_id)
+    kcli.delete(key_id)
+
+
 def delete_api_key(consumer_id, key):
     """
     Delete given API key belonging given consumer
