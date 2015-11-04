@@ -15,6 +15,8 @@ class EventsIndexPage(Page):
      ]
 
     def events(self):
+        if not hasattr(settings, 'APP_ID') or not hasattr(settings, 'APP_SECRET'):
+            return []
         events = cache.get('facebook')
         if not events:
             events = []
