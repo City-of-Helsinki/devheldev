@@ -3,8 +3,9 @@ $devblack: #333333;
 $devgray: #969696;
 $devyellow: #ffc61e;
 
-$deskwidth: 640px;
-$nondesk: max-width 640px;
+$tabletwidth: 640px;
+$deskwidth: 1024px;
+$nondesk: max-width 1024px;
 
 $susy: (
   flow: ltr,
