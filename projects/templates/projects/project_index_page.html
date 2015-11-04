@@ -10,19 +10,21 @@
         </div>
       </div>
       {% if projects %}
-      <div class="project-list">
+      <div class="project-index">
       {% for project in projects %}
-        <div class="layout-project-list-item">
-          <div class="project-list-item">
-            <div class="project-list-item__content">
+        <div class="layout-project-index-item">
+          <div class="project-index-item">
+            <div class="project-index-item__content">
             <a href="{% pageurl project %}">
               <div class="project-status project-status--{{project.status}}">{{project.get_status_display}}</div>
-            {% if project.image %}
+            <div class="project-index-image">
+              {% if project.image %}
             {% image project.image fill-400x250 as image %}
             <img src="{{image.url}}" width="{{image.width}}" height="{{image.height}}" alt="{{project.image.title}}" />
             {% else %}
-            <img src="{% static "images/front-banner-image-default.png" %}" alt="No project image" />
+            <img src="{% static "images/project-image-default.png" %}" alt="No project image" />
             {% endif %}
+              </div>
             <h2>{{project.title}}</h2></a>
             <div class="project-description">{{project.short_description}}</div>
             </div>

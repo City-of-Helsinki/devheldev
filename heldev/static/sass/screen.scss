@@ -721,7 +721,7 @@ a.blog-listing-item__tag {
 /* ------------ PROJECTS LISTING */
 
 
-.project-list {  
+.project-index {  
 }
 
 .layout-page-header--full {
@@ -734,27 +734,45 @@ a.blog-listing-item__tag {
   background: #FFFFFF;
 }
 
-.layout-project-list-item {
+.layout-project-index-item {
   @include span(12);
   @include breakpoint($tabletwidth) {
+    @include gallery(6 of 12);
+  }
+  @include breakpoint($deskwidth) {
     @include gallery(4 of 12);
   }
 }
-.project-list-item {
+
+.project-index-item {
   padding: rhythm(.2);
   margin-bottom: rhythm(1);
   background: #FFFFFF;
 }
 
-.project-list-item__content {
+.project-index-image {
+  text-align: center;
+  background: #333;
+  overflow: hidden;
+  margin-bottom: rhythm(.5);
+  img {
+    display:inline-block; 
+    margin:0;
+    vertical-align:top;
+    max-height: 250px;
+    width: auto;
+  }
+}
+
+.project-index-item__content {
   padding: rhythm(.25);
   border: 2px solid #FFFFFF;
   transition: border 1s;
   a {
     color: $devblue;
   }
-  h4 {
-    @include adjust-font-size-to(24px);
+  h2 {
+    margin-bottom: 12px;
   }
   &:hover {
     border: 2px solid $devblue;
@@ -804,11 +822,109 @@ a.blog-listing-item__tag {
   }
 }
 
-.project-people {
-  padding: rhythm(1);
-  border: 2px solid $devblue;
+.project-additional-info__content {
+  //border: 2px solid $devblue;
+  background: $devblue;
+  color: #FFFFFF;
+  padding: rhythm(.5);
+  .project-status {
+    margin-bottom: rhythm(1);
+  }
+  
+  h4 {
+    border-top: 2px solid #FFFFFF;
+    font-family: $code-font-family;
+    text-transform: uppercase;
+    font-style: normal;
+    @extend %t-strong;
+  } 
+}
+
+
+.project-people, .project-kpis, .project-links {
   margin-bottom: rhythm(1);
+  font-family: $code-font-family;
+  ul {
+    margin: 0 0 0 1.5em;
+    li {
+      list-style: none;
+      margin-bottom: .5em;
+      &:before {    
+        font-family: 'FontAwesome';
+        margin:0 .7em 0 -1.5em;
+      }
+      span {
+        white-space: nowrap;
+      }
+      a {
+        color: #FFFFFF;
+        &:hover {
+          color: $devyellow;
+        }
+      }
+    }
+  }
+  .kpis-name, .links-name, .people-role {
+    @extend %t-strong;
+  }
 } 
+
+.project-people ul li {
+  &:before {
+    @extend .fa-user;
+  }
+}
+
+.project-kpis ul li {
+  &:before {
+    @extend .fa-line-chart;
+  }
+}
+
+.project-links ul li {
+  &:before {
+    @extend .fa-external-link;
+  }
+}
+
+.kpis-description, .links-description {
+  
+}
+
+.project-main-image {
+  text-align: center;
+  background: #333;
+  margin-bottom: rhythm(2);
+  img {
+    display: inline-block;
+    margin: 0;
+    vertical-align: top;
+  }
+}
+
+
+
+.layout-project-content {
+  @include span(12 nest);
+}
+
+.layout-project-header {
+  @include span(12);
+}
+
+.layout-project-main-info {
+  @include span(12);
+  @include breakpoint($deskwidth) {
+    @include span(8);
+  }
+}
+
+.layout-project-additional-info {
+  @include span(12);
+  @include breakpoint($deskwidth) {
+    @include span(4);
+  }
+}
 
 /* ------------ ABOUT PAGE */
 
