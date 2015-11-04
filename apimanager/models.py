@@ -118,10 +118,15 @@ class APISubscription(models.Model):
         Add consumer to Kong for this APISubscription using username
         and subscription id
         """
+        if self.consumer_kong_id:
+            consumer = manager.get_consumer(self.consumer_kong_id)
+            if consumer:
+                return True
         res = manager.add_consumer(self.application.user.username + '_' + str(self.pk))
         if res:
             self.consumer_kong_id = res['id']
             self.save()
+        return True
 
     def get_api_key(self):
         """
