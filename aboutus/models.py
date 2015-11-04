@@ -13,7 +13,7 @@ class PersonPage(Orderable, Page):
     contact = models.URLField(null=False)
     github_user = models.CharField(max_length=200, blank=True, null=True)
     job_title = models.CharField(max_length=20)
-    description = models.CharField(max_length=200, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     listed = models.BooleanField()
     avatar_url = models.URLField(blank=True, null=True)
 
