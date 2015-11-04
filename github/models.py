@@ -14,11 +14,11 @@ class GithubOrgIndexPage(Page):
      ]
 
     def events(self):
-        events = cache.get('events')
+        events = cache.get('github')
         if not events:
-            cache.add('events',
+            cache.add('github',
                                requests.get('https://api.github.com/orgs/' + self.github_org_name + '/events?per_page=20').json(), 60)
-            events = cache.get('events')
+            events = cache.get('github')
         for index, event in enumerate(events):
             events[index]['created_at'] = dateparse.parse_datetime(event['created_at'])
         return events

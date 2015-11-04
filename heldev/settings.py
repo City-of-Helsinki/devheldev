@@ -64,7 +64,8 @@ INSTALLED_APPS = (
     'apimanager',
     'projects',
     'users',
-    'github'
+    'github',
+    'events'
 )
 
 MIDDLEWARE_CLASSES = (

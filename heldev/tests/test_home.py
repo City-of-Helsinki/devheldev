@@ -5,4 +5,4 @@ import pytest
 def test_home_page(client):
     response = client.get('/')
     assert response.status_code == 200
-    assert 'Code for Europe' in str(response.content)
+    assert 'Helsinki Region Infoshare' in str(response.content)
