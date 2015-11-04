@@ -49,7 +49,7 @@ class ProjectPage(Orderable, Page):
     ]
 
 
-class ProjectRoleType(models.Model):
+class ProjectRoleType(Orderable, models.Model):
     name = models.CharField(max_length=50)
 
     def __str__(self):
@@ -67,6 +67,9 @@ class ProjectRole(models.Model):
 
     def __str__(self):
         return "%s as %s for %s" % (self.person, self.type, self.project.title)
+
+    class Meta:
+        ordering = ('type__sort_order',)
 
 
 class ProjectKPI(models.Model):
