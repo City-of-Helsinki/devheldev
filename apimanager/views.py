@@ -17,7 +17,9 @@ class ApplicationForm(forms.Form):
     def __init__(self, user, *args, **kwargs):
         super(ApplicationForm, self).__init__(*args, **kwargs)
         self.fields['subscribe'] = forms.ModelMultipleChoiceField(
-            APIPage.objects.exclude(kongapiconfiguration__apisubscription__application__user=user),
+            APIPage.objects.exclude(
+                    kongapiconfiguration__apisubscription__application__user=user
+                ).exclude(use_api_gateway=False).exclude(kongapiconfiguration=None),
             label="Subscribe to an API",
             widget=forms.CheckboxSelectMultiple,
             required=False)
@@ -55,8 +57,8 @@ def register(data, user, app=False):
         app.location = data['location']
         app.save()
 
-    for sub in data['subscribe']:
-        api = APIPage.objects.get(pk=sub)
+    for api in data['subscribe']:
+        # api = APIPage.objects.get(pk=sub)
         apisub = APISubscription(
             api=api.kongapiconfiguration,
             application=app
