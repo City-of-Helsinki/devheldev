@@ -928,19 +928,21 @@ a.blog-listing-item__tag {
 
 /* ------------ ABOUT PAGE */
 
-.people-list {
-  
+.layout-people-index {
+  @include span(12 nest);
 }
 
-.people-list__person {
-  border: 3px solid $devblue;
-  padding-top: rhythm(1);
-  padding-bottom: rhythm(1);
+.layout-people-index__person {
   margin-bottom: rhythm(1);
-  @include span(12);
-  
+  @include gallery(6 of 12);
+}
+
+.people-index__person {
+  @include clearfix;
+  border: 2px solid $devblue;
+  padding: rhythm(.5);
   h4 {
-    @include adjust-font-size-to(24px);
+    //@include adjust-font-size-to(24px);
   }
   .person-title {
     display: block;
@@ -953,7 +955,7 @@ a.blog-listing-item__tag {
   }
 }
 
-.people-list__person-avatar {
+.people-index__person-avatar {
   @include span(6);
   @include breakpoint($tabletwidth) {
     @include span(3);
@@ -963,19 +965,68 @@ a.blog-listing-item__tag {
   }
 }
 
-.people-list__person-details {
+.people-index__person-details {
   @include span(6);
     @include breakpoint($tabletwidth) {
-  @include span(4);
+  @include span(7);
   }
 }
 
-.people-list__person-projects {
+.people-index__person-projects {
   @include span(12);
   @include breakpoint($tabletwidth) {
-    @include span(5);
+    @include span(12);
   }
 }
+
+
+  .person-projects-dropdown {
+    float: left;
+    padding-left: 1em;
+    position: relative;
+    width: 100%;
+    background: $devblue;
+    color:#ffffff;
+    border-bottom: 1px solid $devblue;
+    margin-bottom: 1px;
+    padding-bottom: 1em / 2;
+    
+    // The accordion chevron icon
+    span {
+      color: $devyellow;
+      position: absolute;
+      right: 1em;
+      top: 0;
+      transition: all 0.2s ease-in;
+    }
+    
+    input[type=checkbox] {
+      position: absolute;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      opacity: 0;
+      
+      &:checked {
+        // Ensures panels are closed until checked
+        &~div.panel {
+          float: left;
+          margin: 5px 0;
+          max-height: 0;
+          opacity: 0;
+          transform: translate(0, 50%);
+        }
+        // Rotate chevron icon on selection  
+        &~span {
+          transform: rotate( 180deg );
+        }
+      }   
+    } 
+  }
+
+
+
 
 
 
