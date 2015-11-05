@@ -106,10 +106,12 @@
               <div class="hilight-banner hilight-banner--full">
                 <div class="hilight-banner__box">
                   <div class="hilight-banner__content">
-                    {% with blog=self.blog_index.blogs.first %}
-                    <h5 class="hilight-banner__section">Blog</h5>
+                    {% with blog=self.top_blog %}
+                    <a href="{% pageurl self.blog_index %}"><h5 class="hilight-banner__section">Blog</h5></a>
+                    <a href="{% pageurl blog %}">
                     <h3>{{blog.title}}</h3>
                     <p>{{blog.body|first_p|richtext}}</p>
+                    </a>
                     {% endwith %}
                   </div>
                 </div>
@@ -118,9 +120,11 @@
                 <div class="hilight-banner__box">
                   <div class="hilight-banner__content">
                     {% with project=self.project_index.projects.first %}
-                    <h5 class="hilight-banner__section">Projects</h5>
+                    <a href="{% pageurl self.project_index %}"><h5 class="hilight-banner__section">Projects</h5></a>
+                    <a href="{% pageurl project %}">
                     <h3>{{project.title}}</h3>
                     <p>{{project.full_description|first_p|richtext}}</p>
+                    </a>
                     {% endwith %}
                   </div>
                 </div>
@@ -129,9 +133,11 @@
                 <div class="hilight-banner__box">
                   <div class="hilight-banner__content">
                     {% with api=self.api_index.apis.first %}
-                    <h5 class="hilight-banner__section">APIs</h5>
+                    <a href="{% pageurl self.api_index %}"><h5 class="hilight-banner__section">APIs</h5></a>
+                    <a href="{% pageurl api %}">
                     <h3>{{api.title}}</h3>
                     <p>{{api.full_description|first_p|richtext}}</p>
+                    </a>
                     {% endwith %}
                   </div>
                 </div>
@@ -139,9 +145,13 @@
               <div class="hilight-banner hilight-banner--half">
                 <div class="hilight-banner__box">
                   <div class="hilight-banner__content">
-                    <h5 class="hilight-banner__section">Blog</h5>
-                    <h3>{% lorem 5 w random %}</h3>
-                    <p>{% lorem 30 w random %}</p>
+                    {% with blog=self.second_blog %}
+                    <a href="{% pageurl self.blog_index %}"><h5 class="hilight-banner__section">Blog</h5></a>
+                    <a href="{% pageurl blog %}">
+                    <h3>{{blog.title}}</h3>
+                    <p>{{blog.body|first_p|richtext}}</p>
+                    </a>
+                    {% endwith %}
                   </div>
                 </div>
               </div>

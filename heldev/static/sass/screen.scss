@@ -313,6 +313,12 @@ p {
       font-style: normal;
       color: $devyellow;
     }
+    a {
+    color: $devblue;
+    &:hover {
+      color: $devyellow;
+    }
+    }
   }
   .hilight-banner--full {
     @include span(12);

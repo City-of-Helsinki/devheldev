@@ -23,6 +23,12 @@ class HomePage(Page):
     def blog_index(self):
         return BlogIndexPage.objects.live().first()
 
+    def top_blog(self):
+        return BlogIndexPage.objects.live().first().blogs[0]
+
+    def second_blog(self):
+        return BlogIndexPage.objects.live().first().blogs[1]
+
     @cached_property
     def project_index(self):
         return ProjectIndexPage.objects.live().first()
