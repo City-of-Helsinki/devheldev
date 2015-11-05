@@ -20,10 +20,10 @@ class GithubOrgIndexPage(Page):
             if response.status_code == 200:
                 cache.add('github', response.json(), 60)
                 events = cache.get('github')
-            for index, event in enumerate(events):
-                event['created_at'] = dateparse.parse_datetime(event['created_at'])
-                # get html repo url
-                event['repo']['url'] = event['repo']['url'].replace('https://api.github.com/repos/', 'https://github.com/')
+                for index, event in enumerate(events):
+                    event['created_at'] = dateparse.parse_datetime(event['created_at'])
+                    # get html repo url
+                    event['repo']['url'] = event['repo']['url'].replace('https://api.github.com/repos/', 'https://github.com/')
         return events
 
     def top_events(self):
