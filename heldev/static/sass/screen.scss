@@ -24,6 +24,7 @@ html {
 body {
   height: 100%;
   font-family: $base-font-family;
+  letter-spacing: .05em;
   @extend %t-regular;
   color: $devblue;
   background-color: #eee;
@@ -247,10 +248,12 @@ p {
   
   .layout-main {
     min-height: 100%;
-    padding:  rhythm(4) 0;
+    padding-top: rhythm(4);
+    padding-bottom: rhythm(4);
     margin-bottom: -($footer-height); 
     @include breakpoint($tabletwidth) {
-      padding:  rhythm(5) 0;
+      padding-top: rhythm(5);
+      padding-bottom: rhythm(5);
     }
     &:after {
       content: "";
@@ -638,6 +641,7 @@ p {
 }
 
 .button {
+  display: inline-block;
   background: $devblue;
   padding: rhythm(.25);
   color: #FFFFFF;
@@ -962,15 +966,19 @@ a.blog-listing-item__tag {
 
 .layout-people-index__person {
   margin-bottom: rhythm(1);
-  @include gallery(6 of 12);
+  @include span(12);
+  @include breakpoint($deskwidth) {
+    @include gallery(6 of 12);
+  }
 }
 
 .people-index__person {
   @include clearfix;
-  border: 2px solid $devblue;
-  padding: rhythm(.5);
-  h4 {
-    //@include adjust-font-size-to(24px);
+  background: #FFFFFF;
+  padding: rhythm(1);
+  h3 {
+    @extend %t-large;
+    margin-bottom: 0;
   }
   .person-title {
     display: block;
@@ -984,42 +992,43 @@ a.blog-listing-item__tag {
 }
 
 .people-index__person-avatar {
-  @include span(6);
+  @include span(4);
+  margin-bottom: rhythm(.5);
   @include breakpoint($tabletwidth) {
     @include span(3);
   }
   img {
-    max-height: rhythm(5);
+    max-height: rhythm(6);
   }
 }
 
 .people-index__person-details {
-  @include span(6);
-    @include breakpoint($tabletwidth) {
-  @include span(7);
-  }
-}
-
-.people-index__person-description {
-  padding-top: 0.5em;
-}
-
-.people-index__person-projects {
-  @include span(12);
+  @include span(8);
+  margin-bottom: rhythm(.5);
   @include breakpoint($tabletwidth) {
-    @include span(12);
+    @include span(7);
   }
 }
 
+.people-index__person-contact {
+  @include span(8);
+  margin-bottom: rhythm(.5);
+  @include breakpoint($tabletwidth) {
+    @include span(2);
+  }
+}
 
-  .person-projects-dropdown {
+.people-index__person-projects, .people-index__person-description {
+  @include span(12);
+  margin-bottom: rhythm(.5);
+}
+
+
+.person-dropdown {
     float: left;
-    padding-left: 1em;
     position: relative;
     width: 100%;
-    background: $devblue;
-    color:#ffffff;
-    border-bottom: 1px solid $devblue;
+    border: 1px solid $devblue;
     margin-bottom: 1px;
     padding-top: 0.6em;
     
@@ -1032,10 +1041,15 @@ a.blog-listing-item__tag {
       transition: all 0.2s ease-in;
     }
     
-    .person-projects-list {
-      padding-top: 0.5em;
+    .panel-content {
+      border-top: 1px solid $devblue;
+      margin-top: .5em;
+      padding: rhythm(.5);
     }
-
+    
+    h5 {
+      margin-left: 1em;
+    }
     input[type=checkbox] {
       position: absolute;
       cursor: pointer;
@@ -1061,9 +1075,15 @@ a.blog-listing-item__tag {
     } 
   }
 
+.person-dropdown--empty {
+  @include breakpoint($deskwidth) {
+    height: 3em;
+  }
+}
 
-
-
+.person-projects-list {
+  @include no-bullets;
+}
 
 
 .api-explorer {
