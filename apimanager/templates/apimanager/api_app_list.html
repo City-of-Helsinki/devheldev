@@ -16,11 +16,16 @@
                         <p><a href="{{ app.app_url }}">{{ app.app_url }}</a></p>
                     {% endif %}
                     <p>{{ app.description }}</p>
-                    {% if app.subscriptions.exists %}
+                    {% if app.apisubscription_set.exists %}
                         <h4>Subscriptions</h4>
                         <ul>
-                        {% for sub in app.subscriptions.all %}
-                            <li>{{ sub.api_page.name }}</li>
+                        {% for sub in app.apisubscription_set.all %}
+                            <li>
+                                <h5>
+                                    {{ sub.api_page.name }}
+                                </h5>
+                                <div>API Key: {{ sub.key }}</div>
+                            </li>
                         {% endfor %}
                         </ul>
                     {% endif %}
