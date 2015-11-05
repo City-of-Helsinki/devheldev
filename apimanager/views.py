@@ -125,7 +125,7 @@ def update_application(request, app_id):
             "description": app.description,
             "app_url": app.app_url})
 
-    subs = APISubscription.objects.filter(api__apisubscription__application__user=request.user)
+    subs = APISubscription.objects.filter(application=app)
 
     return render(request,
                   'apimanager/api_formi.html',
