@@ -43,7 +43,7 @@ img {
   height: rhythm(2.5);
   width: 6em;
   left: rhythm(.25);
-  top: rhythm(.25);
+  top: 0.05em;
   @extend %t-base;
   @include replace-text(url("/static/images/heldev-logo-mini-white.svg"));
   background-size: contain;
