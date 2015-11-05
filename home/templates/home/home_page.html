@@ -19,200 +19,193 @@
 {% endblock %}
 
 {% block content %}
-            <!-- start promoted content -->
-            <div class="layout-promoted">
-              <div class="layout-promoted__first">
-                {% if self.commit_index %}
-                <div class="list-banner list-banner--commit-watch">
-                  <h3>Commit Watch</h3>
-                  <ul>
-                    {% for event in self.commit_index.top_events %}
-                    <li class="commit-list__item">
-                      <div class="commit-list__avatar"><img src={{event.actor.avatar_url}} alt="{{event.actor.login}}"></div>
-                        {% if event.type == "PushEvent" %}
-                            <a href={{event.repo.url}}>
-                            <div class="commit-list__date">{{ event.created_at | naturaltime }}</div>
-                            <div class="commit-list__description"><span class="commit-list__actor">{{event.actor.login}}</span> pushed to {{event.payload.ref|cut:"refs/heads/"}} at <span class="commit-list__repo">{{event.repo.name}}</span></div>
-                        {% elif event.type == "IssueCommentEvent" %}
-                            <a href={{event.payload.issue.html_url}}>
-                            <div class="commit-list__date">{{ event.created_at | naturaltime }}</div>
-                            <div class="commit-list__description"><span class="commit-list__actor">{{event.actor.login}}</span> {{event.payload.action}} comment on issue #{{ event.payload.issue.number }} at <span class="commit-list__repo">{{event.repo.name}}</span></div>
-                        {% elif event.type == "IssuesEvent" %}
-                            <a href={{event.payload.issue.html_url}}>
-                            <div class="commit-list__date">{{ event.created_at | naturaltime }}</div>
-                            <div class="commit-list__description"><span class="commit-list__actor">{{event.actor.login}}</span> {{event.payload.action}} issue #{{ event.payload.issue.number }} at <span class="commit-list__repo">{{event.repo.name}}</span></div>
-                        {% elif event.type == "PullRequestEvent" %}
-                            <a href={{event.payload.pull_request.html_url}}>
-                            <div class="commit-list__date">{{ event.created_at | naturaltime }}</div>
-                            <div class="commit-list__description"><span class="commit-list__actor">{{event.actor.login}}</span> {{event.payload.action}} pull request #{{ event.payload.pull_request.number }} at <span class="commit-list__repo">{{event.repo.name}}</span></div>
-                        {% elif event.type == "MemberEvent" %}
-                            <a href={{event.payload.member.html_url}}>
-                            <div class="commit-list__date">{{ event.created_at | naturaltime }}</div>
-                            <div class="commit-list__description"><span class="commit-list__actor">{{event.actor.login}}</span> {{event.payload.action}} {{ event.payload.member.login }} to <span class="commit-list__repo">{{event.repo.name}}</span></div>
-                        {% elif event.type == "ForkEvent" %}
-                            <a href={{event.payload.forkee.html_url}}>
-                            <div class="commit-list__date">{{ event.created_at | naturaltime }}</div>
-                            <div class="commit-list__description"><span class="commit-list__actor">{{event.actor.login}}</span> forked <span class="commit-list__repo">{{event.repo.name}}</span> to {{event.payload.forkee.full_name}}</div>
-                        {% elif event.type == "WatchEvent" %}
-                            <a href={{event.repo.url}}>
-                            <div class="commit-list__date">{{ event.created_at | naturaltime }}</div>
-                            <div class="commit-list__description"><span class="commit-list__actor">{{event.actor.login}}</span> {{event.payload.action}} watching <span class="commit-list__repo">{{event.repo.name}}</span></div>
-                        {% elif event.type == "PullRequestReviewCommentEvent" %}
-                            <a href={{event.payload.comment.html_url}}>
-                            <div class="commit-list__date">{{ event.created_at | naturaltime }}</div>
-                            <div class="commit-list__description"><span class="commit-list__actor">{{event.actor.login}}</span> {{event.payload.action}} comment on pull request #{{event.payload.pull_request.number}} at <span class="commit-list__repo">{{event.repo.name}}</span></div>
-                        {% elif event.type == "CreateEvent" %}
-                            <a href={{event.repo.url}}>
-                            <div class="commit-list__date">{{ event.created_at | naturaltime }}</div>
-                            <div class="commit-list__description"><span class="commit-list__actor">{{event.actor.login}}</span> created {{event.payload.ref_type}} {{event.payload.ref}} at <span class="commit-list__repo">{{event.repo.name}}</span></div>
-                        {% else %}
-                            <a href={{event.repo.url}}>
-                            <div class="commit-list__date">{{ event.created_at | naturaltime }}</div>
-                            <div class="commit-list__description"><span class="commit-list__actor">{{event.actor.login}}</span> - {{ event.type }} - <span class="commit-list__repo">{{event.repo.name}}</span></div>
-                        {% endif %}
-                        </a>
-                    </li>
-                    {% endfor %}
-                  </ul>
-                  <div class="list-banner__full-link">
-                    <a href="{% pageurl self.commit_index %}">Full list of events >></a>
-                  </div>
-                </div>
-                {% endif %}
-              </div>
-              {% if self.project_index %}
-              <div class="layout-promoted__second">
-                <div class="list-banner list-banner--available-apis">
-                  <h3>Ongoing projects</h3>
-                  <ul>
-                    {% for project in self.project_index.top_projects %}
-                    <li class="api-list__item">
-                      <a href="{% pageurl project %}">
-                      <span class="api-list__icon"><i class="fa fa-gears"></i></span>
-                      <span class="api-list__header">{{ project.title }}</span>
-                      </a>
-                    </li>
-                    {% endfor %}
-                  </ul>
-                  <div class="list-banner__full-link">
-                    <a href="{% pageurl self.project_index %}">Full list of ongoing projects >></a>
-                  </div>
-                </div>
-              </div>
-              {% endif %}
-            </div>
-            <!-- end promoted content -->
-            <div class="layout-page-content">
-              <div class="hilight-banner hilight-banner--full">
-                <div class="hilight-banner__box">
-                  <div class="hilight-banner__content">
-                  {% if self.blog_index %}
-                    <a href="{% pageurl self.blog_index %}"><h5 class="hilight-banner__section">Blog</h5></a>
-                    {% with blog=self.blog_index.blogs.0 %}
-                        {% if blog %}
-                        <a href="{% pageurl blog %}">
-                        <h3>{{blog.title}}</h3>
-                        <p>{{blog.body|first_p|richtext}}</p>
-                        </a>
-                        {% endif %}
-                    {% endwith %}
-                  {% endif %}
-                  </div>
-                </div>
-              </div>
-              <div class="hilight-banner hilight-banner--full">
-                <div class="hilight-banner__box">
-                  <div class="hilight-banner__content">
-                  {% if self.project_index %}
-                    <a href="{% pageurl self.project_index %}"><h5 class="hilight-banner__section">Projects</h5></a>
-                    {% with project=self.project_index.projects.first %}
-                        {% if project %}
-                        <a href="{% pageurl project %}">
-                        <h3>{{project.title}}</h3>
-                        <p>{{project.full_description|first_p|richtext}}</p>
-                        </a>
-                        {% endif %}
-                    {% endwith %}
-                  {% endif %}
-                  </div>
-                </div>
-              </div>
-              <div class="hilight-banner hilight-banner--half">
-                <div class="hilight-banner__box">
-                  <div class="hilight-banner__content">
-                  {% if self.api_index %}
-                    <a href="{% pageurl self.api_index %}"><h5 class="hilight-banner__section">APIs</h5></a>
-                    {% with api=self.api_index.apis.first %}
-                        {% if api %}
-                        <a href="{% pageurl api %}">
-                        <h3>{{api.title}}</h3>
-                        <p>{{api.full_description|first_p|richtext}}</p>
-                        </a>
-                        {% endif %}
-                    {% endwith %}
-                  {% endif %}
-                  </div>
-                </div>
-              </div>
-              <div class="hilight-banner hilight-banner--half">
-                <div class="hilight-banner__box">
-                  <div class="hilight-banner__content">
-                  {% if self.blog_index %}
-                    <a href="{% pageurl self.blog_index %}"><h5 class="hilight-banner__section">Blog</h5></a>
-                    {% with blog=self.blog_index.blogs.1 %}
-                        {% if blog %}
-                        <a href="{% pageurl blog %}">
-                        <h3>{{blog.title}}</h3>
-                        <p>{{blog.body|first_p|richtext}}</p>
-                        </a>
-                        {% endif %}
-                    {% endwith %}
-                  {% endif %}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <aside class="layout-side-content">
-              {% if self.event_index %}
-              {% with self.event_index.top_events as top_events %}
-              {% if top_events %}
-              <div class="list-banner list-banner--events">
-                <h3>Events</h3>
-                <ul>
-                  {% for event in top_events %}
-                  <li class="event-list__item">
-                    <span class="event-list__date">{{event.details.start_time | naturaltime}}</span>
-                    <span class="event-list__header">{{event.details.name}}</span>
-                    <span class="event-list__description">{{event.message}}</span>
-                    <span class="event-list__link"><a href={{event.link}}>Read more >></a></span>
-                  </li>
-                  {% endfor %}
-                </ul>
-                <div class="list-banner__full-link">
-                  <a href="{% pageurl self.event_index %}">Full list of events >></a>
-                </div>
-              </div>
-              {% endif %}
-              {% endwith %}
-              {% endif %}
-              <div class="some-banner">
-                <a href="https://www.facebook.com/groups/heldev">
-                  <i class="fa fa-facebook-official fa-2x"></i>
-                  We're on Facebook
-                </a>
-              </div>
-              <div class="some-banner">
-                <a href="https://github.com/City-of-Helsinki">
-                  <i class="fa fa-github fa-2x"></i>
-                  Find us on GitHub
-                </a>
-              </div>
-            </aside>
-
-
-    {% block menu %}
-            {% get_site_root as site_root %}
-            {% top_menu parent=site_root calling_page=self %}
-        {% endblock %}
-
+<!-- start promoted content -->
+<div class="layout-promoted">
+  <div class="layout-promoted__first">
+    {% if self.commit_index %}
+    <div class="list-banner list-banner--commit-watch">
+      <h3>Commit Watch</h3>
+      <ul>
+        {% for event in self.commit_index.top_events %}
+        <li class="commit-list__item">
+          <div class="commit-list__avatar"><img src={{event.actor.avatar_url}} alt="{{event.actor.login}}"></div>
+            {% if event.type == "PushEvent" %}
+                <a href={{event.repo.url}}>
+                <div class="commit-list__date">{{ event.created_at | naturaltime }}</div>
+                <div class="commit-list__description"><span class="commit-list__actor">{{event.actor.login}}</span> pushed to {{event.payload.ref|cut:"refs/heads/"}} at <span class="commit-list__repo">{{event.repo.name}}</span></div>
+            {% elif event.type == "IssueCommentEvent" %}
+                <a href={{event.payload.issue.html_url}}>
+                <div class="commit-list__date">{{ event.created_at | naturaltime }}</div>
+                <div class="commit-list__description"><span class="commit-list__actor">{{event.actor.login}}</span> {{event.payload.action}} comment on issue #{{ event.payload.issue.number }} at <span class="commit-list__repo">{{event.repo.name}}</span></div>
+            {% elif event.type == "IssuesEvent" %}
+                <a href={{event.payload.issue.html_url}}>
+                <div class="commit-list__date">{{ event.created_at | naturaltime }}</div>
+                <div class="commit-list__description"><span class="commit-list__actor">{{event.actor.login}}</span> {{event.payload.action}} issue #{{ event.payload.issue.number }} at <span class="commit-list__repo">{{event.repo.name}}</span></div>
+            {% elif event.type == "PullRequestEvent" %}
+                <a href={{event.payload.pull_request.html_url}}>
+                <div class="commit-list__date">{{ event.created_at | naturaltime }}</div>
+                <div class="commit-list__description"><span class="commit-list__actor">{{event.actor.login}}</span> {{event.payload.action}} pull request #{{ event.payload.pull_request.number }} at <span class="commit-list__repo">{{event.repo.name}}</span></div>
+            {% elif event.type == "MemberEvent" %}
+                <a href={{event.payload.member.html_url}}>
+                <div class="commit-list__date">{{ event.created_at | naturaltime }}</div>
+                <div class="commit-list__description"><span class="commit-list__actor">{{event.actor.login}}</span> {{event.payload.action}} {{ event.payload.member.login }} to <span class="commit-list__repo">{{event.repo.name}}</span></div>
+            {% elif event.type == "ForkEvent" %}
+                <a href={{event.payload.forkee.html_url}}>
+                <div class="commit-list__date">{{ event.created_at | naturaltime }}</div>
+                <div class="commit-list__description"><span class="commit-list__actor">{{event.actor.login}}</span> forked <span class="commit-list__repo">{{event.repo.name}}</span> to {{event.payload.forkee.full_name}}</div>
+            {% elif event.type == "WatchEvent" %}
+                <a href={{event.repo.url}}>
+                <div class="commit-list__date">{{ event.created_at | naturaltime }}</div>
+                <div class="commit-list__description"><span class="commit-list__actor">{{event.actor.login}}</span> {{event.payload.action}} watching <span class="commit-list__repo">{{event.repo.name}}</span></div>
+            {% elif event.type == "PullRequestReviewCommentEvent" %}
+                <a href={{event.payload.comment.html_url}}>
+                <div class="commit-list__date">{{ event.created_at | naturaltime }}</div>
+                <div class="commit-list__description"><span class="commit-list__actor">{{event.actor.login}}</span> {{event.payload.action}} comment on pull request #{{event.payload.pull_request.number}} at <span class="commit-list__repo">{{event.repo.name}}</span></div>
+            {% elif event.type == "CreateEvent" %}
+                <a href={{event.repo.url}}>
+                <div class="commit-list__date">{{ event.created_at | naturaltime }}</div>
+                <div class="commit-list__description"><span class="commit-list__actor">{{event.actor.login}}</span> created {{event.payload.ref_type}} {{event.payload.ref}} at <span class="commit-list__repo">{{event.repo.name}}</span></div>
+            {% else %}
+                <a href={{event.repo.url}}>
+                <div class="commit-list__date">{{ event.created_at | naturaltime }}</div>
+                <div class="commit-list__description"><span class="commit-list__actor">{{event.actor.login}}</span> - {{ event.type }} - <span class="commit-list__repo">{{event.repo.name}}</span></div>
+            {% endif %}
+            </a>
+        </li>
+        {% endfor %}
+      </ul>
+      <div class="list-banner__full-link">
+        <a href="{% pageurl self.commit_index %}">Full list of events >></a>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+  {% if self.project_index %}
+  <div class="layout-promoted__second">
+    <div class="list-banner list-banner--available-apis">
+      <h3>Ongoing projects</h3>
+      <ul>
+        {% for project in self.project_index.top_projects %}
+        <li class="api-list__item">
+          <a href="{% pageurl project %}">
+          <span class="api-list__icon"><i class="fa fa-gears"></i></span>
+          <span class="api-list__header">{{ project.title }}</span>
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+      <div class="list-banner__full-link">
+        <a href="{% pageurl self.project_index %}">Full list of ongoing projects >></a>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+<!-- end promoted content -->
+<div class="layout-page-content">
+  <div class="hilight-banner hilight-banner--full">
+    <div class="hilight-banner__box">
+      <div class="hilight-banner__content">
+      {% if self.blog_index %}
+        <a href="{% pageurl self.blog_index %}"><h5 class="hilight-banner__section">Blog</h5></a>
+        {% with blog=self.blog_index.blogs.0 %}
+            {% if blog %}
+            <a href="{% pageurl blog %}">
+            <h3>{{blog.title}}</h3>
+            <p>{{blog.body|first_p|richtext}}</p>
+            </a>
+            {% endif %}
+        {% endwith %}
+      {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="hilight-banner hilight-banner--full">
+    <div class="hilight-banner__box">
+      <div class="hilight-banner__content">
+      {% if self.project_index %}
+        <a href="{% pageurl self.project_index %}"><h5 class="hilight-banner__section">Projects</h5></a>
+        {% with project=self.project_index.projects.first %}
+            {% if project %}
+            <a href="{% pageurl project %}">
+            <h3>{{project.title}}</h3>
+            <p>{{project.full_description|first_p|richtext}}</p>
+            </a>
+            {% endif %}
+        {% endwith %}
+      {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="hilight-banner hilight-banner--half">
+    <div class="hilight-banner__box">
+      <div class="hilight-banner__content">
+      {% if self.api_index %}
+        <a href="{% pageurl self.api_index %}"><h5 class="hilight-banner__section">APIs</h5></a>
+        {% with api=self.api_index.apis.first %}
+            {% if api %}
+            <a href="{% pageurl api %}">
+            <h3>{{api.title}}</h3>
+            <p>{{api.full_description|first_p|richtext}}</p>
+            </a>
+            {% endif %}
+        {% endwith %}
+      {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="hilight-banner hilight-banner--half">
+    <div class="hilight-banner__box">
+      <div class="hilight-banner__content">
+      {% if self.blog_index %}
+        <a href="{% pageurl self.blog_index %}"><h5 class="hilight-banner__section">Blog</h5></a>
+        {% with blog=self.blog_index.blogs.1 %}
+            {% if blog %}
+            <a href="{% pageurl blog %}">
+            <h3>{{blog.title}}</h3>
+            <p>{{blog.body|first_p|richtext}}</p>
+            </a>
+            {% endif %}
+        {% endwith %}
+      {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+<aside class="layout-side-content">
+  {% if self.event_index %}
+  {% with self.event_index.top_events as top_events %}
+  {% if top_events %}
+  <div class="list-banner list-banner--events">
+    <h3>Events</h3>
+    <ul>
+      {% for event in top_events %}
+      <li class="event-list__item">
+        <span class="event-list__date">{{event.details.start_time | naturaltime}}</span>
+        <span class="event-list__header">{{event.details.name}}</span>
+        <span class="event-list__description">{{event.message}}</span>
+        <span class="event-list__link"><a href={{event.link}}>Read more >></a></span>
+      </li>
+      {% endfor %}
+    </ul>
+    <div class="list-banner__full-link">
+      <a href="{% pageurl self.event_index %}">Full list of events >></a>
+    </div>
+  </div>
+  {% endif %}
+  {% endwith %}
+  {% endif %}
+  <div class="some-banner">
+    <a href="https://www.facebook.com/groups/heldev">
+      <i class="fa fa-facebook-official fa-2x"></i>
+      We're on Facebook
+    </a>
+  </div>
+  <div class="some-banner">
+    <a href="https://github.com/City-of-Helsinki">
+      <i class="fa fa-github fa-2x"></i>
+      Find us on GitHub
+    </a>
+  </div>
+</aside>
 {% endblock %}
