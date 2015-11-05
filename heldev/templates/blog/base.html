@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load home_tags %}
 {% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
 
 {% block content %}
@@ -7,7 +8,7 @@
 
 <aside class="layout-side-content">
   <div class="list-banner list-banner--blogposts">
-    <h3>RECENT POSTS</h3>
+    <h3>Recent posts</h3>
     <ul>
       <li class="blog-list__item">
         <a href="/blog-post/">
@@ -30,13 +31,16 @@
     </ul>
     <div class="list-banner__full-link">
       <a href="#">Archive >></a>
+      {% blog_posts_by_month as by_month %}
+      {% regroup by_month by year as by_year %}
+      {% for year in by_year %}
+      <h4>{{ year.grouper }}</h4>
       <ul>
-        <li>August (1)</li>
-        <li>July (2)</li>
-        <li>June (0)</li>
-        <li>May (3)</li>
-        <li>April (5)</li>
+        {% for item in year.list %}
+        <li>{{ item.month_name }} ({{ item.count }})</li>
+        {% endfor %}
       </ul>
+      {% endfor %}
     </div>
   </div>
   <div class="some-banner">

@@ -9,12 +9,18 @@ from .models import APIPage, Application, APISubscription
 
 class ApplicationForm(forms.Form):
 
-    def __init__(self, user, *args, **kwargs):
+    def __init__(self, subscriptions, *args, **kwargs):
         super(ApplicationForm, self).__init__(*args, **kwargs)
+
+        queryset = APIPage.objects.exclude(use_api_gateway=False).exclude(kongapiconfiguration=None)
+
+        if subscriptions:
+            api_pages = [sub.api.api_page.pk for sub in subscriptions]
+            print(api_pages)
+            queryset = queryset.exclude(pk__in=api_pages)
+
         self.fields['subscribe'] = forms.ModelMultipleChoiceField(
-            APIPage.objects.exclude(
-                    kongapiconfiguration__apisubscription__application__user=user
-                ).exclude(use_api_gateway=False).exclude(kongapiconfiguration=None),
+            queryset,
             label="Subscribe to an API",
             widget=forms.CheckboxSelectMultiple,
             required=False)
@@ -71,25 +77,22 @@ def unsubscribe(data, user):
 @login_required
 def add_application(request):
 
-    ask_save = False
     msg = None
     if request.POST:
         if request.POST.get('unsubscribe'):
             sub = unsubscribe(request.POST, request.user)
             return HttpResponseRedirect(reverse('apimanager:view_applications'))
         else:
-            app_form = ApplicationForm(request.user, request.POST)
-            if request.POST.get('save_ok') and app_form.is_valid():
+            app_form = ApplicationForm(None, request.POST)
+            if app_form.is_valid():
                 register(app_form.cleaned_data, request.user)
                 return HttpResponseRedirect(reverse('apimanager:view_applications'))
-            elif request.POST.get('save') and app_form.is_valid():
-                ask_save = True
     else:
-        app_form = ApplicationForm(request.user)
+        app_form = ApplicationForm(None)
 
     return render(request,
                   'apimanager/api_formi.html',
-                  {'form': app_form, 'ask_save': ask_save})
+                  {'form': app_form})
 
 
 @login_required
@@ -104,7 +107,7 @@ def view_applications(request):
 
 @login_required
 def update_application(request, app_id):
-    ask_save = False
+
     app = Application.objects.get(pk=app_id, user=request.user)
 
     if request.POST:
@@ -112,20 +115,18 @@ def update_application(request, app_id):
             sub = unsubscribe(request.POST, request.user)
             return HttpResponseRedirect(reverse('apimanager:view_applications'))
         else:
-            app_form = ApplicationForm(request.user, request.POST)
-            if request.POST.get('save_ok') and app_form.is_valid():
+            app_form = ApplicationForm(app.apisubscription_set.all(), request.POST)
+            if app_form.is_valid():
                 register(app_form.cleaned_data, request.user, app)
                 return HttpResponseRedirect(reverse('apimanager:view_applications'))
-            elif request.POST.get('save') and app_form.is_valid():
-                ask_save = True
     else:
-        app_form = ApplicationForm(request.user, {
+        app_form = ApplicationForm(app.apisubscription_set.all(), {
             "name": app.name,
             "description": app.description,
             "app_url": app.app_url})
 
-    subs = APISubscription.objects.filter(api__apisubscription__application__user=request.user)
+    subs = APISubscription.objects.filter(application=app)
 
     return render(request,
                   'apimanager/api_formi.html',
-                  {'form': app_form, 'subscriptions': subs, "app": app, 'ask_save': ask_save})
+                  {'form': app_form, 'subscriptions': subs, "app": app})

@@ -13,3 +13,4 @@ python-kong==0.4.0
 splinter
 pytest
 pytest-django
+django-bootstrap3==6.2.2

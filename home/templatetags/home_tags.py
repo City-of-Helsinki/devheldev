@@ -1,8 +1,12 @@
+import calendar
 from django import template
 from datetime import date
 from django.conf import settings
+from django.db import connection
+from django.db.models import Count
 
 from wagtail.wagtailcore.models import Page
+from blog.models import BlogPage
 
 register = template.Library()
 
@@ -92,3 +96,16 @@ def breadcrumbs(context):
         'ancestors': ancestors,
         'request': context['request'],
     }
+
+
+@register.assignment_tag(takes_context=True)
+def blog_posts_by_month(context):
+    truncate_date = connection.ops.date_trunc_sql('month', 'date')
+    qs = BlogPage.objects.extra({'month':truncate_date})
+    val = qs.values('month').annotate(Count('pk')).order_by('-month')
+
+    return [{
+        'year': x['month'].year,
+        'month': x['month'].month,
+        'month_name': calendar.month_name[x['month'].month],
+        'count': x['pk__count']} for x in val]
