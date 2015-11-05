@@ -24,7 +24,7 @@ html {
 body {
   height: 100%;
   font-family: $base-font-family;
-  letter-spacing: .05em;
+  letter-spacing: .033em;
   @extend %t-regular;
   color: $devblue;
   background-color: #eee;
@@ -138,13 +138,12 @@ p {
     $bar-height: .4em;
     $bar-spacing: .75em;
     background: $devblue;
-    padding: 6px;
+    padding: .5em;
     z-index: 10001;
     position: fixed;
     top: rhythm(.5);
     right: rhythm(.5);
-    width: $bar-width;
-    height: $bar-height + $bar-spacing*2;
+    height: $bar-height + $bar-spacing*2 + 1em;
     cursor: pointer;
 
 
@@ -264,7 +263,9 @@ p {
 
   .template-home-page .layout-main {
     margin-top:  rhythm(1);
+    padding-top: 0;
     @include breakpoint($tabletwidth) {
+      padding-top: 0;
       margin-top:  rhythm(2);
     }
   }
@@ -703,8 +704,15 @@ p {
 }
 
 .blog-listing-item__details {
-  @include adjust-font-size-to(12px);
+  border-top: 2px solid $devblue;
+  border-bottom: 2px solid $devblue;
+  margin-bottom: rhythm(1);
+  padding: rhythm(.5) 0;
+  @extend %t-small;
   color: $devgray;
+}
+
+.blog-listing-item__author {
 }
 
 .blog-listing-item__content {
@@ -713,7 +721,8 @@ p {
     @include span(10);
   }
   h2 {
-    @include adjust-font-size-to(32px);
+    @extend %t-xlarge;
+    margin-bottom: rhythm(.25);
     a {
       color: $devblue;
       &:hover {
@@ -780,6 +789,9 @@ a.blog-listing-item__tag {
   padding: rhythm(.2);
   margin-bottom: rhythm(1);
   background: #FFFFFF;
+  .project-description {
+    min-height: rhythm(3);
+  }
 }
 
 .project-index-image {
