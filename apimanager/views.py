@@ -77,7 +77,6 @@ def unsubscribe(data, user):
 @login_required
 def add_application(request):
 
-    ask_save = False
     msg = None
     if request.POST:
         if request.POST.get('unsubscribe'):
@@ -85,17 +84,15 @@ def add_application(request):
             return HttpResponseRedirect(reverse('apimanager:view_applications'))
         else:
             app_form = ApplicationForm(None, request.POST)
-            if request.POST.get('save_ok') and app_form.is_valid():
+            if app_form.is_valid():
                 register(app_form.cleaned_data, request.user)
                 return HttpResponseRedirect(reverse('apimanager:view_applications'))
-            elif request.POST.get('save') and app_form.is_valid():
-                ask_save = True
     else:
         app_form = ApplicationForm(None)
 
     return render(request,
                   'apimanager/api_formi.html',
-                  {'form': app_form, 'ask_save': ask_save})
+                  {'form': app_form})
 
 
 @login_required
@@ -110,7 +107,7 @@ def view_applications(request):
 
 @login_required
 def update_application(request, app_id):
-    ask_save = False
+
     app = Application.objects.get(pk=app_id, user=request.user)
 
     if request.POST:
@@ -119,11 +116,9 @@ def update_application(request, app_id):
             return HttpResponseRedirect(reverse('apimanager:view_applications'))
         else:
             app_form = ApplicationForm(app.apisubscription_set.all(), request.POST)
-            if request.POST.get('save_ok') and app_form.is_valid():
+            if app_form.is_valid():
                 register(app_form.cleaned_data, request.user, app)
                 return HttpResponseRedirect(reverse('apimanager:view_applications'))
-            elif request.POST.get('save') and app_form.is_valid():
-                ask_save = True
     else:
         app_form = ApplicationForm(app.apisubscription_set.all(), {
             "name": app.name,
@@ -134,4 +129,4 @@ def update_application(request, app_id):
 
     return render(request,
                   'apimanager/api_formi.html',
-                  {'form': app_form, 'subscriptions': subs, "app": app, 'ask_save': ask_save})
+                  {'form': app_form, 'subscriptions': subs, "app": app})

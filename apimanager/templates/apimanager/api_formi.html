@@ -12,9 +12,6 @@
             <form action="{% url "apimanager:add_application" %}" method="post">
             {% endif %}
             {% csrf_token %}
-            {%  if ask_save %}
-                <div>Registration will commence <button type="submit" name="save_ok" value="true"> OK </button></div>
-            {% endif %}
             <table>
                 {{ form.as_table }}
             </table>
