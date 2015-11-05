@@ -27,4 +27,8 @@ class GithubOrgIndexPage(Page):
         return events
 
     def top_events(self):
-        return self.events()[:3]
+        try:
+            return self.events()[:3]
+        except (TypeError, KeyError):
+            # not enough events
+            return None
