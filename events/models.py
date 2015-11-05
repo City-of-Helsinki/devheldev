@@ -24,8 +24,8 @@ class EventsIndexPage(Page):
                                 self.facebook_page_id +
                                 '?fields=feed{link,message,object_id}' +
                                 '&access_token=' +
-                                str(settings.APP_ID) + '|' +
-                                settings.APP_SECRET).json()['feed']['data']
+                                str(settings.FACEBOOK_APP_ID) + '|' +
+                                settings.FACEBOOK_APP_SECRET).json()['feed']['data']
 
             # filter the events from the feed
 
@@ -42,8 +42,8 @@ class EventsIndexPage(Page):
                                 event_ids +
                                 '&fields=description,cover,end_time,name,start_time,id,picture,place' +
                                 '&access_token=' +
-                                str(settings.APP_ID) + '|' +
-                                settings.APP_SECRET).json()
+                                str(settings.FACEBOOK_APP_ID) + '|' +
+                                settings.FACEBOOK_APP_SECRET).json()
             for index, detail in details.items():
                 detail['start_time'] = dateparse.parse_datetime(detail['start_time'])
                 detail['end_time'] = dateparse.parse_datetime(detail['end_time'])
