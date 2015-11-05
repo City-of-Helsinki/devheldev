@@ -35,6 +35,7 @@ img {
 /* formatted text list styles for areas where applicable  */
 .rich-text, .page-content {
   @extend %t-list-styles;
+  @extend %t-font-styles;
 }
 
 .site-logo {
