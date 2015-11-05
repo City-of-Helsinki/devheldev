@@ -11,8 +11,18 @@
 @import 'sidr';
 
 @include establish-baseline;
-  
+
+html {
+  box-sizing: border-box;
+  height: 100%;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 body {
+  height: 100%;
   font-family: $base-font-family;
   @extend %t-regular;
   color: $devblue;
@@ -236,9 +246,16 @@ p {
   }
   
   .layout-main {
-    margin-top:  rhythm(4);
+    min-height: 100%;
+    padding:  rhythm(4) 0;
+    margin-bottom: -($footer-height); 
     @include breakpoint($tabletwidth) {
-      margin-top:  rhythm(5);
+      padding:  rhythm(5) 0;
+    }
+    &:after {
+      content: "";
+      display: block;
+      height: $footer-height;
     }
   }
 
@@ -299,9 +316,8 @@ p {
 
   .layout-site-footer {
     @include clearfix;
-    width: 100%;
+    height: $footer-height;
     background: #333333;
-    margin-top: rhythm(2);
     padding: rhythm(2) 0 rhythm(4) 0;
     color: #FFFFFF;
   }

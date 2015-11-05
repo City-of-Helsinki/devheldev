@@ -55,7 +55,6 @@
           <div id="toggle" class="menu-btn">      
            <div class="bar"></div>
           </div>
-          <div id="container">
           <div class="layout-main">
             {% block content %}{% endblock %}
           </div>
@@ -87,7 +86,6 @@
               </div>
             </div>
           </div>
-        </div>
         {# Global javascript #}
         {% compress js %}
           <script type="text/javascript" src="{% static 'js/heldev.js' %}"></script>

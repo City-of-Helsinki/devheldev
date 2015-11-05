@@ -7,6 +7,9 @@ $tabletwidth: 670px;
 $deskwidth: 1024px;
 $nondesk: max-width 1024px;
 
+/* footer height must be defined for it to stick to bottom of screen on low content pages */
+$footer-height: rhythm(15);
+
 $susy: (
   flow: ltr,
   math: fluid,
@@ -17,7 +20,7 @@ $susy: (
   columns: 12,
   gutters: 2em/5em,
   column-width: false,
-  global-box-sizing: content-box,
+  global-box-sizing: border-box,
   last-flow: to,
   debug: (
     image: hide,
