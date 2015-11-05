@@ -616,6 +616,10 @@ p {
     margin-bottom: rhythm(1);
 }
 
+.page-section-header {
+  text-transform: none;
+}
+
 .button {
   background: $devblue;
   padding: rhythm(.25);
