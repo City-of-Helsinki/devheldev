@@ -71,15 +71,31 @@ class KongAPIConfiguration(models.Model):
         :return: None
         :rtype: None
         """
-        existing = manager.check_api(self.api_page.name)
+        existing = manager.check_api(self.kong_api_id)
+
+        if self.request_host.startswith('/'):
+            path = self.request_host
+            host = None
+            strip_request_path = True
+        else:
+            path = None
+            host = self.request_host
+            strip_request_path = False
+
         if existing:
             res = manager.update_api(api_id=self.kong_api_id,
+                                     name=self.api_page.name,
                                      upstream_url=self.api_page.api_path,
-                                     request_host=self.request_host)
+                                     request_host=host,
+                                     request_path=path,
+                                     strip_request_path=strip_request_path)
+            self.kong_api_id = res['id']
         else:
             res = manager.create_api(name=self.api_page.name,
                                      upstream_url=self.api_page.api_path,
-                                     request_host=self.request_host)
+                                     request_host=host,
+                                     request_path=path,
+                                     strip_request_path=strip_request_path)
             self.kong_api_id = res['id']
             self.save()
 

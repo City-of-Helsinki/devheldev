@@ -51,18 +51,32 @@ def get_api_count():
     return kcli.count()
 
 
-def create_api(name, upstream_url, request_host):
+def create_api(name, upstream_url, request_host=None, request_path=None, strip_request_path=False):
     """
     Create an API gateway
 
     :param name:short name for the API
     :param upstream_url:app_url of the API as an full URL
     :param request_host:host and domain API server is recognized by Kong (HTTP Host)
+    :param request_path:part of the API path that Kong can use to recognize it
+    :param strip_request_path:instruct Kong to remove request_path from upstream request
     :return: Kong data
     """
 
+    if not (request_host or request_path):
+        raise ValueError
+
     kcli = _kong_api_client()
-    result = kcli.create(upstream_url=upstream_url, name=name, request_host=request_host)
+
+    if request_host:
+        result = kcli.update(name, upstream_url=upstream_url,
+                             request_host=request_host,
+                             strip_request_path=str(strip_request_path))
+    else:
+        result = kcli.update(name, upstream_url=upstream_url,
+                             request_path=request_path,
+                             strip_request_path=str(strip_request_path))
+
     if result['id']:
         return result
     else:
@@ -82,9 +96,22 @@ def delete_api(name):
     kcli.delete(name)
 
 
-def update_api(api_id, **kwargs):
+def update_api(api_id, name, upstream_url, request_host=None, request_path=None, strip_request_path=False):
+
+    if not (request_host or request_path):
+        raise ValueError
+
     kcli = _kong_api_client()
-    result = kcli.update(api_id, **kwargs)
+
+    if request_host:
+        result = kcli.update(api_id, upstream_url=upstream_url, name=name,
+                             request_host=request_host,
+                             strip_request_path=str(strip_request_path))
+    else:
+        result = kcli.update(api_id, upstream_url=upstream_url, name=name,
+                             request_path=request_path,
+                             strip_request_path=str(strip_request_path))
+
     if result['id']:
         return result
     else:
@@ -126,7 +153,7 @@ def list_apis():
 def check_api(name):
     kcli = _kong_api_client()
     apis = kcli.list()
-    matching_api = [api for api in apis['data'] if api['name'] is name]
+    matching_api = [api for api in apis['data'] if api['name'] == name]
     if matching_api:
         return matching_api[0]
     else:
