@@ -106,13 +106,17 @@
               <div class="hilight-banner hilight-banner--full">
                 <div class="hilight-banner__box">
                   <div class="hilight-banner__content">
-                    {% with blog=self.top_blog %}
+                  {% if self.blog_index %}
+                    {% with blog=self.blog_index.blogs.0 %}
                     <a href="{% pageurl self.blog_index %}"><h5 class="hilight-banner__section">Blog</h5></a>
-                    <a href="{% pageurl blog %}">
-                    <h3>{{blog.title}}</h3>
-                    <p>{{blog.body|first_p|richtext}}</p>
-                    </a>
+                        {% if blog %}
+                        <a href="{% pageurl blog %}">
+                        <h3>{{blog.title}}</h3>
+                        <p>{{blog.body|first_p|richtext}}</p>
+                        </a>
+                        {% endif %}
                     {% endwith %}
+                  {% endif %}
                   </div>
                 </div>
               </div>
@@ -145,13 +149,17 @@
               <div class="hilight-banner hilight-banner--half">
                 <div class="hilight-banner__box">
                   <div class="hilight-banner__content">
-                    {% with blog=self.second_blog %}
+                  {% if self.blog_index %}
+                    {% with blog=self.blog_index.blogs.1 %}
                     <a href="{% pageurl self.blog_index %}"><h5 class="hilight-banner__section">Blog</h5></a>
-                    <a href="{% pageurl blog %}">
-                    <h3>{{blog.title}}</h3>
-                    <p>{{blog.body|first_p|richtext}}</p>
-                    </a>
+                        {% if blog %}
+                        <a href="{% pageurl blog %}">
+                        <h3>{{blog.title}}</h3>
+                        <p>{{blog.body|first_p|richtext}}</p>
+                        </a>
+                        {% endif %}
                     {% endwith %}
+                  {% endif %}
                   </div>
                 </div>
               </div>

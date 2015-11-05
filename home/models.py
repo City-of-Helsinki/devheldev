@@ -23,18 +23,6 @@ class HomePage(Page):
     def blog_index(self):
         return BlogIndexPage.objects.live().first()
 
-    def top_blog(self):
-        try:
-            return self.blog_index.blogs[0]
-        except (AttributeError, IndexError):
-            return self.blog_index
-
-    def second_blog(self):
-        try:
-            return self.blog_index.blogs[1]
-        except (AttributeError, IndexError):
-            return self.blog_index
-
     @cached_property
     def project_index(self):
         return ProjectIndexPage.objects.live().first()
