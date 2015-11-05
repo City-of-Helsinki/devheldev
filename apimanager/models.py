@@ -77,10 +77,12 @@ class KongAPIConfiguration(models.Model):
             path = self.request_host
             host = None
             strip_request_path = True
+            preserve_host=True
         else:
             path = None
             host = self.request_host
             strip_request_path = False
+            preserve_host=False
 
         if existing:
             res = manager.update_api(api_id=self.kong_api_id,
@@ -88,14 +90,16 @@ class KongAPIConfiguration(models.Model):
                                      upstream_url=self.api_page.api_path,
                                      request_host=host,
                                      request_path=path,
-                                     strip_request_path=strip_request_path)
+                                     strip_request_path=strip_request_path,
+                                     preserve_host=preserve_host)
             self.kong_api_id = res['id']
         else:
             res = manager.create_api(name=self.api_page.name,
                                      upstream_url=self.api_page.api_path,
                                      request_host=host,
                                      request_path=path,
-                                     strip_request_path=strip_request_path)
+                                     strip_request_path=strip_request_path,
+                                     preserve_host=preserve_host)
             self.kong_api_id = res['id']
             self.save()
 

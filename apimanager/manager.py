@@ -51,7 +51,8 @@ def get_api_count():
     return kcli.count()
 
 
-def create_api(name, upstream_url, request_host=None, request_path=None, strip_request_path=False):
+def create_api(name, upstream_url, request_host=None, request_path=None,
+               strip_request_path=False, preserve_host=False):
     """
     Create an API gateway
 
@@ -60,6 +61,7 @@ def create_api(name, upstream_url, request_host=None, request_path=None, strip_r
     :param request_host:host and domain API server is recognized by Kong (HTTP Host)
     :param request_path:part of the API path that Kong can use to recognize it
     :param strip_request_path:instruct Kong to remove request_path from upstream request
+    :param preserve_host:instruct Kong to carry Host header to upstream server
     :return: Kong data
     """
 
@@ -71,11 +73,13 @@ def create_api(name, upstream_url, request_host=None, request_path=None, strip_r
     if request_host:
         result = kcli.update(name, upstream_url=upstream_url,
                              request_host=request_host,
-                             strip_request_path=str(strip_request_path))
+                             strip_request_path=str(strip_request_path),
+                             preserve_host=str(preserve_host))
     else:
         result = kcli.update(name, upstream_url=upstream_url,
                              request_path=request_path,
-                             strip_request_path=str(strip_request_path))
+                             strip_request_path=str(strip_request_path),
+                             preserve_host=str(preserve_host))
 
     if result['id']:
         return result
@@ -96,7 +100,8 @@ def delete_api(name):
     kcli.delete(name)
 
 
-def update_api(api_id, name, upstream_url, request_host=None, request_path=None, strip_request_path=False):
+def update_api(api_id, name, upstream_url, request_host=None, request_path=None,
+               strip_request_path=False, preserve_host=False):
 
     if not (request_host or request_path):
         raise ValueError
@@ -106,11 +111,13 @@ def update_api(api_id, name, upstream_url, request_host=None, request_path=None,
     if request_host:
         result = kcli.update(api_id, upstream_url=upstream_url, name=name,
                              request_host=request_host,
-                             strip_request_path=str(strip_request_path))
+                             strip_request_path=str(strip_request_path),
+                             preserve_host=str(preserve_host))
     else:
         result = kcli.update(api_id, upstream_url=upstream_url, name=name,
                              request_path=request_path,
-                             strip_request_path=str(strip_request_path))
+                             strip_request_path=str(strip_request_path),
+                             preserve_host=str(preserve_host))
 
     if result['id']:
         return result
