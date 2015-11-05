@@ -4,9 +4,13 @@
 {% block content %}
 {% with apis=self.apis %}
 <div class="layout-page-content--full">
+  <div class="layout-page-header--full">
+    <div class="page-header page-header--full">
+      <h1>API<span>s</span></h1>
+    </div>
+  </div>
   <div class="page-content">
     <div class="page-content__box">
-      <h5 class="page-section-header">API<span>s</span></h5>
       {% if apis %}
       <div class="api-list">
       {% for api in apis %}

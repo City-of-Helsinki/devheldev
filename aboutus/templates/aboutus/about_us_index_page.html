@@ -4,9 +4,13 @@
 {% block content %}
 {% with people=self.people %}
 <div class="layout-page-content--full">
+  <div class="layout-page-header--full">
+    <div class="page-header page-header--full">
+      <h1>Code fellows</h1>
+    </div>
+  </div>
   <div class="page-content">
     <div class="page-content__box">
-      <h1>Code fellows</h1>
       {% if people %}
       <div class="layout-people-index">
       {% for person in people %}

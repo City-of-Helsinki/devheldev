@@ -741,9 +741,9 @@ a.blog-listing-item__tag {
 }
 
 .page-header--full {
-  padding: rhythm(.25) rhythm(1);
-  margin-bottom: rhythm(1);
-  background: #FFFFFF;
+  h1 {
+    @include adjust-font-size-to($xxlarge-font-size);
+  }
 }
 
 .layout-project-index-item {
