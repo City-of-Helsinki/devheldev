@@ -98,7 +98,7 @@ def add_application(request):
 @login_required
 def view_applications(request):
 
-    apps = Application.objects.all()
+    apps = Application.objects.filter(user=request.user)
 
     return render(request,
                   'apimanager/api_app_list.html',
