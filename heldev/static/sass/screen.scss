@@ -790,13 +790,20 @@ a.blog-listing-item__tag {
   margin-bottom: rhythm(1);
   background: #FFFFFF;
   .project-description {
-    min-height: rhythm(3);
+    min-height: rhythm(4);
   }
 }
 
 .project-index-image {
-  text-align: center;
-  background: #333;
+  height: rhythm(8);
+  @include hide-text;
+  background-color: $devgray;
+  background: no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-attachment: local;
   overflow: hidden;
   margin-bottom: rhythm(.5);
   img {
