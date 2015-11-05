@@ -19,8 +19,15 @@
     </a>
     <h2><a href="{% pageurl blog %}">{{ blog.title }}</a></h2>
     <div class="blog-listing-item__details">
-      {% if blog.owner %}
-      <span class="blog-listing-item__author">{{ blog.owner.get_full_name }}</span> / 
+      {% if blog.owner and blog.owner.person %}
+      {% with blog.owner.person as person %}
+      <span class="blog-listing-item__author">
+        <a href="{{person.get_github_link}}">
+          <img src="{{person.avatar_url}}&s=96" />
+          {{ person.title }}
+        </a>
+      </span> /
+      {% endwith %}
       {% endif %}
       {% for tag in blog.tags.all %}
       <a href="{% url 'blog:tag' tag.slug %}" class="blog-listing-item__tag">#{{ tag }}</a>
