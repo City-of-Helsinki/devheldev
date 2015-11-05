@@ -97,5 +97,20 @@
         {% block extra_js %}
             {# Override this in templates to add extra javascript #}
         {% endblock %}
+      <!-- Piwik -->
+      <script type="text/javascript">
+        var _paq = _paq || [];
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+          var u="//analytics.hel.ninja/piwik/";
+          _paq.push(['setTrackerUrl', u+'piwik.php']);
+          _paq.push(['setSiteId', 6]);
+          var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+          g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+        })();
+      </script>
+      <noscript><p><img src="//analytics.hel.ninja/piwik/piwik.php?idsite=6" style="border:0;" alt="" /></p></noscript>
+      <!-- End Piwik Code -->
     </body>
 </html>
