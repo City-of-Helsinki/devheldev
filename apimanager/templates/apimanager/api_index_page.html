@@ -7,6 +7,9 @@
       <div class="layout-page-header--full">
         <div class="page-header page-header--full">
           <h1>API<span>s</span></h1>
+          <div class="app-registration-link">
+            <a href="{% url "apimanager:add_application" %}" class="button">Register an application!</a>
+          </div>
         </div>
       </div>
       {% if apis %}

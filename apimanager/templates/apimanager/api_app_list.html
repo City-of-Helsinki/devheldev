@@ -8,6 +8,7 @@
             <p>
                 <a href="{% url "apimanager:add_application" %}" class="button">Register an application!</a>
             </p>
+        {% if apps %}
         <h1>Your applications</h1>
             <ul>
                 {%  for app in apps %}
@@ -31,6 +32,7 @@
                     {% endif %}
                 {% endfor %}
             </ul>
+        {% endif %}
         </div>
     </div>
 </div>

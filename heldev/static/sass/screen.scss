@@ -767,12 +767,18 @@ a.blog-listing-item__tag {
 
 .layout-page-header--full {
   @include span(12);
+  margin-bottom: rhythm(1);
 }
 
 .page-header--full {
   h1 {
     @include adjust-font-size-to($xxlarge-font-size);
+    margin-bottom: 0;
   }
+}
+
+.app-registration-link {
+  text-align: right;
 }
 
 .layout-project-index-item {

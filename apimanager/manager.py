@@ -21,10 +21,10 @@ def _kong_api_client():
 
     :return:kong.client.APIAdminClient
     """
-    if settings.KONG_URL:
+    if hasattr(settings, "KONG_URL"):
         return kong.client.APIAdminClient('http://' + settings.KONG_URL + ':8001')
     else:
-        raise ImproperlyConfigured('Kong installation URL missing')
+        raise ImproperlyConfigured('Kong installation URL is required')
 
 
 def _kong_consumer_client():
@@ -34,10 +34,10 @@ def _kong_consumer_client():
 
     :return:kong.client.APIAdminClient
     """
-    if settings.KONG_URL:
+    if hasattr(settings, "KONG_URL"):
         return kong.client.ConsumerAdminClient('http://' + settings.KONG_URL + ':8001')
     else:
-        raise ImproperlyConfigured('Kong installation URL missing')
+        raise ImproperlyConfigured('Kong installation URL required')
 
 
 def get_api_count():
