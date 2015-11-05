@@ -4,20 +4,26 @@
 <div class="layout-page-content--full">
   <div class="page-content">
     <div class="page-content__box">
-            <h1>Applications</h1>
+            <h1 class="page-section-header">Applications</h1>
             <p>
-                <a href="{% url "apimanager:add_application" %}">Register an application!</a>
+                <a href="{% url "apimanager:add_application" %}" class="button">Register an application!</a>
             </p>
-        <h2>Your applications</h2>
+        <h1>Your applications</h1>
             <ul>
                 {%  for app in apps %}
-                    <a href="{% url "apimanager:update_application" app.pk %}">{{ app.name }}</a>
-                    <h2>Subscriptions</h2>
-                    <ul>
-                    {% for sub in app.subscriptions.all %}
-                        <li>{{ sub.api_page.name }}</li>
-                    {% endfor %}
-                    </ul>
+                    <h3><a href="{% url "apimanager:update_application" app.pk %}">{{ app.name }}</a></h3>
+                    {% if app.app_url %}
+                        <p><a href="{{ app.app_url }}">{{ app.app_url }}</a></p>
+                    {% endif %}
+                    <p>{{ app.description }}</p>
+                    {% if app.subscriptions.exists %}
+                        <h4>Subscriptions</h4>
+                        <ul>
+                        {% for sub in app.subscriptions.all %}
+                            <li>{{ sub.api_page.name }}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
                 {% endfor %}
             </ul>
         </div>
