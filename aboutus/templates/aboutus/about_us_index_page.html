@@ -4,9 +4,11 @@
 {% block content %}
 {% with people=self.people %}
 <div class="layout-page-content--full">
-  <div class="page-content">
-    <div class="page-content__box">
+  <div class="layout-page-header--full">
+    <div class="page-header page-header--full">
       <h1>Code fellows</h1>
+    </div>
+  </div>
       {% if people %}
       <div class="layout-people-index">
       {% for person in people %}
@@ -16,28 +18,44 @@
             <img src="{{person.avatar_url}}" alt="{{person.name}}">
           </div>
           <div class="people-index__person-details">
-            <h4>{{person.name}}</h4>
+            <h3>{{person.name}}</h3>
             <span class="person-title">{{person.job_title}}</span>
-            <a href="{{person.contact}}" class="person-contact">Contact</a>
-            {% if person.description %}
-            <div class="people-index__person-description">{{person.description|linebreaks}}</div>
-            {% endif %}
           </div>
-            
+          <div class="people-index__person-contact">
+            <a href="{{person.contact}}" class="person-contact">Contact</a>  
+          </div>
+            <div class="people-index__person-description">
+            {% if person.description %}
+              <div class="person-dropdown">
+                <input type="checkbox" checked>
+                <span class="fa fa-chevron-up"></span>
+                <h5>Bio</h5>
+                <div class="panel">
+                  <div class="panel-content">
+                    {{person.description|linebreaks}}
+                  </div>
+                </div>
+              </div>
+            {% else %}
+              <div class="person-dropdown--empty"></div>
+            {% endif %}
+            </div>
             <div class="people-index__person-projects">
 
-            <div class="person-projects-dropdown">
+            <div class="person-dropdown">
               <input type="checkbox" checked>
               <span class="fa fa-chevron-up"></span>
               <h5>Projects</h5>
               <div class="panel">
+                <div class="panel-content">
                   <ul class="person-projects-list">
                   {% for role in person.roles.all %}
                       <li>{{role.type}} in <a href={% pageurl role.project %}>{{role.project.title}}</a></li>
                   {% endfor %}
                   </ul>
-              </div> <!-- panel -->
-            </div> <!-- accordion__item -->
+                </div>
+              </div>
+            </div>
             </div>
             
         </div>
@@ -45,8 +63,6 @@
       {% endfor %}
       </div>
       {% endif %}
-    </div>
-  </div>
 </div>
 {% endwith %}
 {% endblock %}

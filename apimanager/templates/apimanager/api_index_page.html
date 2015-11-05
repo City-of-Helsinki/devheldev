@@ -1,27 +1,42 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags static %}
 
 {% block content %}
 {% with apis=self.apis %}
 <div class="layout-page-content--full">
-  <div class="page-content">
-    <div class="page-content__box">
-        <div>
+      <div class="layout-page-header--full">
+        <div class="page-header page-header--full">
+          <h1>API<span>s</span></h1>
+          <div class="app-registration-link">
             <a href="{% url "apimanager:add_application" %}" class="button">Register an application!</a>
+          </div>
         </div>
-      <h5 class="page-section-header">API<span>s</span></h5>
+      </div>
       {% if apis %}
-      <div class="api-list">
+      <div class="project-index">
       {% for api in apis %}
-        <div>
-            <a href="{% pageurl api %}">{{api.title}}</a>
-            <p>{{api.short_description}}</p>
+        <div class="layout-project-index-item">
+          <div class="project-index-item">
+            <div class="project-index-item__content">
+            <a href="{% pageurl api %}">
+              <div class="project-status project-status--{{api.status}}">{{api.get_status_display}}</div>
+            <div class="project-index-image">
+              {% if api.image %}
+              {% image api.image fill-400x250 as image %}
+              <div class="project-index-image" style="background-image: url({{image.url}})">{{project.image.title}}</div>
+              {% else %}
+               <div class="project-index-image" style="background-image: url({% static "images/api-image-default.png" %})">Default project image</div>
+              {% endif %}
+              </div>
+            <h2>{{api.title}}</h2></a>
+            <div class="project-description">{{api.short_description}}</div>
+            </div>
+        </div>
         </div>
       {% endfor %}
-      </div>
+        </div>
       {% endif %}
-    </div>
-  </div>
+
 </div>
 {% endwith %}
 {% endblock %}

@@ -11,9 +11,20 @@
 @import 'sidr';
 
 @include establish-baseline;
-  
+
+html {
+  box-sizing: border-box;
+  height: 100%;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 body {
+  height: 100%;
   font-family: $base-font-family;
+  letter-spacing: .033em;
   @extend %t-regular;
   color: $devblue;
   background-color: #eee;
@@ -127,13 +138,12 @@ p {
     $bar-height: .4em;
     $bar-spacing: .75em;
     background: $devblue;
-    padding: 6px;
+    padding: .5em;
     z-index: 10001;
     position: fixed;
     top: rhythm(.5);
     right: rhythm(.5);
-    width: $bar-width;
-    height: $bar-height + $bar-spacing*2;
+    height: $bar-height + $bar-spacing*2 + 1em;
     cursor: pointer;
 
 
@@ -236,15 +246,26 @@ p {
   }
   
   .layout-main {
-    margin-top:  rhythm(4);
+    min-height: 100%;
+    padding-top: rhythm(4);
+    padding-bottom: rhythm(4);
+    margin-bottom: -($footer-height); 
     @include breakpoint($tabletwidth) {
-      margin-top:  rhythm(5);
+      padding-top: rhythm(5);
+      padding-bottom: rhythm(5);
+    }
+    &:after {
+      content: "";
+      display: block;
+      height: $footer-height;
     }
   }
 
   .template-home-page .layout-main {
     margin-top:  rhythm(1);
+    padding-top: 0;
     @include breakpoint($tabletwidth) {
+      padding-top: 0;
       margin-top:  rhythm(2);
     }
   }
@@ -299,9 +320,8 @@ p {
 
   .layout-site-footer {
     @include clearfix;
-    width: 100%;
+    height: $footer-height;
     background: #333333;
-    margin-top: rhythm(2);
     padding: rhythm(2) 0 rhythm(4) 0;
     color: #FFFFFF;
   }
@@ -622,6 +642,7 @@ p {
 }
 
 .button {
+  display: inline-block;
   background: $devblue;
   padding: rhythm(.25);
   color: #FFFFFF;
@@ -683,8 +704,15 @@ p {
 }
 
 .blog-listing-item__details {
-  @include adjust-font-size-to(12px);
+  border-top: 2px solid $devblue;
+  border-bottom: 2px solid $devblue;
+  margin-bottom: rhythm(1);
+  padding: rhythm(.5) 0;
+  @extend %t-small;
   color: $devgray;
+}
+
+.blog-listing-item__author {
 }
 
 .blog-listing-item__content {
@@ -693,7 +721,8 @@ p {
     @include span(10);
   }
   h2 {
-    @include adjust-font-size-to(32px);
+    @extend %t-xlarge;
+    margin-bottom: rhythm(.25);
     a {
       color: $devblue;
       &:hover {
@@ -738,12 +767,18 @@ a.blog-listing-item__tag {
 
 .layout-page-header--full {
   @include span(12);
+  margin-bottom: rhythm(1);
 }
 
 .page-header--full {
-  padding: rhythm(.25) rhythm(1);
-  margin-bottom: rhythm(1);
-  background: #FFFFFF;
+  h1 {
+    @include adjust-font-size-to($xxlarge-font-size);
+    margin-bottom: 0;
+  }
+}
+
+.app-registration-link {
+  text-align: right;
 }
 
 .layout-project-index-item {
@@ -760,11 +795,21 @@ a.blog-listing-item__tag {
   padding: rhythm(.2);
   margin-bottom: rhythm(1);
   background: #FFFFFF;
+  .project-description {
+    min-height: rhythm(4);
+  }
 }
 
 .project-index-image {
-  text-align: center;
-  background: #333;
+  height: rhythm(8);
+  @include hide-text;
+  background-color: $devgray;
+  background: no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-attachment: local;
   overflow: hidden;
   margin-bottom: rhythm(.5);
   img {
@@ -946,15 +991,19 @@ a.blog-listing-item__tag {
 
 .layout-people-index__person {
   margin-bottom: rhythm(1);
-  @include gallery(6 of 12);
+  @include span(12);
+  @include breakpoint($deskwidth) {
+    @include gallery(6 of 12);
+  }
 }
 
 .people-index__person {
   @include clearfix;
-  border: 2px solid $devblue;
-  padding: rhythm(.5);
-  h4 {
-    //@include adjust-font-size-to(24px);
+  background: #FFFFFF;
+  padding: rhythm(1);
+  h3 {
+    @extend %t-large;
+    margin-bottom: 0;
   }
   .person-title {
     display: block;
@@ -968,42 +1017,43 @@ a.blog-listing-item__tag {
 }
 
 .people-index__person-avatar {
-  @include span(6);
+  @include span(4);
+  margin-bottom: rhythm(.5);
   @include breakpoint($tabletwidth) {
     @include span(3);
   }
   img {
-    max-height: rhythm(5);
+    max-height: rhythm(6);
   }
 }
 
 .people-index__person-details {
-  @include span(6);
-    @include breakpoint($tabletwidth) {
-  @include span(7);
-  }
-}
-
-.people-index__person-description {
-  padding-top: 0.5em;
-}
-
-.people-index__person-projects {
-  @include span(12);
+  @include span(8);
+  margin-bottom: rhythm(.5);
   @include breakpoint($tabletwidth) {
-    @include span(12);
+    @include span(7);
   }
 }
 
+.people-index__person-contact {
+  @include span(8);
+  margin-bottom: rhythm(.5);
+  @include breakpoint($tabletwidth) {
+    @include span(2);
+  }
+}
 
-  .person-projects-dropdown {
+.people-index__person-projects, .people-index__person-description {
+  @include span(12);
+  margin-bottom: rhythm(.5);
+}
+
+
+.person-dropdown {
     float: left;
-    padding-left: 1em;
     position: relative;
     width: 100%;
-    background: $devblue;
-    color:#ffffff;
-    border-bottom: 1px solid $devblue;
+    border: 1px solid $devblue;
     margin-bottom: 1px;
     padding-top: 0.6em;
     
@@ -1016,10 +1066,15 @@ a.blog-listing-item__tag {
       transition: all 0.2s ease-in;
     }
     
-    .person-projects-list {
-      padding-top: 0.5em;
+    .panel-content {
+      border-top: 1px solid $devblue;
+      margin-top: .5em;
+      padding: rhythm(.5);
     }
-
+    
+    h5 {
+      margin-left: 1em;
+    }
     input[type=checkbox] {
       position: absolute;
       cursor: pointer;
@@ -1045,9 +1100,15 @@ a.blog-listing-item__tag {
     } 
   }
 
+.person-dropdown--empty {
+  @include breakpoint($deskwidth) {
+    height: 3em;
+  }
+}
 
-
-
+.person-projects-list {
+  @include no-bullets;
+}
 
 
 .api-explorer {
