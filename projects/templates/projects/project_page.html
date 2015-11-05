@@ -4,83 +4,63 @@
 {% block content %}
 {% with project=self %}
 
-<div class="layout-page-content">
+<div class="layout-page-content--full">
   <div class="page-content">
     <div class="page-content__box">
-      <a href="/projects"><h5 class="page-section-header">Projects</h5></a>
-      <h1>{{ project.title }}</h1>
-        {% image project.image width-500 %}
-        <div class="project-status project-status--{{project.status}}">Project status: {{ project.get_status_display }}</div>
-        {% if project.roles.all %}
       
-            <div class="project-people">
-              <h4>People</h4>
-              <ul>
-              {% for role in project.roles.all %}
-                  <li>{{ role.type }}: <a href={{role.person.contact}}>{{ role.person.name }}</a></li>
-              {% endfor %}
-              </ul>
-            </div>
-        {% endif %}
-        {% if project.kpis.all %}
-            <div class="project-kpis">
-            <h6>Key performance indicators</h6>
-            <ul>
-            {% for kpi in project.kpis.all %}
-                <li><p>{{ kpi.name }} {{ kpi.value }}</p>
-                <p>{{ kpi.description }}</p></li>
-            {% endfor %}
-            </ul>
-            </div>
-        {% endif %}
-        {% if project.links.all %}
-            <div class="project-links">
-            <h6>Links</h6>
-            <ul>
-            {% for link in project.links.all %}
-                <li><p><a href={{ link.url }}>{{ link.type }}</a></p>
-                <p>{{ link.description }}</p></li>
-            {% endfor %}
-            </ul>
-            </div>
-        {% endif %}
-        <div>{{ project.full_description|richtext }}</div>
+      <div class="layout-project-content">
+        <div class="layout-project-header">
+          <a href="/projects"><h5 class="page-section-header">Projects</h5></a>
+          <h1>{{ project.title }}</h1>
+        </div>
+        <div class="layout-project-main-info">
+          <div class="project-main-image">{% image project.image width-500 %}</div>
+          <div>{{ project.full_description|richtext }}</div>
+        </div>
+        <aside class="layout-project-additional-info">
+          <div class="project-additional-info__content">
+            <div class="project-status project-status--{{project.status}}">Project status: {{ project.get_status_display }}</div>
+            {% if project.roles.all %}
+
+                <div class="project-people">
+                  <h4>People</h4>
+                  <ul>
+                  {% for role in project.roles.all %}
+                    <li><a href={{role.person.contact}}><span class="people-role">{{ role.type }}</span>: {{ role.person.name }}</a></li>
+                  {% endfor %}
+                  </ul>
+                </div>
+            {% endif %}
+            {% if project.kpis.all %}
+                <div class="project-kpis">
+                <h4>Key performance indicators</h4>
+                <ul>
+                {% for kpi in project.kpis.all %}
+                    <li><span class="kpis-name">{{ kpi.name }}</span>: <span class="kpis-value">{{ kpi.value }}</span><br/>
+                    <span class="kpis-description">{{ kpi.description }}</span></li>
+                {% endfor %}
+                </ul>
+                </div>
+            {% endif %}
+            {% if project.links.all %}
+                <div class="project-links">
+                <h4>Links</h4>
+                <ul>
+                {% for link in project.links.all %}
+                  <li><a href={{ link.url }}><span class="links-name">{{ link.type }}</span><br/>
+                    <span class="links-description">{{ link.description }}</span></a></li>
+                {% endfor %}
+                </ul>
+                </div>
+            {% endif %}
+          </div>
+        </aside>
+      </div>
+      
     </div>
   </div>
 </div>
 {% endwith %}
 
-<aside class="layout-side-content">
-              <div class="list-banner list-banner--events">
-
-                <h3>Projects</h3>
-                <ul>
-
-                  <li class="project-list__item">
-                    <span class="event-list__date">18.9.2015</span>
-                    <span class="event-list__header">{% lorem 2 w random %}</span>
-                    <span class="event-list__description">{% lorem 5 w random %}</span>
-                    <span class="event-list__link"><a href="#">Read more >></a></span>
-                  </li>
-
-                </ul>
-                <div class="list-banner__full-link">
-                  <a href="/projects">Full list of projects >></a>
-                </div>
-
-              </div>
-              <div class="some-banner">
-                <a href="https://www.facebook.com/groups/heldev">
-                  <i class="fa fa-facebook-official fa-2x"></i>
-                  We are in Facebook
-                </a>
-              </div>
-              <div class="some-banner">
-                <a href="https://github.com/City-of-Helsinki">
-                  <i class="fa fa-github fa-2x"></i>
-                  Find us in GitHub
-                </a>
-              </div>
-            </aside>
 
 {% endblock %}

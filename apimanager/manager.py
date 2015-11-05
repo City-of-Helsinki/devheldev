@@ -149,7 +149,7 @@ def add_consumer(username, custom_id=None):
         return False
 
 
-def delete_consumer(username, cid):
+def delete_consumer(username, cid=None):
     """
     Delete consumer from Kong using given username or id
 
@@ -158,7 +158,26 @@ def delete_consumer(username, cid):
     :return: None (Kong API does not return anything)
     """
     ucli = _kong_consumer_client()
-    ucli.delete(username or cid)
+    try:
+        ucli.delete(username or cid)
+    except ValueError:
+        pass
+
+
+def get_consumer(username, cid=None):
+    """
+    Get consumer data from Kong
+
+    :param username: username
+    :param cid: Kong id
+    :return: Consumer dat
+    """
+    ucli = _kong_consumer_client()
+    try:
+        res = ucli.retrieve(username or cid)
+        return res
+    except ValueError:
+        return None
 
 
 def list_consumers():
@@ -188,20 +207,6 @@ def request_api_key(consumer_id):
         return None
 
 
-def delete_api_key(consumer_id, key_id):
-    """
-    Delete API key
-
-    :param consumer_id: Kong consumer id
-    :param key_id: Kong Key id
-    :return: None
-    """
-
-    ucli = _kong_consumer_client()
-    kcli = ucli.key_auth(consumer_id)
-    kcli.delete(key_id)
-
-
 def delete_api_key(consumer_id, key):
     """
     Delete given API key belonging given consumer
@@ -212,5 +217,7 @@ def delete_api_key(consumer_id, key):
     """
     ucli = _kong_consumer_client()
     kcli = ucli.key_auth(consumer_id)
-    kcli.delete(key)
-
+    try:
+        kcli.delete(key)
+    except ValueError:
+        pass
