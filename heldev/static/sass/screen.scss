@@ -972,6 +972,10 @@ a.blog-listing-item__tag {
   }
 }
 
+.people-index__person-description {
+  padding-top: 0.5em;
+}
+
 .people-index__person-projects {
   @include span(12);
   @include breakpoint($tabletwidth) {
@@ -989,17 +993,21 @@ a.blog-listing-item__tag {
     color:#ffffff;
     border-bottom: 1px solid $devblue;
     margin-bottom: 1px;
-    padding-bottom: 1em / 2;
+    padding-top: 0.6em;
     
     // The accordion chevron icon
     span {
       color: $devyellow;
       position: absolute;
       right: 1em;
-      top: 0;
+      top: 0.7em;
       transition: all 0.2s ease-in;
     }
     
+    .person-projects-list {
+      padding-top: 0.5em;
+    }
+
     input[type=checkbox] {
       position: absolute;
       cursor: pointer;
