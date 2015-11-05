@@ -22,7 +22,7 @@
                         {% for sub in app.apisubscription_set.all %}
                             <li>
                                 <h5>
-                                    {{ sub.api_page.name }}
+                                    {{ sub.api.api_page.name }}
                                 </h5>
                                 <div>API Key: {{ sub.key }}</div>
                             </li>
