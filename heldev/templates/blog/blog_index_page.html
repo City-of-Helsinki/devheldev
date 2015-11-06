@@ -14,7 +14,9 @@
       <h5 class="page-section-header">Blog</h5>
       {% endif %}
       {% for blog in blogs %}
-      {% include "blog/blog_post.html" %}
+          {% with front_page=True %}
+            {% include "blog/blog_post.html" %}
+          {% endwith %}
       {% endfor %}
       <!-- <div class="button button--loadmore">Load more</div> -->
     </div>
