@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags home_tags %}
+{% block content %}
+<div class="layout-page-content--full">
+  <div class="page-content">
+    <div class="page-content__box">
+            <h1 class="page-section-header">Applications</h1>
+            <p>
+                You need to create a developer account with your Github (coming soon) or Facebook account before you can register your application.
+            </p>
+            <p>
+                By registering your application, you can subscribe to <b>our Open APIs</b> and receive <b>API keys</b>.</p>
+            <p>
+                <a href="{% url "apimanager:add_application" %}" class="button">Register an application!</a>
+            </p>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

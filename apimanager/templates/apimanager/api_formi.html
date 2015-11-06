@@ -13,11 +13,13 @@
 <div class="layout-page-content--full">
     <div class="page-content">
         <div class="page-content__box">
+        <p>
             <a href="{% url "apimanager:view_applications" %}">Back</a>
+        </p>
             <h1>Application register</h1>
-
-            {# Display django.contrib.messages as Bootstrap alerts #}
-            {% bootstrap_messages %}
+            <p>
+                By registering your application, you can subscribe to <b>our Open APIs</b> and receive <b>API keys</b>.</p>
+            <p>
 
             {% if app %}
             <form action="{% url "apimanager:update_application" app.pk %}" method="post">
