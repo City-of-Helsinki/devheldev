@@ -47,6 +47,14 @@ img {
 .rich-text, .page-content {
   @extend %t-list-styles;
   @extend %t-font-styles;
+  a {
+    color: $devblue;
+    text-decoration: underline;
+    &:hover {
+      color: $devgray;
+      text-decoration: underline;
+    }
+  }
 }
 
 .site-logo {
@@ -440,7 +448,7 @@ p {
 .front-banner__content {
   @include clearfix;
   @include breakpoint($tabletwidth) {
-    box-shadow: .5em .5em 0 0 darken($devblue,25%);
+    box-shadow: .5em .5em 0 0 rgba(#000000, 0.6);
   }
 }
 
@@ -461,6 +469,14 @@ p {
   }
   @include breakpoint($deskwidth) {
     width: 50%;
+  }
+  a {
+    color: $devyellow;
+    text-decoration: none;
+    &:hover {
+      color: $devgray;
+      text-decoration: none;
+    }
   }
 }
 

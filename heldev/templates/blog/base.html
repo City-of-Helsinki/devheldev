@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% load home_tags %}
+{% load home_tags wagtailcore_tags %}
+
 {% block body_class %}template-{{ self.get_verbose_name|slugify }}{% endblock %}
 
 {% block content %}
@@ -10,27 +11,17 @@
   <div class="list-banner list-banner--blogposts">
     <h3>Recent posts</h3>
     <ul>
-      <li class="blog-list__item">
-        <a href="/blog-post/">
-        <span class="blog-list__date">18.9.2015</span>
-        <span class="blog-list__header">{% lorem 5 w random %}</span>
-        </a>
-      </li>
-      <li class="blog-list__item">
-        <a href="/blog-post/">
-        <span class="blog-list__date">18.9.2015</span>
-        <span class="blog-list__header">{% lorem 5 w random %}</span>
-        </a>
-      </li>
-      <li class="blog-list__item">
-        <a href="/blog-post/">
-        <span class="blog-list__date">18.9.2015</span>
-        <span class="blog-list__header">{% lorem 5 w random %}</span>
-        </a>
-      </li>
+        {% for post in blogs %}
+        <li class="blog-list__item">
+            <a href="{% pageurl post %}">
+            <span class="blog-list__date">{{ post.date|date:"j.n.Y" }}</span>
+            <span class="blog-list__header">{{ post.title }}</span>
+            </a>
+        </li>
+        {% endfor %}
     </ul>
     <div class="list-banner__full-link">
-      <a href="#">Archive >></a>
+      <a href="/blog/">Archive >></a>
       {% blog_posts_by_month as by_month %}
       {% regroup by_month by year as by_year %}
       {% for year in by_year %}
@@ -44,15 +35,15 @@
     </div>
   </div>
   <div class="some-banner">
-    <a href="#">
+    <a href="https://www.facebook.com/groups/heldev">
       <i class="fa fa-facebook-official fa-2x"></i>
-      We are in Facebook
+      We're on Facebook
     </a>
   </div>
   <div class="some-banner">
-    <a href="#">
+    <a href="https://github.com/City-of-Helsinki">
       <i class="fa fa-github fa-2x"></i>
-      Find us in GitHub
+      Find us on GitHub
     </a>
   </div>
 </aside>
