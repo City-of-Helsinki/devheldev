@@ -21,9 +21,6 @@
                 By registering your application, you can subscribe to <b>our Open APIs</b> and receive <b>API keys</b>.</p>
             <p>
 
-            {# Display django.contrib.messages as Bootstrap alerts #}
-            {% bootstrap_messages %}
-
             {% if app %}
             <form action="{% url "apimanager:update_application" app.pk %}" method="post">
             {% else %}
