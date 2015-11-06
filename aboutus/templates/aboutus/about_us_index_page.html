@@ -1,5 +1,24 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
+{% load static wagtailcore_tags %}
+
+{% block extra_js %}
+  <script src="{% static 'jQuery-Collapse/src/jquery.collapse.js' %}" type='text/javascript'></script>
+  <script type="text/javascript">
+    $(function () {
+      $(".is-dropdown").collapse({
+        open: function() {
+          this.addClass("open");
+          this.css({ height: this.children().outerHeight() });
+        },
+        close: function() {
+          this.css({ height: "0px" });
+          this.removeClass("open");
+        }
+      });
+    });
+  </script>
+
+{% endblock %}
 
 {% block content %}
 {% with people=self.people %}
@@ -24,12 +43,10 @@
           <div class="people-index__person-contact">
             <a href="{{person.contact}}" class="person-contact">Contact</a>  
           </div>
-            <div class="people-index__person-description">
+            <div class="people-index__person-description"> 
             {% if person.description %}
-              <div class="person-dropdown">
-                <input type="checkbox" checked>
-                <span class="fa fa-chevron-up"></span>
-                <h5>Bio</h5>
+              <div class="person-dropdown is-dropdown">
+                <h5><span class="fa fa-chevron-up"></span> Bio</h5>
                 <div class="panel">
                   <div class="panel-content">
                     {{person.description|linebreaks}}
@@ -42,10 +59,8 @@
             </div>
             <div class="people-index__person-projects">
 
-            <div class="person-dropdown">
-              <input type="checkbox" checked>
-              <span class="fa fa-chevron-up"></span>
-              <h5>Projects</h5>
+            <div class="person-dropdown is-dropdown">
+              <h5><span class="fa fa-chevron-up"></span> Projects</h5>
               <div class="panel">
                 <div class="panel-content">
                   <ul class="person-projects-list">
