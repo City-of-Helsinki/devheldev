@@ -470,6 +470,14 @@ p {
   @include breakpoint($deskwidth) {
     width: 50%;
   }
+  a {
+    color: $devyellow;
+    text-decoration: none;
+    &:hover {
+      color: $devgray;
+      text-decoration: none;
+    }
+  }
 }
 
 .list-banner {
