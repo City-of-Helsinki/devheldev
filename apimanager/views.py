@@ -130,3 +130,10 @@ def update_application(request, app_id):
     return render(request,
                   'apimanager/api_formi.html',
                   {'form': app_form, 'subscriptions': subs, "app": app})
+
+
+def pre_login_view(request):
+    if not request.user.is_authenticated():
+        return render(request, 'apimanager/pre_login_page.html', {})
+    else:
+        return HttpResponseRedirect(reverse('apimanager:add_application'))
