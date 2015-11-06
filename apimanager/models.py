@@ -43,6 +43,14 @@ class APIPage(Orderable, Page):
         FieldPanel('full_description', classname="full")
     ]
 
+    def has_swagger_docs(self):
+        if not self.documentation:
+            return False
+        for ext in ('.yaml', '.yml'):
+            if self.documentation.endswith(ext):
+                return True
+        return False
+
 
 class APIIndexPage(Page):
     subpage_types = ['apimanager.ApiPage']
