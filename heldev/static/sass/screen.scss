@@ -47,6 +47,14 @@ img {
 .rich-text, .page-content {
   @extend %t-list-styles;
   @extend %t-font-styles;
+  a {
+    color: $devblue;
+    text-decoration: underline;
+    &:hover {
+      color: $devgray;
+      text-decoration: underline;
+    }
+  }
 }
 
 .site-logo {
