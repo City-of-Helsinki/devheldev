@@ -1074,51 +1074,55 @@ a.blog-listing-item__tag {
     padding-top: 0.6em;
     
     // The accordion chevron icon
-    span {
+    
+    h5 a {
+      color: $devblue;
+    }
+    h5 span {
       color: $devyellow;
       position: absolute;
       right: 1em;
       top: 0.7em;
       transition: all 0.2s ease-in;
     }
+  
+    h5.open span {
+      -ms-transform: rotate(180deg);
+      -webkit-transform: rotate(180deg);
+      transform: rotate(180deg);
+    }
+
+    h5.open + .panel {
+       height: auto;
+    }
+  
+    .panel {
+      margin-top: .5em;
+      height: 0px;
+      padding: 0px;
+      overflow: hidden;
+      display: block!important;
+      -webkit-transform: translateZ(0);
+      -webkit-transition: all .5s ease;
+      -moz-transition: all .5s ease;
+      -o-transition: all .5s ease;
+      -ms-transition: all .5s ease;
+      transition: all .5s ease;
+    }
     
     .panel-content {
-      border-top: 1px solid $devblue;
-      margin-top: .5em;
-      padding: rhythm(.5);
+      padding: rhythm(.75);
     }
     
     h5 {
       margin-left: 1em;
     }
-    input[type=checkbox] {
-      position: absolute;
-      cursor: pointer;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      opacity: 0;
-      
-      &:checked {
-        // Ensures panels are closed until checked
-        &~div.panel {
-          float: left;
-          margin: 5px 0;
-          max-height: 0;
-          opacity: 0;
-          transform: translate(0, 50%);
-        }
-        // Rotate chevron icon on selection  
-        &~span {
-          transform: rotate( 180deg );
-        }
-      }   
-    } 
+
   }
 
 .person-dropdown--empty {
   @include breakpoint($deskwidth) {
-    height: 3em;
+    height: 2.8em;
   }
 }
 
