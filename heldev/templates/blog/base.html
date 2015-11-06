@@ -14,14 +14,14 @@
         {% for post in blogs %}
         <li class="blog-list__item">
             <a href="{% pageurl post %}">
-            <span class="blog-list__date">{{ post.date }}</span>
+            <span class="blog-list__date">{{ post.date|date:"j.n.Y" }}</span>
             <span class="blog-list__header">{{ post.title }}</span>
             </a>
         </li>
         {% endfor %}
     </ul>
     <div class="list-banner__full-link">
-      <a href="#">Archive >></a>
+      <a href="/blog/">Archive >></a>
       {% blog_posts_by_month as by_month %}
       {% regroup by_month by year as by_year %}
       {% for year in by_year %}
