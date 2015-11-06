@@ -122,6 +122,7 @@ BOWER_INSTALLED_APPS = (
 COMPRESS_PRECOMPILERS = (
     ('text/x-scss', 'django_libsass.SassCompiler'),
 )
+COMPRESS_ENABLED = True
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
@@ -221,3 +222,7 @@ if 'SECRET_KEY' not in locals():
             secret.close()
         except IOError:
             Exception('Please create a %s file with random characters to generate your secret key!' % secret_file)
+
+if not DEBUG:
+    COMPRESS_MTIME_DELAY = 60
+    COMPRESS_OFFLINE = True
