@@ -448,7 +448,7 @@ p {
 .front-banner__content {
   @include clearfix;
   @include breakpoint($tabletwidth) {
-    box-shadow: .5em .5em 0 0 darken($devblue,25%);
+    box-shadow: .5em .5em 0 0 rgba(#000000, 0.6);
   }
 }
 
