@@ -34,7 +34,8 @@
       {% endfor %}
     </div>
     <div class="blog-content">
-      {{ blog.body|richtext }}
+      {{ blog.body|richtext|truncatewords_html:80 }}
+        <a href="{% pageurl blog %}">Read more &gt;&gt;&gt;</a>
     </div>
   </div>
 </div>
