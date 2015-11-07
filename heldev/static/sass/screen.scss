@@ -47,6 +47,8 @@ img {
 .rich-text, .page-content {
   @extend %t-list-styles;
   @extend %t-font-styles;
+}
+.rich-text {
   h1 a, h2 a, h3 a, h4 a {
     text-decoration: none;
     &:hover {
@@ -755,6 +757,13 @@ p {
 }
 
 .blog-listing-item__author {
+  a {
+    color: $devblue;
+  }
+  img {
+    height: 48px;
+    width: 48px;
+  }
 }
 
 .blog-listing-item__content {
