@@ -47,6 +47,12 @@ img {
 .rich-text, .page-content {
   @extend %t-list-styles;
   @extend %t-font-styles;
+  h1 a, h2 a, h3 a, h4 a {
+    text-decoration: none;
+    &:hover {
+      text-decoration: none;
+    }
+  }
   a {
     color: $devblue;
     text-decoration: underline;
