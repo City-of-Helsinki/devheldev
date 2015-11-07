@@ -531,6 +531,26 @@ p {
   font-weight: 900;
 }
 
+
+/* ------------ DATASETS */
+
+.dataset-list__item {
+  @include clearfix;
+  margin-bottom: rhythm(.5);
+  a {
+    display: block;
+    margin-bottom: rhythm(.5);
+    color: #FFFFFF;
+    &:hover {
+      color: $devyellow;
+    }
+  }
+  border-bottom: 1px solid #FFFFFF;
+}
+
+
+/* ------------ BLOGS */
+
 .blog-list__item {
   padding: rhythm(.25);
   margin-bottom: rhythm(.5);

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load wagtailcore_tags home_tags %}
+{% load wagtailcore_tags home_tags compress %}
 {% load static %}
 {% load humanize %}
 
@@ -28,7 +28,7 @@
       <ul>
         {% for event in self.commit_index.top_events %}
         <li class="commit-list__item">
-          <div class="commit-list__avatar"><img src={{event.actor.avatar_url}} alt="{{event.actor.login}}"></div>
+          <div class="commit-list__avatar"><img src="{{event.actor.avatar_url}}&s=128" alt="{{event.actor.login}}"></div>
             {% if event.type == "PushEvent" %}
                 <a href={{event.repo.url}}>
                 <div class="commit-list__date">{{ event.created_at | naturaltime }}</div>
@@ -184,7 +184,7 @@
             <span class="event-list__date">{{event.details.start_time | naturaltime}}</span>
             <span class="event-list__header">{{event.details.name}}</span>
             <span class="event-list__description">{{event.message}}</span>
-            <span class="event-list__link"><a href={{event.link}}>Read more >></a></span>
+            <span class="event-list__link"><a href="{{event.link}}">Read more >></a></span>
             </li>
             {% endfor %}
         {% endif %}
@@ -195,6 +195,14 @@
   </div>
   {% endwith %}
   {% endif %}
+  <div class="list-banner list-banner--datasets">
+    <h3>Latest open datasets</h3>
+    <ul></ul>
+    <div class="list-banner__full-link">
+      <a href="http://www.hri.fi">See more on the HRI website >></a>
+    </div>
+  </div>
+
   <div class="some-banner">
     <a href="https://www.facebook.com/groups/heldev">
       <i class="fa fa-facebook-official fa-2x"></i>
@@ -208,4 +216,24 @@
     </a>
   </div>
 </aside>
+
+{% compress js inline %}
+<script type="text/coffeescript">
+$ ->
+    params =
+        limit: 5
+    $.getJSON 'http://hri.fi/api/3/action/current_package_list_with_resources', params, (data) ->
+        $list = $(".list-banner--datasets ul")
+        for dataset in data.result
+            url = "http://www.hri.fi/en/dataset/#{dataset.name}"
+            $li = $("<li class='dataset-list__item' />")
+            template = """
+                <a href=\"#{url}\">
+                    <span class="dataset-list__header">#{dataset.title}</span>
+                </a>
+            """
+            $li.append $($.trim template)
+            $list.append $li
+</script>
+{% endcompress %}
 {% endblock %}
