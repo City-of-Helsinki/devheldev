@@ -173,6 +173,14 @@
   </div>
 </div>
 <aside class="layout-side-content">
+  <div class="list-banner list-banner--datasets">
+    <h3>Latest open datasets</h3>
+    <ul></ul>
+    <div class="list-banner__full-link">
+      <a href="http://www.hri.fi/en/">See more on the HRI website >></a>
+    </div>
+  </div>
+
   {% if self.event_index %}
   {% with self.event_index.top_events as top_events %}
   <div class="list-banner list-banner--events">
@@ -195,13 +203,6 @@
   </div>
   {% endwith %}
   {% endif %}
-  <div class="list-banner list-banner--datasets">
-    <h3>Latest open datasets</h3>
-    <ul></ul>
-    <div class="list-banner__full-link">
-      <a href="http://www.hri.fi">See more on the HRI website >></a>
-    </div>
-  </div>
 
   <div class="some-banner">
     <a href="https://www.facebook.com/groups/heldev">
@@ -225,11 +226,18 @@ $ ->
     $.getJSON 'http://hri.fi/api/3/action/current_package_list_with_resources', params, (data) ->
         $list = $(".list-banner--datasets ul")
         for dataset in data.result
+            title = null
+            for e in dataset.extras
+                if e.key == 'title_en' and e.value
+                    title = e.value
+                    break
+            if not title
+                title = dataset.title
             url = "http://www.hri.fi/en/dataset/#{dataset.name}"
             $li = $("<li class='dataset-list__item' />")
             template = """
                 <a href=\"#{url}\">
-                    <span class="dataset-list__header">#{dataset.title}</span>
+                    <span class="dataset-list__header">#{title}</span>
                 </a>
             """
             $li.append $($.trim template)
