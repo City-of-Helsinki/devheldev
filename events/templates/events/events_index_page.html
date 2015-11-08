@@ -4,21 +4,28 @@
 
 {% block content %}
 {% with events=self.events %}
-<div class="layout-page-content">
-  <div class="page-content">
-    <div class="page-content__box">
-      <h5 class="page-section-header">Events</h5>
+<div class="layout-page-content--full">
+      <div class="layout-page-header--full">
+        <div class="page-header page-header--full">
+          <h1>Events</h1>
+        </div>
+      </div>
       {% if events %}
-      <div class="event-list">
+      <div class="project-index">
       {% for event in events %}
-        <div class="event-list__item">
-            <h6>{{event.details.name}}</h6>
-            <img src={{event.details.picture.data.url}} alt="{{event.details.name}}" height=50 width=50>
-            <a href={{event.link}}>{{ event.details.start_time | naturaltime }} @ {{ event.details.place.name }}</a>
-            <p>{{event.details.description}}</p>
+        <div class="layout-project-index-item">
+          <div class="project-index-item">
+            <div class="project-index-item__content">
+                <a href={{ event.link }}>
+                <div class="project-index-image" style="background-image: url({{event.details.cover.source}})">{{event.details.name}}</div>
+                <h2>{{event.details.name}}</h2>
+                {{ event.details.start_time | naturaltime }} @ {{ event.details.place.name }}</a>
+                <div class="project-description">{{event.details.description}}</div>
+            </div>
+        </div>
         </div>
       {% endfor %}
-      </div>
+        </div>
       {% endif %}
     </div>
   </div>
