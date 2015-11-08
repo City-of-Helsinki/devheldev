@@ -51,12 +51,11 @@ class APIPage(Orderable, Page):
                 return True
         return False
 
-
 class APIIndexPage(Page):
     subpage_types = ['apimanager.ApiPage']
 
     def apis(self):
-        return APIPage.objects.live()
+        return APIPage.objects.live().order_by('title')
 
 
 class KongAPIConfiguration(models.Model):

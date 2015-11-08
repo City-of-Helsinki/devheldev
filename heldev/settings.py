@@ -116,11 +116,13 @@ BOWER_INSTALLED_APPS = (
     'swagger-ui',
     'sidr',
     'enquire',
-    'components-font-awesome'
+    'components-font-awesome',
+    'jQuery-Collapse'
 )
 
 COMPRESS_PRECOMPILERS = (
     ('text/x-scss', 'django_libsass.SassCompiler'),
+    ('text/coffeescript', 'coffee --compile --stdio'),
 )
 COMPRESS_ENABLED = True
 
