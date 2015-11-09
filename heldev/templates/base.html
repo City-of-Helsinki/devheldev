@@ -10,9 +10,15 @@
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %}</title>
+        <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %} | {{ request.site.hostname }}</title>
         {% if self and self.title %}
+        <meta property="og:site_name" content="dev.hel.fi" />
         <meta name="description" content="{{ self.title }}" />
+        <meta name="og:title" content="{{ self.title }} | {{ request.site.hostname }}" />
+        {% endif %}
+        <meta property="og:image" content="http://{{ request.site.hostname }}{% static 'images/some-banner.jpg' %}" />
+        {% if self and self.search_description %}
+        <meta property="og:description" content="{% if self.search_description %}{{ self.search_description }}{% endif %}" />
         {% endif %}
 
         <meta name="viewport" content="width=device-width, initial-scale=1" />
