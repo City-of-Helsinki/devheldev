@@ -16,7 +16,13 @@
         <meta name="description" content="{{ self.title }}" />
         <meta name="og:title" content="{{ self.title }} | {{ request.site.hostname }}" />
         {% endif %}
+        {% if self and self.header_image %}
+        <meta property="og:image" content="http://{{ request.site.hostname }}{{ self.header_image.file.url }}" />
+        {% elif self and self.image %}
+        <meta property="og:image" content="http://{{ request.site.hostname }}{{ self.image.file.url }}" />
+        {% else %}
         <meta property="og:image" content="http://{{ request.site.hostname }}{% static 'images/some-banner.jpg' %}" />
+        {% endif %}
         {% if self and self.search_description %}
         <meta property="og:description" content="{% if self.search_description %}{{ self.search_description }}{% endif %}" />
         {% endif %}
