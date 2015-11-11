@@ -121,9 +121,9 @@
             <div id="message-bar" class="swagger-ui-wrap" data-sw-translate>&nbsp;</div>
             <div id="swagger-ui-container" class="swagger-ui-wrap"></div>
           </div>
-{% else %}
+{% elif self.documentation %}
           <div class="api-explorer">
-            <h3><a href="{{ self.documentation }}">API Documentation</a></h3>
+            <h3><a href="{{ self.documentation }}">Follow this link for API documentation</a></h3>
           </div>
 {% endif %}
         </div>
