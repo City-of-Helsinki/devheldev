@@ -1201,5 +1201,55 @@ a.blog-listing-item__tag {
   
 }
 
-
-
+.api-details__description {
+  table {
+    // These styles are for legacy Open311 API docs.
+    // (Although they could be used for other table
+    // based content.
+    font-size: 80%;
+    width: 100%;
+    line-height: 1.5em;
+    margin-bottom: rhythm(2);
+    thead tr {
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      border-bottom-color: #cccccc;
+      th {
+        font-weight: bold;
+        padding-right: 1em;
+        padding-bottom: 0.5em;
+      }
+      th:not(:first-child) {
+        padding-left: 1em;
+      }
+    }
+    tbody {
+      margin-top: 1em;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      border-bottom-color: #cccccc;
+      tr td {
+        padding-bottom: 3em;
+        margin-bottom: 3em;
+      }
+      td {
+        padding-top: 1em;
+        padding-right: 1em;
+        border-right: 1px solid #cccccc;
+        &:last-child {
+          border-right: none;
+        }
+        &:not(:first-child) {
+          padding-left: 1em;
+        }
+      }
+    }
+  }
+  pre {
+    font-family: monospace;
+    margin-left: 4em;
+    font-size: 80%;
+    margin-bottom: rhythm(2);
+    overflow-y: auto;
+  }
+}
