@@ -5,6 +5,8 @@ from django.db import models
 from django.core.cache import cache
 from django.conf import settings
 import django.utils.dateparse as dateparse
+from datetime import datetime
+import pytz
 
 
 class EventsIndexPage(Page):
@@ -57,5 +59,6 @@ class EventsIndexPage(Page):
             return []
         return events
 
-    def top_events(self):
-        return self.events()[:3]
+    def future_events(self):
+        tz = pytz.timezone(settings.LOCAL_TIME_ZONE)
+        return [event for event in self.events() if event['details']['end_time'] > datetime.now(tz)]

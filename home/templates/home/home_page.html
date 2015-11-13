@@ -184,14 +184,14 @@
   </div>
 
   {% if self.event_index %}
-  {% with self.event_index.top_events as top_events %}
+  {% with self.event_index.future_events as future_events %}
   <div class="list-banner list-banner--events">
-    <h3>Events</h3>
+    <h3>Upcoming events</h3>
     <ul>
-        {% if top_events %}
-            {% for event in top_events %}
+        {% if future_events %}
+            {% for event in future_events %}
             <li class="event-list__item">
-            <span class="event-list__date">{{event.details.start_time | naturaltime}}</span>
+            <span class="event-list__date">{{event.details.start_time | relativetime}}</span>
             <span class="event-list__header">{{event.details.name}}</span>
             <span class="event-list__description">{{event.message}}</span>
             <span class="event-list__link"><a href="{{event.link}}">Read more >></a></span>

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
+{% load home_tags wagtailcore_tags %}
 {% load humanize %}
 
 {% block content %}
@@ -19,7 +19,7 @@
                 <a href={{ event.link }}>
                 <div class="project-index-image" style="background-image: url({{event.details.cover.source}})">{{event.details.name}}</div>
                 <h2>{{event.details.name}}</h2>
-                {{ event.details.start_time | naturaltime }} @ {{ event.details.place.name }}</a>
+                {{ event.details.start_time | relativetime }} @ {{ event.details.place.name }}</a>
                 <div class="project-description">{{event.details.description}}</div>
             </div>
         </div>

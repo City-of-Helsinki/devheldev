@@ -1,10 +1,13 @@
 import calendar
 from django import template
-from datetime import date
+from datetime import date, datetime, timedelta
+import pytz
 from django.conf import settings
 from django.db import connection
 from django.db.models import Count
-
+from django.template import defaultfilters
+from django.utils.timezone import is_aware, utc
+from django.utils.translation import pgettext, ugettext as _, ungettext
 from wagtail.wagtailcore.models import Page
 from blog.models import BlogPage
 
@@ -109,3 +112,71 @@ def blog_posts_by_month(context):
         'month': x['month'].month,
         'month_name': calendar.month_name[x['month'].month],
         'count': x['pk__count']} for x in val]
+
+
+# This filter doesn't require expects_localtime=True because it deals properly
+# with both naive and aware datetimes. Therefore avoid the cost of conversion.
+@register.filter
+def relativetime(value):
+    """
+    Based on naturaltime. Returns absolute date for times further away,
+    relative date and time for times close to present
+    """
+    if not isinstance(value, date):  # datetime is a subclass of date
+        return value
+
+    now = datetime.now(utc if is_aware(value) else None)
+    if value < now:
+        delta = now - value
+        if delta.days != 0:
+            return pgettext(
+                'naturaltime', '%(delta)s ago'
+            ) % {'delta': defaultfilters.timesince(value, now)}
+        elif delta.seconds == 0:
+            return _('now')
+        elif delta.seconds < 60:
+            return ungettext(
+                # Translators: please keep a non-breaking space (U+00A0)
+                # between count and time unit.
+                'a second ago', '%(count)s seconds ago', delta.seconds
+            ) % {'count': delta.seconds}
+        elif delta.seconds // 60 < 60:
+            count = delta.seconds // 60
+            return ungettext(
+                # Translators: please keep a non-breaking space (U+00A0)
+                # between count and time unit.
+                'a minute ago', '%(count)s minutes ago', count
+            ) % {'count': count}
+        else:
+            count = delta.seconds // 60 // 60
+            return ungettext(
+                # Translators: please keep a non-breaking space (U+00A0)
+                # between count and time unit.
+                'an hour ago', '%(count)s hours ago', count
+            ) % {'count': count}
+    else:
+        delta = value - now
+
+        # We must compare the dates in local time
+        tz = pytz.timezone(settings.LOCAL_TIME_ZONE)
+        now = now.astimezone(tz)
+        value = value.astimezone(tz)
+
+        if value.date() == now.date():
+            return pgettext(
+                'relativetime', 'Today at %(time)s'
+            ) % {'time': str(value.strftime('%H:%M'))}
+        elif value.date() == (now + timedelta(days=1)).date():
+            return pgettext(
+                'relativetime', 'Tomorrow at %(time)s'
+            ) % {'time': str(value.strftime('%H:%M'))}
+        elif value.date() <= (now + timedelta(days=7)).date():
+            return pgettext(
+                'relativetime', '%(weekday)s at %(time)s'
+            ) % {'weekday': str(value.strftime('%A')),
+                 'time': str(value.strftime('%H:%M'))}
+        else:
+            return pgettext(
+                'relativetime', '%(date)s at %(time)s'
+            ) % {'date': str(value.strftime('%A, %d %B')),
+                 'time': str(value.strftime('%H:%M'))}
