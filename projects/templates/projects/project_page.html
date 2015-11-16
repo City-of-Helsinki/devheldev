@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags compress home_tags %}
 
 {% block content %}
 {% with project=self %}
@@ -39,20 +39,21 @@
                     <li><span class="kpis-name">{{ kpi.name }}</span>: <span class="kpis-value">{{ kpi.value }}</span><br/>
                     <span class="kpis-description">{{ kpi.description }}</span></li>
                 {% endfor %}
-                </ul>
-                </div>
             {% endif %}
-            {% if project.links.all %}
-                <div class="project-links">
-                <h4>Links</h4>
-                <ul>
-                {% for link in project.links.all %}
-                  <li><a href={{ link.url }}><span class="links-name">{{ link.type }}</span><br/>
-                    <span class="links-description">{{ link.description }}</span></a></li>
-                {% endfor %}
-                </ul>
-                </div>
-            {% endif %}
+            </ul>
+            </div>
+            {% query project.links public=True as links %}
+                {% if links %}
+                    <div class="project-links">
+                    <h4>Links</h4>
+                    <ul>
+                    {% for link in links %}
+                      <li><a href={{ link.url }}><span class="links-name">{{ link.type }}</span><br/>
+                        <span class="links-description">{{ link.description }}</span></a></li>
+                    {% endfor %}
+                    </ul>
+                    </div>
+                {% endif %}
           </div>
         </aside>
       </div>
