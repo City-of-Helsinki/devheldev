@@ -31,10 +31,14 @@
                   </ul>
                 </div>
             {% endif %}
+            <div class="project-kpis">
+            <h4>Key performance indicators</h4>
+            <ul>
+            {% if project.piwik_id %}
+            <li><span class="kpis-name">Visits today</span>: <span class="kpis-value kpis-value--today">{{ project.piwik_data.nb_visits }}</span></li>
+            {% endif %}
+            <li><span class="kpis-name">Uptime (last 30 days)</span>: <span class="kpis-value kpis-value--uptime"></span></li>
             {% if project.kpis.all %}
-                <div class="project-kpis">
-                <h4>Key performance indicators</h4>
-                <ul>
                 {% for kpi in project.kpis.all %}
                     <li><span class="kpis-name">{{ kpi.name }}</span>: <span class="kpis-value">{{ kpi.value }}</span><br/>
                     <span class="kpis-description">{{ kpi.description }}</span></li>
@@ -61,7 +65,6 @@
     </div>
   </div>
 </div>
+
 {% endwith %}
-
-
 {% endblock %}

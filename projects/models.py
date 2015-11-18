@@ -1,4 +1,7 @@
+import json, requests
 from django.db import models
+from django.core.cache import cache
+from django.conf import settings
 
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField
@@ -27,6 +30,8 @@ class ProjectPage(Orderable, Page):
         related_name='+',
     )
     status = models.CharField(max_length=20, choices=STATUSES, default='discovery')
+    piwik_id = models.IntegerField(blank=True, null=True)
+
     def save(self, *args, **kwargs):
         if not self.title:
             if self.project:
@@ -43,10 +48,24 @@ class ProjectPage(Orderable, Page):
         FieldPanel('short_description'),
         FieldPanel('full_description'),
         ImageChooserPanel('image'),
+        FieldPanel('piwik_id'),
         InlinePanel('kpis', label="Key performance indicators"),
         InlinePanel('roles', label="Roles"),
         InlinePanel('links', label="Links"),
     ]
+
+    def piwik_data(self):
+        data = cache.get('piwik_' + self.title)
+        if not data:
+            response = requests.get(
+                'https://analytics.hel.ninja/piwik/?idSite=' +
+                str(self.piwik_id) +
+                '&module=API&period=day&date=today&method=API.get&format=json&token_auth=' +
+                settings.PIWIK_API_TOKEN)
+            if response.status_code == 200:
+                data = response.json()
+                cache.add('piwik_' + self.title, data, 3600)
+        return data
 
 
 class ProjectRoleType(Orderable, models.Model):
