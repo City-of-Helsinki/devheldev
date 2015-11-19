@@ -31,6 +31,7 @@ class ProjectPage(Orderable, Page):
     )
     status = models.CharField(max_length=20, choices=STATUSES, default='discovery')
     piwik_id = models.IntegerField(blank=True, null=True)
+    uptimerobot_name = models.CharField(blank=True, null=True, max_length=100)
 
     def save(self, *args, **kwargs):
         if not self.title:
@@ -49,6 +50,7 @@ class ProjectPage(Orderable, Page):
         FieldPanel('full_description'),
         ImageChooserPanel('image'),
         FieldPanel('piwik_id'),
+        FieldPanel('uptimerobot_name'),
         InlinePanel('kpis', label="Key performance indicators"),
         InlinePanel('roles', label="Roles"),
         InlinePanel('links', label="Links"),
@@ -67,6 +69,18 @@ class ProjectPage(Orderable, Page):
                 cache.add('piwik_' + self.title, data, 3600)
         return data
 
+    def uptime_data(self):
+        data = cache.get('uptime')
+        if not data:
+            response = requests.get(
+                'https://api.uptimerobot.com/getMonitors?apiKey=' +
+                settings.UPTIMEROBOT_API_TOKEN +
+                '&format=json&noJsonCallback=1')
+            if response.status_code == 200:
+                data = response.json()
+                cache.add('uptime', data, 3600)
+        return [single_data for single_data in data['monitors']['monitor']
+                if single_data['friendlyname'] == self.uptimerobot_name][0]
 
 class ProjectRoleType(Orderable, models.Model):
     name = models.CharField(max_length=50)
