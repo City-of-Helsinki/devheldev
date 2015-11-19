@@ -34,12 +34,16 @@
             <div class="project-kpis">
             <h4>Key performance indicators</h4>
             <ul>
-            {% if project.piwik_id %}
-            <li><span class="kpis-name">Visits today</span>: <span class="kpis-value kpis-value--today">{{ project.piwik_data.nb_visits }}</span></li>
-            {% endif %}
-            {% if project.uptimerobot_name %}
-            <li><span class="kpis-name">Total uptime average</span>: <span class="kpis-value kpis-value--uptime">{{ project.uptime_data.alltimeuptimeratio }} %</span></li>
-            {% endif %}
+            {% with project.piwik_data as piwik_data %}
+                {% if piwik_data %}
+                    <li><span class="kpis-name">Visits today</span>: <span class="kpis-value kpis-value--today">{{ piwik_data.nb_visits }}</span></li>
+                {% endif %}
+            {% endwith %}
+            {% with project.uptime_data as uptime_data %}
+                {% if uptime_data %}
+                    <li><span class="kpis-name">Total uptime average</span>: <span class="kpis-value kpis-value--uptime">{{ project.uptime_data.alltimeuptimeratio }} %</span></li>
+                {% endif %}
+            {% endwith %}
             {% if project.kpis.all %}
                 {% for kpi in project.kpis.all %}
                     <li><span class="kpis-name">{{ kpi.name }}</span>: <span class="kpis-value">{{ kpi.value }}</span><br/>
