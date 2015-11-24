@@ -183,7 +183,7 @@ def relativetime(value):
             ) % {'time': str(value.strftime('%H:%M'))}
         elif value.date() <= (now + timedelta(days=7)).date():
             return pgettext(
-                'relativetime', '%(weekday)s at %(time)s'
+                'relativetime', 'Next %(weekday)s at %(time)s'
             ) % {'weekday': str(value.strftime('%A')),
                  'time': str(value.strftime('%H:%M'))}
         else:

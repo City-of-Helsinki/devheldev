@@ -61,4 +61,5 @@ class EventsIndexPage(Page):
 
     def future_events(self):
         tz = pytz.timezone(settings.LOCAL_TIME_ZONE)
-        return [event for event in self.events() if event['details']['end_time'] > datetime.now(tz)]
+        # we want the next event first
+        return [event for event in self.events() if event['details']['end_time'] > datetime.now(tz)].reverse()
