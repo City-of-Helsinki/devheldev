@@ -20,7 +20,7 @@ def redirect_to_sso(request):
     """
 
     if request.GET.get('next'):
-        sso_url = settings.AUTH_SSO_URL + '&next=%{}'.format(request.GET.get('next'))
+        sso_url = settings.AUTH_SSO_URL + '&next={}'.format(request.GET.get('next'))
     else:
         sso_url = settings.AUTH_SSO_URL
 
