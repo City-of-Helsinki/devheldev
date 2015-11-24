@@ -36,7 +36,7 @@
             <ul>
             {% with project.piwik_data as piwik_data %}
                 {% if piwik_data %}
-                    <li><span class="kpis-name">Visits today</span>: <span class="kpis-value kpis-value--today">{{ piwik_data.nb_visits }}</span></li>
+                    <li><span class="kpis-name">Visits yesterday</span>: <span class="kpis-value kpis-value--yesterday">{{ piwik_data.nb_visits }}</span></li>
                 {% endif %}
             {% endwith %}
             {% with project.uptime_data as uptime_data %}

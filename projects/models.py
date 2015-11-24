@@ -63,7 +63,7 @@ class ProjectPage(Orderable, Page):
             response = requests.get(
                 'https://analytics.hel.ninja/piwik/?idSite=' +
                 str(self.piwik_id) +
-                '&module=API&period=day&date=today&method=API.get&format=json&token_auth=' +
+                '&module=API&period=day&date=yesterday&method=API.get&format=json&token_auth=' +
                 settings.PIWIK_API_TOKEN)
             if response.status_code == 200:
                 # piwik_id was valid
