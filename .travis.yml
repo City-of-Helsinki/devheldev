@@ -13,8 +13,8 @@ install:
 
 script: py.test --reuse-db heldev
 
-#before_script: 
-#- python manage.py compress
+before_script: 
+- python manage.py compress
 
 addons:
   postgresql: "9.4"
