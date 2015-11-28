@@ -118,7 +118,6 @@ BOWER_INSTALLED_APPS = (
     'sidr',
     'enquire',
     'components-font-awesome',
-    'jQuery-Collapse'
 )
 
 COMPRESS_PRECOMPILERS = (
