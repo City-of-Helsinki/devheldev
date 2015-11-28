@@ -7,7 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailcore', '__latest__'),
+        ('wagtailcore', '0020_add_index_on_page_first_published_at'),
     ]
 
     operations = [
