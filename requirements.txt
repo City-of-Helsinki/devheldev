@@ -1,5 +1,5 @@
-Django<=1.8
-wagtail==1.1
+Django
+wagtail==1.2
 psycopg2
 django-bower
 django-compressor
@@ -13,4 +13,4 @@ python-kong==0.4.0
 splinter
 pytest
 pytest-django
-django-bootstrap3==6.2.2
+django-bootstrap3
