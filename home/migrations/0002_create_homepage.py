@@ -31,7 +31,7 @@ def create_homepage(apps, schema_editor):
     )
 
     site = Site.objects.create(hostname='localhost', port=80,
-                               is_default_site=True, root_page=homepage)
+                               is_default_site=True, root_page_id=homepage.page_ptr_id)
 
 
 class Migration(migrations.Migration):
