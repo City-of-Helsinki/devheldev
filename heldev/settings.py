@@ -178,7 +178,7 @@ MEDIA_URL = '/media/'
 
 WAGTAIL_SITE_NAME = "heldev"
 
-AUTH_SSO_URL = 'http://dev.hel.ninja/accounts/helsinki/login/?process=login'
+AUTH_SSO_URL = 'https://dev.hel.fi/accounts/helsinki/login/?process=login'
 AUTH_USER_MODEL = 'users.User'
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
