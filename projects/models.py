@@ -1,4 +1,6 @@
 import json, requests
+from collections import OrderedDict
+
 from django.db import models
 from django.core.cache import cache
 from django.conf import settings
@@ -63,11 +65,11 @@ class ProjectPage(Orderable, Page):
             response = requests.get(
                 'https://analytics.hel.ninja/piwik/?idSite=' +
                 str(self.piwik_id) +
-                '&module=API&period=day&date=yesterday&method=API.get&format=json&token_auth=' +
+                '&module=API&period=day&date=last30&method=VisitsSummary.get&format=json&token_auth=' +
                 settings.PIWIK_API_TOKEN)
             if response.status_code == 200:
                 # piwik_id was valid
-                data = response.json()
+                data = json.loads(response.text, object_pairs_hook=OrderedDict)
                 cache.add('piwik_' + slugify(self.title), data, 3600)
         return data
 

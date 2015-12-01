@@ -1,4 +1,4 @@
-import calendar
+import calendar, json
 from django import template
 from datetime import date, datetime, timedelta
 import pytz
@@ -191,3 +191,13 @@ def relativetime(value):
                 'relativetime', '%(date)s at %(time)s'
             ) % {'date': str(value.strftime('%A, %d %B')),
                  'time': str(value.strftime('%H:%M'))}
+
+
+@register.filter
+def ordered_dict_value_by_index(orddict, index):
+    return list(orddict.values())[index]
+
+
+@register.filter
+def jsonify(dictionary):
+    return json.dumps(dictionary)
