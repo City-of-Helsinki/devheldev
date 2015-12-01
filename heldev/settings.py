@@ -118,7 +118,6 @@ BOWER_INSTALLED_APPS = (
     'sidr',
     'enquire',
     'components-font-awesome',
-    'jQuery-Collapse',
     'Chart.js#2.0.0-beta'
 )
 

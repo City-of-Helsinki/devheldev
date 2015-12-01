@@ -11,8 +11,9 @@ def create_homepage(apps, schema_editor):
     Site = apps.get_model('wagtailcore.Site')
     HomePage = apps.get_model('home.HomePage')
 
-    # Delete the default homepage
-    Page.objects.get(id=2).delete()
+    site = Site.objects.get(is_default_site=True)
+    site.root_page.delete()
+    site.delete()
 
     # Create content type for homepage model
     homepage_content_type, created = ContentType.objects.get_or_create(
@@ -29,10 +30,8 @@ def create_homepage(apps, schema_editor):
         url_path='/home/',
     )
 
-    # Create a site with the new homepage set as the root
-    site = Site.objects.get(hostname='localhost')
-    site.root_page_id = homepage.page_ptr_id
-    site.save()
+    site = Site.objects.create(hostname='localhost', port=80,
+                               is_default_site=True, root_page_id=homepage.page_ptr_id)
 
 
 class Migration(migrations.Migration):
