@@ -82,13 +82,17 @@
   </div>
 </div>
 
-
     {% with project.piwik_data as piwik_data %}
         {% if piwik_data %}
+          {% autoescape off %}
+            <script type="text/javascript">var piwikData = {{ piwik_data|jsonify }};</script>
+          {% endautoescape %}
+        {% endif %}
+    {% endwith %}
+    {% compress js inline %}
             {% autoescape off %}
                 <script type="text/coffeescript">
                 $ ->
-                    piwikData = {{ piwik_data|jsonify }}
                     days = (date for date, stats of piwikData)
                     visits = (stats['nb_visits'] for date, stats of piwikData)
                     lineChartData =
@@ -137,8 +141,7 @@
                             options: lineChartOptions}
                 </script>
             {% endautoescape %}
-        {% endif %}
-    {% endwith %}
+        {% endcompress %}
 
 {% endwith %}
 {% endblock %}
