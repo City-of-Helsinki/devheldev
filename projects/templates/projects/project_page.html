@@ -82,7 +82,7 @@
   </div>
 </div>
 
-{% compress js inline %}
+
     {% with project.piwik_data as piwik_data %}
         {% if piwik_data %}
             {% autoescape off %}
@@ -139,7 +139,6 @@
             {% endautoescape %}
         {% endif %}
     {% endwith %}
-{% endcompress %}
 
 {% endwith %}
 {% endblock %}
