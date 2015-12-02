@@ -93,6 +93,8 @@
             {% autoescape off %}
                 <script type="text/coffeescript">
                 $ ->
+                    unless piwikData?
+                        return
                     days = (date for date, stats of piwikData)
                     visits = (stats['nb_visits'] for date, stats of piwikData)
                     lineChartData =
