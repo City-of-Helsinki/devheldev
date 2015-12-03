@@ -34,26 +34,6 @@
             <div class="project-kpis">
             <h4>Key performance indicators</h4>
             <ul>
-            {% with project.piwik_data as piwik_data %}
-                {% if piwik_data %}
-                    {% with piwik_data|ordered_dict_value_by_index:-2 as yesterday %}
-                    <li><span class="kpis-name">Visits yesterday</span>: <span class="kpis-value kpis-value--yesterday">{{ yesterday.nb_visits }}</span></li>
-                    {% endwith %}
-                {% endif %}
-                {% if piwik_data %}
-                    <li><span class="kpis-name">Visits last 30 days:</span></li>
-                    </ul>
-                    <p>
-                    <canvas id="graph-visits" height="200" width="300"></canvas>
-                    </p>
-                    <ul>
-                {% endif %}
-            {% endwith %}
-            {% with project.uptime_data as uptime_data %}
-                {% if uptime_data %}
-                    <li><span class="kpis-name">Total uptime average</span>: <span class="kpis-value kpis-value--uptime">{{ project.uptime_data.alltimeuptimeratio }} %</span></li>
-                {% endif %}
-            {% endwith %}
             {% if project.kpis.all %}
                 {% for kpi in project.kpis.all %}
                     <li><span class="kpis-name">{{ kpi.name }}</span>: <span class="kpis-value">{{ kpi.value }}</span><br/>
@@ -82,68 +62,109 @@
   </div>
 </div>
 
-    {% with project.piwik_data as piwik_data %}
-        {% if piwik_data %}
-          {% autoescape off %}
-            <script type="text/javascript">var piwikData = {{ piwik_data|jsonify }};</script>
-          {% endautoescape %}
-        {% endif %}
-    {% endwith %}
-    {% compress js inline %}
-            {% autoescape off %}
-                <script type="text/coffeescript">
-                $ ->
-                    unless piwikData?
-                        return
-                    days = (date for date, stats of piwikData)
-                    visits = (stats['nb_visits'] for date, stats of piwikData)
-                    lineChartData =
-                        labels: days
-                        datasets: [
-                            {label: "Visits",
-                            backgroundColor: "rgba(220,220,220,0.2)",
-                            borderColor : "rgba(220,220,220,1)",
-                            pointBorderColor: "rgba(220,220,220,0)",
-                            pointBackgroundColor: "rgba(220,220,220,0)",
-                            pointBorderWidth: 0,
-                            pointHoverRadius: 7,
-                            pointHoverBackgroundColor: "rgba(220,220,220,0.2)",
-                            pointHoverBorderColor: "rgba(220,220,220,0.2)",
-                            pointHoverBorderWidth: 2,
-                            data : visits}
-                        ]
-                    lineChartOptions =
-                        responsive: true,
-                        responsiveAnimationDuration: 1000,
-                        scales:
-                            xAxes: [
-                                {display: false}
-                            ],
-                            yAxes: [
-                                {type: "linear",
-                                gridLines:
-                                    color: "rgba(255, 255, 255, 0.1)"
-                                ticks:
-                                    beginAtZero: true
-                                    fontFamily: "'Inconsolata', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"
-                                    fontColor: "#fff"
-                                    fontSize: 13
-                                }
-                            ]
-                        tooltips:
-                            backgroundColor: "rgba(0,32,111,0.1)",
-                            titleFontFamily: "'Inconsolata', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-                            titleFontSize: 14
-                            bodyFontFamily: "'Inconsolata', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-                            bodyFontSize: 14
-                    ctx = $("#graph-visits")[0].getContext "2d"
-                    window.plot = new Chart ctx, {
-                            type: 'line',
-                            data: lineChartData,
-                            options: lineChartOptions}
-                </script>
-            {% endautoescape %}
-        {% endcompress %}
+{% compress js inline %}
+    {% autoescape off %}
+        <script type="text/coffeescript">
+        $kpiList = $(".project-kpis ul")
+
+        window.displayUptime = (uptimeData) ->
+            $li = $("<li class='project-kpis__item' />")
+            unless uptimeData?
+                return
+            uptime = uptimeData['alltimeuptimeratio']
+            template = """
+            <span class="kpis-name">Total uptime average</span>: <span class="kpis-value kpis-value--uptime">#{uptime}</span>
+            """
+            $li.append $($.trim template)
+            $kpiList.append $li
+
+        window.displayPiwik = (piwikData) ->
+            unless piwikData?
+                return
+
+            # Create the canvas
+            $kpiList.prepend $($.trim """
+                <p><canvas id="graph-visits" height="200" width="300"></canvas></p>
+                """)
+
+            # Here, we are relying on *non-integer* keys and all values being returned in the insertion order!
+            days = (date for date, stats of piwikData)
+            visits = (stats['nb_visits'] for date, stats of piwikData)
+
+            # Show 30 days visits
+            $li = $("<li class='project-kpis__item' />")
+            visitsTotal = 0
+            (visitsTotal = visitsTotal + number) for number in visits
+            template = """
+                <span class="kpis-name">Visits last 30 days</span>: <span class="kpis-value kpis-value--yesterday">#{visitsTotal}</span>
+            """
+            $li.append $($.trim template)
+            $kpiList.prepend $li
+
+            # Show yesterday's visits
+            $li = $("<li class='project-kpis__item' />")
+            [..., visitsYesterday, visitsToday] = visits
+            template = """
+                <span class="kpis-name">Visits yesterday</span>: <span class="kpis-value kpis-value--yesterday">#{visitsYesterday}</span>
+            """
+            $li.append $($.trim template)
+            $kpiList.prepend $li
+
+            # Show 30 days graph
+            lineChartData =
+                labels: days
+                datasets: [
+                    {label: "Visits",
+                    backgroundColor: "rgba(220,220,220,0.2)",
+                    borderColor : "rgba(220,220,220,1)",
+                    pointBorderColor: "rgba(220,220,220,0)",
+                    pointBackgroundColor: "rgba(220,220,220,0)",
+                    pointBorderWidth: 0,
+                    pointHoverRadius: 7,
+                    pointHoverBackgroundColor: "rgba(220,220,220,0.2)",
+                    pointHoverBorderColor: "rgba(220,220,220,0.2)",
+                    pointHoverBorderWidth: 2,
+                    data : visits}
+                ]
+            lineChartOptions =
+                responsive: true,
+                responsiveAnimationDuration: 1000,
+                scales:
+                    xAxes: [
+                        {display: false}
+                    ],
+                    yAxes: [
+                        {type: "linear",
+                        gridLines:
+                            color: "rgba(255, 255, 255, 0.1)"
+                        ticks:
+                            beginAtZero: true
+                            fontFamily: "'Inconsolata', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif"
+                            fontColor: "#fff"
+                            fontSize: 13
+                        }
+                    ]
+                tooltips:
+                    backgroundColor: "rgba(0,32,111,0.1)",
+                    titleFontFamily: "'Inconsolata', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                    titleFontSize: 14
+                    bodyFontFamily: "'Inconsolata', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                    bodyFontSize: 14
+            ctx = $("#graph-visits")[0].getContext "2d"
+            window.plot = new Chart ctx, {
+                    type: 'line',
+                    data: lineChartData,
+                    options: lineChartOptions}
+        </script>
+    {% endautoescape %}
+{% endcompress %}
+
+{% autoescape off %}
+<script type="text/javascript">
+    $.getJSON('/piwik_data/{{ self.piwik_id }}', displayPiwik);
+    $.getJSON('/uptime_data/{{ self.uptimerobot_name }}', displayUptime);
+</script>
+{% endautoescape %}
 
 {% endwith %}
 {% endblock %}

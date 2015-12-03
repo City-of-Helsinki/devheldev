@@ -1,10 +1,19 @@
 from django.shortcuts import render
 from django.conf import settings
 from django.shortcuts import render_to_response
+from django.http import HttpResponse
+from projects.models import ProjectPage
+import urllib.request
 
 # Create your views here.
 
 
-def project_view(request, template='project_page.html'):
-    context = {'piwik_url': settings.PIWIK_URL}
-    return render_to_response(template, context)
+def piwik_data(request, piwik_id):
+    data = ProjectPage.objects.get(piwik_id=piwik_id).piwik_data()
+    return HttpResponse(data)
+
+
+def uptime_data(request, uptimerobot_name):
+    uptimerobot_name = urllib.request.unquote(uptimerobot_name)
+    data = ProjectPage.objects.get(uptimerobot_name=uptimerobot_name).uptime_data()
+    return HttpResponse(data)

@@ -69,7 +69,8 @@ class ProjectPage(Orderable, Page):
                 settings.PIWIK_API_TOKEN)
             if response.status_code == 200:
                 # piwik_id was valid
-                data = json.loads(response.text, object_pairs_hook=OrderedDict)
+                data = response.text
+                # data = json.loads(response.text, object_pairs_hook=OrderedDict)
                 cache.add('piwik_' + slugify(self.title), data, 3600)
         return data
 
@@ -88,6 +89,8 @@ class ProjectPage(Orderable, Page):
             data = [single_data for single_data in
                     complete_data['monitors']['monitor'] if
                     single_data['friendlyname'] == self.uptimerobot_name][0]
+            # coffeescript wants the data in json
+            data = json.dumps(data)
         # if name doesn't match, return None
         except (IndexError, TypeError):
             data = None
