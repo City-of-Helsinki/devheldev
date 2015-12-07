@@ -9,7 +9,8 @@ from wagtail.wagtailcore import urls as wagtail_urls
 from django.shortcuts import redirect
 from django.conf import settings
 
-from projects import views
+import projects.views
+import github.views
 
 def redirect_to_sso(request):
     """
@@ -39,8 +40,9 @@ urlpatterns = [
     url(r'^search/$', 'search.views.search', name='search'),
     url(r'^api/', include('apimanager.urls', namespace="apimanager")),
     # client endpoints for external API data
-    url(r'^piwik_data/(.*)/', views.piwik_data),
-    url(r'^uptime_data/(.*)/', views.uptime_data),
+    url(r'^piwik_data/(.*)/', projects.views.piwik_data),
+    url(r'^uptime_data/(.*)/', projects.views.uptime_data),
+    url(r'^github_data/', github.views.github_data),
     # wagtail handles the rest
     url(r'', include(wagtail_urls)),
 ]

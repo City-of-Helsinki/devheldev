@@ -118,7 +118,8 @@ BOWER_INSTALLED_APPS = (
     'sidr',
     'enquire',
     'components-font-awesome',
-    'Chart.js#2.0.0-beta1'
+    'Chart.js#2.0.0-beta1',
+    'jquery-timeago'
 )
 
 COMPRESS_PRECOMPILERS = (
