@@ -92,9 +92,10 @@ class ProjectPage(Orderable, Page):
             # coffeescript wants the data in json
             data = json.dumps(data)
         # if name doesn't match, return None
-        except (IndexError, TypeError):
+        except (IndexError, TypeError, KeyError):
             data = None
         return data
+
 
 class ProjectRoleType(Orderable, models.Model):
     name = models.CharField(max_length=50)

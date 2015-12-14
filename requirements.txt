@@ -37,3 +37,4 @@ selenium==2.48.0
 six==1.10.0
 Unidecode==0.4.18
 Willow==0.2.1
+raven==5.9.0
