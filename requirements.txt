@@ -4,7 +4,7 @@ psycopg2==2.6.1
 django-bower==5.0.4
 django-compressor==1.5
 django-libsass==0.4
-wagtail-blog==1.6.4
+wagtail-blog==1.6.5
 django-grappelli==2.7.1
 -e git+https://github.com/City-of-Helsinki/django-helusers.git@94b0d3db73e76ba5387c7dc0db3c6315ccbbb079#egg=django_helusers-master
 django-allauth==0.23.0
