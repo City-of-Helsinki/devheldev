@@ -12,5 +12,7 @@ Installation assumes a working PostgreSQL with table creation rights
  * createdb heldev
  * python manage.py migrate
  * python manage.py bower install
+ * python manage.py collectstatic
+ * python manage.py compress
  * python manage.py createsuperuser
  * python manage.py runserver
