@@ -1,5 +1,7 @@
 import json, requests
 from collections import OrderedDict
+from taggit.models import TaggedItemBase, Tag
+from modelcluster.contrib.taggit import ClusterTaggableManager
 
 from django.db import models
 from django.core.cache import cache
@@ -11,9 +13,20 @@ from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
 from wagtail.wagtailimages.models import Image
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.wagtailsearch import index
 
 from modelcluster.fields import ParentalKey
+
+
+class ProjectPageTag(TaggedItemBase):
+    content_object = ParentalKey('ProjectPage', related_name='tagged_items')
+
+
+@register_snippet
+class ProjectTag(Tag):
+    class Meta:
+        proxy = True
 
 
 class ProjectPage(Orderable, Page):
@@ -23,6 +36,7 @@ class ProjectPage(Orderable, Page):
         ('beta', 'Beta'),
         ('live', 'LIVE')
     )
+    tags = ClusterTaggableManager(through=ProjectPageTag, blank=True)
     short_description = models.TextField()
     full_description = RichTextField(blank=True)
     image = models.ForeignKey(
@@ -49,6 +63,7 @@ class ProjectPage(Orderable, Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('status'),
+        FieldPanel('tags'),
         FieldPanel('short_description'),
         FieldPanel('full_description'),
         ImageChooserPanel('image'),
