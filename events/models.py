@@ -16,7 +16,7 @@ class EventsIndexPage(Page):
         FieldPanel('facebook_page_id'),
      ]
 
-    def events(self):
+    def events(self, future=False):
         if not hasattr(settings, 'FACEBOOK_APP_ID') or not hasattr(settings, 'FACEBOOK_APP_SECRET'):
             return []
         events = cache.get('facebook')
@@ -47,19 +47,15 @@ class EventsIndexPage(Page):
                                     '&access_token=' +
                                     str(settings.FACEBOOK_APP_ID) + '|' +
                                     settings.FACEBOOK_APP_SECRET).json()
-                for index, detail in details.items():
-                    detail['start_time'] = dateparse.parse_datetime(detail['start_time'])
-                    detail['end_time'] = dateparse.parse_datetime(detail['end_time'])
-                    # TODO: implement geocoding of event location
                 for event in events:
                     event['details'] = details[event['object_id']]
                 cache.add('facebook', events, 3600)
         except LookupError:
             # in case facebook API doesn't return proper data
-            return []
-        return events
-
-    def future_events(self):
-        tz = pytz.timezone(settings.LOCAL_TIME_ZONE)
-        # we want the next event first
-        return reversed([event for event in self.events() if event['details']['end_time'] > datetime.now(tz)])
+            return None
+        if future:
+            tz = pytz.timezone(settings.LOCAL_TIME_ZONE)
+            # we want the next event first
+            return json.dumps(list(reversed([event for event in events
+                                             if dateparse.parse_datetime(event['details']['end_time']) > datetime.now(tz)])))
+        return json.dumps(events)

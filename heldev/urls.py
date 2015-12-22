@@ -11,6 +11,7 @@ from django.conf import settings
 
 import projects.views
 import github.views
+import events.views
 
 def redirect_to_sso(request):
     """
@@ -43,6 +44,7 @@ urlpatterns = [
     url(r'^piwik_data/(.*)/', projects.views.piwik_data),
     url(r'^uptime_data/(.*)/', projects.views.uptime_data),
     url(r'^github_data/', github.views.github_data),
+    url(r'^event_data/', events.views.event_data),
     # wagtail handles the rest
     url(r'', include(wagtail_urls)),
 ]

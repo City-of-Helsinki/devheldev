@@ -1,34 +1,24 @@
 {% extends "base.html" %}
-{% load home_tags wagtailcore_tags %}
+{% load home_tags wagtailcore_tags compress %}
 {% load humanize %}
 
 {% block content %}
-{% with events=self.events %}
 <div class="layout-page-content--full">
       <div class="layout-page-header--full">
         <div class="page-header page-header--full">
           <h1>Events</h1>
         </div>
       </div>
-      {% if events %}
-      <div class="project-index">
-      {% for event in events %}
-        <div class="layout-project-index-item">
-          <div class="project-index-item">
-            <div class="project-index-item__content">
-                <a href={{ event.link }}>
-                <div class="project-index-image" style="background-image: url({{event.details.cover.source}})">{{event.details.name}}</div>
-                <h2>{{event.details.name}}</h2>
-                {{ event.details.start_time | relativetime }} @ {{ event.details.place.name }}</a>
-                <div class="project-description">{{event.details.description}}</div>
-            </div>
-        </div>
-        </div>
-      {% endfor %}
-        </div>
-      {% endif %}
+      <div class="project-index"></div>
     </div>
   </div>
 </div>
-{% endwith %}
+{% endblock %}
+
+{% block extra_js %}
+{% compress js inline %}
+<script type="text/javascript">
+    $.getJSON('/event_data/', function(json) {return displayEvents(json,true)});
+</script>
+{% endcompress %}
 {% endblock %}

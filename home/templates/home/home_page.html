@@ -136,26 +136,13 @@
   </div>
 
   {% if self.event_index %}
-  {% with self.event_index.future_events as future_events %}
   <div class="list-banner list-banner--events">
     <h3>Upcoming events</h3>
-    <ul>
-        {% if future_events %}
-            {% for event in future_events %}
-            <li class="event-list__item">
-            <span class="event-list__date">{{event.details.start_time | relativetime}}</span>
-            <span class="event-list__header">{{event.details.name}}</span>
-            <span class="event-list__description">{{event.message}}</span>
-            <span class="event-list__link"><a href="{{event.link}}">Read more >></a></span>
-            </li>
-            {% endfor %}
-        {% endif %}
-    </ul>
+    <ul></ul>
     <div class="list-banner__full-link">
       <a href="{% pageurl self.event_index %}">Full list of events >></a>
     </div>
   </div>
-  {% endwith %}
   {% endif %}
 
   <div class="some-banner">
@@ -201,6 +188,7 @@ $ ->
 </script>
 <script type="text/javascript">
     $.getJSON('/github_data/?amount=3', displayGithub);
+    $.getJSON('/event_data/?future=true', displayEvents);
 </script>
 {% endcompress %}
 {% endblock %}
