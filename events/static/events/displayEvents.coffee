@@ -3,7 +3,6 @@ window.displayEvents = (eventData, grid = false) ->
   if Object.keys(eventData).length == 0
     $list.append $("<li class='event-list__item'>Our next events will appear here the instant they are available, so stay tuned.</li>")
   for event in eventData
-    console.log(event)
     if event.message?
       message=event.message
     else
@@ -25,7 +24,6 @@ window.displayEvents = (eventData, grid = false) ->
           </div>
         </div>
       """
-      console.log(template)
     else
       $li = $("<li class='event-list__item' />")
       template = """
@@ -35,8 +33,7 @@ window.displayEvents = (eventData, grid = false) ->
         <span class="event-list__link"><a href="#{event.link}">Read more >></a></span>
       """
     $li.append $($.trim template)
-    console.log $li
     $list.append $li
-    console.log $list
   # format dates
+  $.timeago.settings.relativeTime = true
   $("time").timeago()
