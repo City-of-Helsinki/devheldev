@@ -30,6 +30,9 @@ window.displayGithub = (githubData) ->
       when "CreateEvent"
         eventUrl = event.repo.url
         eventDescription = " created #{event.payload.ref_type} #{event.payload.ref} at "
+      when "DeleteEvent"
+        eventUrl = event.repo.url
+        eventDescription = " deleted #{event.payload.ref_type} #{event.payload.ref} at "
       else
         eventUrl = event.repo.url
         eventDescription = " - #{event.type} - "
