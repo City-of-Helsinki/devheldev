@@ -46,6 +46,8 @@ urlpatterns = [
     url(r'^uptime_data/(.*)/', projects.views.uptime_data),
     url(r'^github_data/', github.views.github_data),
     url(r'^event_data/', events.views.event_data),
+    # API endpoints
+    url(r'^projects/projects.csv', projects.views.cfapi_list),
     # wagtail handles the rest
     url(r'', include(wagtail_urls)),
 ]
