@@ -188,7 +188,7 @@ $ ->
 </script>
 <script type="text/javascript">
     $.getJSON('/github_data/?amount=3', displayGithub);
-    $.getJSON('/event_data/?future=true', displayEvents);
+    $.getJSON('/event_data/?future=true', function(json) {return displayEvents(json,false)});
 </script>
 {% endcompress %}
 {% endblock %}

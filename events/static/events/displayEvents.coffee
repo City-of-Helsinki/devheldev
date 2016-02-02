@@ -11,7 +11,7 @@ window.displayEvents = (eventData, grid = false) ->
       description=event.details.description
     else
       description=""
-    if grid?
+    if grid
       $li = $("<div class='layout-project-index-item' />")
       template = """
         <div class='project-index-item'>
