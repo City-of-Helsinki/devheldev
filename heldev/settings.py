@@ -119,7 +119,7 @@ BOWER_INSTALLED_APPS = (
     'enquire',
     'components-font-awesome',
     'Chart.js#2.0.0-beta1',
-    'jquery-relativetimeago'
+    'jquery-relativetimeago#1.5.1'
 )
 
 COMPRESS_PRECOMPILERS = (
