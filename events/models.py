@@ -55,6 +55,12 @@ class EventsIndexPage(Page):
             return None
         if future:
             tz = pytz.timezone(settings.LOCAL_TIME_ZONE)
+            for event in events:
+                # for sorting, make sure all events have end times
+                try:
+                    end = event['details']['end_time']
+                except LookupError:
+                    event['details']['end_time'] = event['details']['start_time']
             # we want the next event first
             return json.dumps(list(reversed([event for event in events
                                              if dateparse.parse_datetime(event['details']['end_time']) > datetime.now(tz)])))
