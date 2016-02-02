@@ -112,9 +112,9 @@ WSGI_APPLICATION = 'heldev.wsgi.application'
 BOWER_INSTALLED_APPS = (
     'compass-mixins',
     'susy',
-    'jquery',
+    'jquery#2.1.4',
     'compass-breakpoint',
-    'swagger-ui',
+    'swagger-ui#2.1.3',
     'sidr#1.2.1',
     'enquire',
     'components-font-awesome',
