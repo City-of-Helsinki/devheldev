@@ -23,8 +23,6 @@ def kpi_data(request, slug):
         data = ProjectPage.objects.get(slug=slug).kpi_data()
     except ValueError:
         data = None
-    print(data)
-    print(HttpResponse(data).content)
     return HttpResponse(data)
 
 

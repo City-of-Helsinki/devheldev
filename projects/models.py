@@ -97,7 +97,7 @@ class ProjectPage(Orderable, Page):
             for kpi in self.dynamic_kpis.all():
                 response = requests.get(kpi.object_count_url)
                 if response.status_code == 200:
-                    data[kpi.object_name] = response.json()
+                    data[kpi.object_name] = response.json()['meta'][kpi.object_count_field_name]
             # coffeescript wants the data in json
             data = json.dumps(data)
             cache.add('kpis_' + slugify(self.title), data, 3600)
@@ -171,6 +171,7 @@ class ProjectObjectCount(models.Model):
     object_name = models.CharField(max_length=40)
     description = models.CharField(max_length=200, null=True, blank=True)
     object_count_url = models.URLField()
+    object_count_field_name = models.CharField(default='count', max_length=40)
 
     def _str__(self):
         return self.object_name

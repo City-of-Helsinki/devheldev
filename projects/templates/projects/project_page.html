@@ -71,10 +71,8 @@
             console.log kpiData
             for kpi, data of kpiData
                 $li = $("<li class='project-kpis__item' />")
-                count = data.meta.count
-                title = kpi
                 template = """
-                <span class="kpis-name">#{title}</span>: <span class="kpis-value">#{count}</span>
+                <span class="kpis-name">#{kpi}</span>: <span class="kpis-value">#{data}</span>
                 """
                 $li.append $($.trim template)
                 $kpiList.append $li
