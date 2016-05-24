@@ -69,6 +69,7 @@ class ProjectPage(Orderable, Page):
         ImageChooserPanel('image'),
         FieldPanel('piwik_id'),
         FieldPanel('uptimerobot_name'),
+        InlinePanel('dynamic_kpis', label="Dynamic key performance indicators"),
         InlinePanel('kpis', label="Key performance indicators"),
         InlinePanel('roles', label="Roles"),
         InlinePanel('links', label="Links"),
@@ -87,6 +88,19 @@ class ProjectPage(Orderable, Page):
                 data = response.text
                 # data = json.loads(response.text, object_pairs_hook=OrderedDict)
                 cache.add('piwik_' + slugify(self.title), data, 3600)
+        return data
+
+    def kpi_data(self):
+        data = cache.get('kpis_' + slugify(self.title))
+        if not data and self.dynamic_kpis.count():
+            data = {}
+            for kpi in self.dynamic_kpis.all():
+                response = requests.get(kpi.object_count_url)
+                if response.status_code == 200:
+                    data[kpi.object_name] = response.json()
+            # coffeescript wants the data in json
+            data = json.dumps(data)
+            cache.add('kpis_' + slugify(self.title), data, 3600)
         return data
 
     def uptime_data(self):
@@ -148,6 +162,18 @@ class ProjectKPI(models.Model):
     description = models.CharField(max_length=200, null=True, blank=True)
     value = models.CharField(max_length=200)
 
+
+class ProjectObjectCount(models.Model):
+    """
+    This model allows dynamic KPI data, fetching number of objects at any API endpoint
+    """
+    project = ParentalKey('projects.ProjectPage', related_name='dynamic_kpis')
+    object_name = models.CharField(max_length=40)
+    description = models.CharField(max_length=200, null=True, blank=True)
+    object_count_url = models.URLField()
+
+    def _str__(self):
+        return self.object_name
 
 class ProjectLink(models.Model):
     TYPES = (

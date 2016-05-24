@@ -42,8 +42,9 @@ urlpatterns = [
     url(r'^search/$', 'search.views.search', name='search'),
     url(r'^api/', include('apimanager.urls', namespace="apimanager")),
     # client endpoints for external API data
-    url(r'^piwik_data/(.*)/', projects.views.piwik_data),
-    url(r'^uptime_data/(.*)/', projects.views.uptime_data),
+    url(r'^piwik_data/(.*)', projects.views.piwik_data),
+    url(r'^uptime_data/(.*)', projects.views.uptime_data),
+    url(r'^kpi_data/(.*)', projects.views.kpi_data),
     url(r'^github_data/', github.views.github_data),
     url(r'^event_data/', events.views.event_data),
     # API endpoints

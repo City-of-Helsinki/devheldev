@@ -18,7 +18,17 @@ def piwik_data(request, piwik_id):
     return HttpResponse(data)
 
 
-def uptime_data(request, uptimerobot_name):
+def kpi_data(request, slug):
+    try:
+        data = ProjectPage.objects.get(slug=slug).kpi_data()
+    except ValueError:
+        data = None
+    print(data)
+    print(HttpResponse(data).content)
+    return HttpResponse(data)
+
+
+def uptime_data(request, uptimerobot_name=None):
     uptimerobot_name = urllib.request.unquote(uptimerobot_name)
     try:
         data = ProjectPage.objects.get(uptimerobot_name=uptimerobot_name).uptime_data()
