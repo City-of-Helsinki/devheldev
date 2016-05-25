@@ -113,7 +113,7 @@ BOWER_INSTALLED_APPS = (
     'compass-mixins',
     'susy',
     'jquery#2.1.4',
-    'compass-breakpoint',
+    'breakpoint-sass',
     'swagger-ui#2.1.3',
     'sidr#1.2.1',
     'enquire',

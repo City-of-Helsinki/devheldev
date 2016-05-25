@@ -2,7 +2,7 @@
 @include global-reset;
 
 @import "susy/sass/susy";
-@import 'compass-breakpoint/stylesheets/breakpoint';
+@import 'breakpoint-sass/stylesheets/breakpoint';
 @import 'components-font-awesome/scss/font-awesome';
 
 @import 'variables';
