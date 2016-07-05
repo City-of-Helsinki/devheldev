@@ -942,6 +942,14 @@ a.blog-listing-item__tag {
   }
 }
 
+.project-status--retirement {
+  background: #333333; 
+  &:before {
+    @extend .fa-trash;
+  }
+}
+
+
 .project-additional-info__content {
   //border: 2px solid $devblue;
   background: $devblue;

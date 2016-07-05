@@ -34,7 +34,8 @@ class ProjectPage(Orderable, Page):
         ('discovery', 'Discovery'),
         ('alpha', 'Alpha'),
         ('beta', 'Beta'),
-        ('live', 'LIVE')
+        ('live', 'LIVE'),
+        ('retirement', 'Retirement')
     )
     tags = ClusterTaggableManager(through=ProjectPageTag, blank=True)
     short_description = models.TextField()
