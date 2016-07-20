@@ -267,6 +267,32 @@ def enable_file_logging(api_name, log_path=None):
     if not log_path:
         log_path = "/var/log/kong/{0}.log".format(api_name)
 
-    enable_plugin(api_name,
-                  "file-log",
-                  {"path": log_path})
+    return enable_plugin(api_name,
+                         "file-log",
+                         {"path": log_path})
+
+
+def enable_rate_limiting(api_name,
+                         **config):
+    """
+    Enables rate limiting plugin for given API with the following options
+
+    Configuration arguments:
+        consumer: Consumer ID or name, optional
+        days:
+        seconds:
+        hours:
+        months:
+        years:
+        async: asynchronous rate counter, default is False
+        continue_on_error:
+
+    :param api_name: API name or ID
+    :return:
+
+    :return: plugin id or None
+    """
+
+    return enable_plugin(api_name,
+                         "rate-limiting",
+                         {k: v for k, v in config.items() if v})
