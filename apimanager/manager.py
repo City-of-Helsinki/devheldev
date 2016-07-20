@@ -255,3 +255,18 @@ def delete_api_key(consumer_id, key):
         kcli.delete(key)
     except ValueError:
         pass
+
+
+def enable_file_logging(api_name, log_path=None):
+    """
+
+    :param api_name: Name or id of the API to enable file plugin for
+    :param log_path: path where Kong should log API's events
+    :return:
+    """
+    if not log_path:
+        log_path = "/var/log/kong/{0}.log".format(api_name)
+
+    enable_plugin(api_name,
+                  "file-log",
+                  {"path": log_path})
