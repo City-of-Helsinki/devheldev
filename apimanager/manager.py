@@ -293,4 +293,4 @@ def enable_rate_limiting(api_name,
 
     return enable_plugin(api_name,
                          "rate-limiting",
-                         {k: v for k, v in config.items() if v})
+                         {k: v for k, v in config.items() if v is not None or v is not ""})
