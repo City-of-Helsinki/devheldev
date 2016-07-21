@@ -288,9 +288,33 @@ def enable_rate_limiting(api_name,
         continue_on_error: whether to allow requests through when Kong database is down
 
     :param api_name: API name or ID
-    :return: plugin id or None
+    :return: API specific plugin configuration id or None
     """
 
     return enable_plugin(api_name,
                          "rate-limiting",
+                         {k: v for k, v in config.items() if v is not None or v is not ""})
+
+
+def enable_ip_list(api_name, black=None, white=None, consumer_id=None):
+    """
+    Enable IP black or white lists for given API
+    Either black or white needs to be truthy
+
+    :param api_name: API name or ID
+    :param black: comma separated string of IP addresses of CIDR ranges
+    :param white: comma separated string of IP addresses of CIDR ranges
+    :param consumer_id: optional, target specific consumer
+    :return: API specific plugin configuration id or None
+    """
+
+    if not black or white:
+        raise ValueError("Either black or white needs to have truthy value")
+
+    config = {"config.blacklist": black,
+              "config.white": white,
+              "consumer_id": consumer_id}
+
+    return enable_plugin(api_name,
+                         "ip-restriction",
                          {k: v for k, v in config.items() if v is not None or v is not ""})
