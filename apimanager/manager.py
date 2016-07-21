@@ -279,17 +279,15 @@ def enable_rate_limiting(api_name,
 
     Configuration arguments:
         consumer: Consumer ID or name, optional
-        days:
-        seconds:
-        hours:
-        months:
-        years:
+        day:
+        second:
+        hour:
+        month:
+        year:
         async: asynchronous rate counter, default is False
-        continue_on_error:
+        continue_on_error: whether to allow requests through when Kong database is down
 
     :param api_name: API name or ID
-    :return:
-
     :return: plugin id or None
     """
 
