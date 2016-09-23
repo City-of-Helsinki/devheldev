@@ -1,4 +1,4 @@
-Django==1.8.7
+Django<1.9
 wagtail==1.2
 psycopg2==2.6.1
 django-bower==5.0.4
@@ -27,7 +27,7 @@ html5lib==0.999
 libsass==0.8.3
 oauthlib==1.0.3
 ordereddict==1.1
-Pillow==3.0.0
+Pillow<4.0
 py==1.4.30
 python3-openid==3.0.7
 pytz==2015.7
