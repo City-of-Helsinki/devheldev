@@ -34,7 +34,7 @@ class EventsIndexPage(Page):
 
                 for item in feed:
                     if 'link' in item:
-                        if 'events' in str(item['link']):
+                        if 'https://www.facebook.com/events/' in str(item['link']):
                             events.append(item)
 
                 # fetch details for the events
