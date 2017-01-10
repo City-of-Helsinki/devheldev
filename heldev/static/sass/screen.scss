@@ -362,12 +362,19 @@ p {
       font-style: normal;
       color: $devyellow;
     }
+    p {
+      margin: 0;
+    }
     a {
     color: $devblue;
     &:hover {
       color: $devyellow;
     }
     }
+  }
+  .hilight-banner__readmore {
+    font-weight: bold;
+    text-align: right;
   }
   .hilight-banner--full {
     @include span(12);
