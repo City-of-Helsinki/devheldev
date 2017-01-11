@@ -545,14 +545,12 @@ p {
 .list-banner__full-link {
   font-weight: 900;
   position: relative;
-  margin-left: rhythm(1.7);
   .partner-hri {
+    display: inline-block;
+    margin-right: .5em;
+    margin-bottom: -.5em;
     height: rhythm(1.2);
     width: rhythm(1.2);
-    float: left;
-    position: absolute;
-    bottom: 0;
-    left: rhythm(-1.7);
     @include replace-text(url("/static/images/hri_logo.png"));
     background-size: contain;
   }
