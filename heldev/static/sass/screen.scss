@@ -636,6 +636,7 @@ p {
 .commit-list--full {
   ul {
     margin: 0;
+    list-style: none;
   }
   .commit-list__item {
     a {
