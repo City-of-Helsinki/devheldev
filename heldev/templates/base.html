@@ -11,6 +11,16 @@
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <title>{% block title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% block title_suffix %}{% endblock %} | {{ request.site.hostname }}</title>
+        <link rel="apple-touch-icon" sizes="180x180" href="static/favicons/apple-touch-icon.png">
+        <link rel="icon" type="image/png" href="{% static "favicons/favicon-32x32.png" %}" sizes="32x32">
+        <link rel="icon" type="image/png" href="{% static "favicons/favicon-16x16.png" %}" sizes="16x16">
+        <link rel="manifest" href="{% static "favicons/manifest.json" %}">
+        <link rel="mask-icon" href="{% static "favicons/safari-pinned-tab.svg" %}" color="#003380">
+        <link rel="shortcut icon" href="{% static "favicons/favicon.ico" %}">
+        <meta name="apple-mobile-web-app-title" content="HEL &lt;3 DEV">
+        <meta name="application-name" content="HEL &lt;3 DEV">
+        <meta name="msapplication-config" content="{% static "favicons/browserconfig.xml" %}">
+        <meta name="theme-color" content="#ffffff">
         {% if self and self.title %}
         <meta property="og:site_name" content="dev.hel.fi" />
         <meta name="description" content="{{ self.title }}" />
