@@ -633,6 +633,24 @@ p {
 
 }
 
+.commit-list--full {
+  ul {
+    margin: 0;
+  }
+  .commit-list__item {
+    a {
+      color: $devblue;
+      &:hover {
+        color: $devyellow;
+      }
+    }
+    border-bottom: 1px solid $devblue;
+  }
+  .commit-list__date {
+    color: #666666;
+  }
+}
+
 /* ------------  */
 
 
