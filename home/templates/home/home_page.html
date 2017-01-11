@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load wagtailcore_tags home_tags compress %}
+{% load wagtailcore_tags home_tags compress wagtailimages_tags %}
 {% load static %}
 {% load humanize %}
 
@@ -59,13 +59,16 @@
     <div class="hilight-banner__box">
       <div class="hilight-banner__content">
       {% if self.blog_index %}
-        <a href="{% pageurl self.blog_index %}"><h5 class="hilight-banner__section">Blog</h5></a>
         {% with blog=self.blog_index.blogs.0 %}
             {% if blog %}
-            <a href="{% pageurl blog %}">
-            <h3>{{blog.title}}</h3>
-            <p>{{blog.body|first_p|richtext}}</p>
-            </a>
+            {% if blog.header_image %}
+            {% image blog.header_image fill-1200x600 as blog_photo %}
+        <a href="{% pageurl self.blog_index %}"><img src="{{ blog_photo.url }}" alt="{{ blog.header_image.title }}" /></a>
+            {% endif %}
+            <a href="{% pageurl self.blog_index %}"><h5 class="hilight-banner__section">Blog</h5></a>
+            <a href="{% pageurl blog %}"><h3>{{blog.title}}</h3></a>
+            {{blog.body|first_p|safe}}
+            <div class="hilight-banner__readmore">[<a href="{% pageurl blog %}">Read more...</a>]</div>
             {% endif %}
         {% endwith %}
       {% endif %}
@@ -79,9 +82,9 @@
         <a href="{% pageurl self.project_index %}"><h5 class="hilight-banner__section">Projects</h5></a>
         {% with project=self.project_index.projects.first %}
             {% if project %}
-            <a href="{% pageurl project %}">
-            <h3>{{project.title}}</h3>
-            <p>{{project.full_description|first_p|richtext}}</p>
+            <a href="{% pageurl project %}"><h3>{{project.title}}</h3></a>
+            {{project.full_description|first_p|safe}}
+            <div class="hilight-banner__readmore">[<a href="{% pageurl project %}">Read more...</a>]</div>
             </a>
             {% endif %}
         {% endwith %}
@@ -96,10 +99,9 @@
         <a href="{% pageurl self.api_index %}"><h5 class="hilight-banner__section">APIs</h5></a>
         {% with api=self.api_index.apis.first %}
             {% if api %}
-            <a href="{% pageurl api %}">
-            <h3>{{api.title}}</h3>
-            <p>{{api.full_description|first_p|richtext}}</p>
-            </a>
+            <a href="{% pageurl api %}"><h3>{{api.title}}</h3></a>
+            {{api.full_description|first_p|safe}}
+            <div class="hilight-banner__readmore">[<a href="{% pageurl api %}">Read more...</a>]</div>
             {% endif %}
         {% endwith %}
       {% endif %}
@@ -113,10 +115,9 @@
         <a href="{% pageurl self.blog_index %}"><h5 class="hilight-banner__section">Blog</h5></a>
         {% with blog=self.blog_index.blogs.1 %}
             {% if blog %}
-            <a href="{% pageurl blog %}">
-            <h3>{{blog.title}}</h3>
-            <p>{{blog.body|first_p|richtext}}</p>
-            </a>
+        <a href="{% pageurl blog %}"><h3>{{blog.title}}</h3></a>
+            {{blog.body|first_p|safe}}
+            <div class="hilight-banner__readmore">[<a href="{% pageurl blog %}">Read more...</a>]</div>
             {% endif %}
         {% endwith %}
       {% endif %}

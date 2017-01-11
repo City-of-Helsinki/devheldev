@@ -2,8 +2,8 @@ Django<1.9
 wagtail==1.2
 psycopg2==2.6.1
 django-bower==5.0.4
-django-compressor==1.5
-django-libsass==0.4
+django-compressor==2.1
+django-libsass==0.7
 wagtail-blog==1.6.5
 django-grappelli==2.7.1
 -e git+https://github.com/City-of-Helsinki/django-helusers.git@94b0d3db73e76ba5387c7dc0db3c6315ccbbb079#egg=django_helusers-master
@@ -24,7 +24,7 @@ django-taggit==0.17.1
 django-treebeard==3.0
 djangorestframework==3.2.4
 html5lib==0.999
-libsass==0.8.3
+libsass==0.11.1
 oauthlib==1.0.3
 ordereddict==1.1
 Pillow<4.0

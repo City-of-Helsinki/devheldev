@@ -362,12 +362,19 @@ p {
       font-style: normal;
       color: $devyellow;
     }
+    p {
+      margin: 0;
+    }
     a {
     color: $devblue;
     &:hover {
       color: $devyellow;
     }
     }
+  }
+  .hilight-banner__readmore {
+    font-weight: bold;
+    text-align: right;
   }
   .hilight-banner--full {
     @include span(12);
@@ -538,14 +545,12 @@ p {
 .list-banner__full-link {
   font-weight: 900;
   position: relative;
-  margin-left: rhythm(1.7);
   .partner-hri {
+    display: inline-block;
+    margin-right: .5em;
+    margin-bottom: -.5em;
     height: rhythm(1.2);
     width: rhythm(1.2);
-    float: left;
-    position: absolute;
-    bottom: 0;
-    left: rhythm(-1.7);
     @include replace-text(url("/static/images/hri_logo.png"));
     background-size: contain;
   }
@@ -626,6 +631,25 @@ p {
 }
 .commit-list__description {
 
+}
+
+.commit-list--full {
+  ul {
+    margin: 0;
+    list-style: none;
+  }
+  .commit-list__item {
+    a {
+      color: $devblue;
+      &:hover {
+        color: $devyellow;
+      }
+    }
+    border-bottom: 1px solid $devblue;
+  }
+  .commit-list__date {
+    color: #666666;
+  }
 }
 
 /* ------------  */
