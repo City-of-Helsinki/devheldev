@@ -167,7 +167,7 @@
 $ ->
     params =
         limit: 5
-    $.getJSON 'http://hri.fi/api/3/action/current_package_list_with_resources', params, (data) ->
+    $.getJSON 'https://hri.fi/api/3/action/current_package_list_with_resources', params, (data) ->
         $list = $(".list-banner--datasets ul")
         for dataset in data.result
             title = null
@@ -177,7 +177,7 @@ $ ->
                     break
             if not title
                 title = dataset.title
-            url = "http://www.hri.fi/en/dataset/#{dataset.name}"
+            url = "https://www.hri.fi/en/dataset/#{dataset.name}"
             $li = $("<li class='dataset-list__item' />")
             template = """
                 <a href=\"#{url}\">
