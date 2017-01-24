@@ -78,6 +78,10 @@ class KongAPIConfiguration(models.Model):
         :return: None
         :rtype: None
         """
+        
+        # NOTE: API kongfiguration now elsewhere
+        return None
+
         existing = manager.check_api(self.kong_api_id)
 
         if self.request_host.startswith('/'):
