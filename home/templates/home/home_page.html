@@ -167,7 +167,7 @@
 $ ->
     params =
         limit: 5
-    $.getJSON 'http://hri.fi/api/3/action/current_package_list_with_resources', params, (data) ->
+    $.getJSON 'https://hri.fi/api/3/action/current_package_list_with_resources', params, (data) ->
         $list = $(".list-banner--datasets ul")
         for dataset in data.result
             title = null
