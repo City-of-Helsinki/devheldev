@@ -1,11 +1,12 @@
 $(function () {
-  $('#toggle').sidr({
+  $('#js-toggle').sidr({
     name: 'sidr-main',
-    source: '#sidr',
-    onOpen: function() {$('.bar').toggleClass('animate')},
-    onClose: function() {$('.bar').toggleClass('animate')}
+    source: '#js-navigation',
+    side: 'right',
+    onOpen: function() {$('#js-toggle').toggleClass('is-open')},
+    onClose: function() {$('#js-toggle').toggleClass('is-open')}
   });
-  
+
   enquire.register("screen and (min-width:640px)", {
     match : function() {
       $.sidr('close', 'sidr-main');

@@ -115,7 +115,7 @@ BOWER_INSTALLED_APPS = (
     'jquery#2.1.4',
     'breakpoint-sass',
     'swagger-ui#2.1.3',
-    'sidr#1.2.1',
+    'sidr#2.2.1',
     'enquire',
     'components-font-awesome',
     'Chart.js#2.0.0-beta1',
