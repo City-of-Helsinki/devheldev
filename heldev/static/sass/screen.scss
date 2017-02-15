@@ -149,69 +149,73 @@ p {
     }
   }
 
-  #toggle {
+  .menu-btn {
     $bar-width: 2.5em;
     $bar-height: .4em;
     $bar-spacing: .75em;
     background: $devblue;
     padding: .5em;
-    z-index: 10001;
+    z-index: 1000000;
     position: fixed;
     top: rhythm(.5);
     right: rhythm(.5);
     height: $bar-height + $bar-spacing*2 + 1em;
     cursor: pointer;
 
+    .bar,
+    .bar:after,
+    .bar:before {
+      width: $bar-width;
+        height: $bar-height;
+    }
 
-      .bar,
-      .bar:after,
-      .bar:before {
-        width: $bar-width;
-          height: $bar-height;
-      }
+    .bar {
+        position: relative;
+        transform: translateY($bar-spacing);
+        background: rgba(255, 255, 255, 1);
+        transition: all 0ms 300ms;
+    }
+
+    .bar:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: $bar-spacing;
+        background: rgba(255, 255, 255, 1);
+        transition: bottom 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .bar:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: $bar-spacing;
+        background: rgba(255, 255, 255, 1);
+        transition: top 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    @include breakpoint($tabletwidth) {
+      display: none;
+    }
+
+    &.is-open {
+      background: transparent;
 
       .bar {
-          position: relative;
-          transform: translateY($bar-spacing);
-          background: rgba(255, 255, 255, 1);
-          transition: all 0ms 300ms;
-
-        &.animate {
-          background: rgba(255, 255, 255, 0); 
-        }
-      }
-
-      .bar:before {
-          content: "";
-          position: absolute;
-          left: 0;
-          bottom: $bar-spacing;
-          background: rgba(255, 255, 255, 1);
-          transition: bottom 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms cubic-bezier(0.23, 1, 0.32, 1);
+        background: rgba(255, 255, 255, 0);
       }
 
       .bar:after {
-          content: "";
-          position: absolute;
-          left: 0;
-          top: $bar-spacing;
-          background: rgba(255, 255, 255, 1);
-          transition: top 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms cubic-bezier(0.23, 1, 0.32, 1);
-      }
-
-      .bar.animate:after {
           top: 0;
           transform: rotate(45deg);
           transition: top 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1);;
       }
 
-      .bar.animate:before {
+      .bar:before {
           bottom: 0;
           transform: rotate(-45deg);
           transition: bottom 300ms cubic-bezier(0.23, 1, 0.32, 1), transform 300ms 300ms cubic-bezier(0.23, 1, 0.32, 1);;
       }
-    @include breakpoint($tabletwidth) {
-      display: none;
     }
   }
 
@@ -380,7 +384,10 @@ p {
     @include span(12);
   }
   .hilight-banner--half {
-    @include span(6);
+    @include span(12);
+    @include breakpoint($tabletwidth) {
+      @include span(6);
+    }
   }
 
 .site-footer-partners,
