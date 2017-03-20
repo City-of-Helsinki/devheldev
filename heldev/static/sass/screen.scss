@@ -253,7 +253,7 @@ p {
   }
 
 /*-----------------------*/
-  .layout-main, .layout-header__wrapper, .layout-site-footer__wrapper {
+  .layout-main, .layout-header__wrapper {
     position: relative;
     @include container;
     @include show-grid(overlay);
@@ -269,15 +269,9 @@ p {
     min-height: 100%;
     padding-top: rhythm(4);
     padding-bottom: rhythm(4);
-    margin-bottom: -($footer-height); 
     @include breakpoint($tabletwidth) {
       padding-top: rhythm(5);
       padding-bottom: rhythm(5);
-    }
-    &:after {
-      content: "";
-      display: block;
-      height: $footer-height;
     }
   }
 
@@ -338,14 +332,6 @@ p {
     }
   }
 
-  .layout-site-footer {
-    @include clearfix;
-    height: $footer-height;
-    background: #333333;
-    padding: rhythm(2) 0 rhythm(4) 0;
-    color: #FFFFFF;
-  }
-
   .hilight-banner__box {
     padding: rhythm(.5);
     background: #FFFFFF;
@@ -390,74 +376,155 @@ p {
     }
   }
 
-.site-footer-partners,
-.site-footer-navigation,
-.site-footer-links {
+
+//* Page Footer section */
+
+.page-footer {
+  .row {
+    @include container;
+  }
+}
+
+.page-footer-nav {
+    @include breakpoint($tabletwidth) {
+      @include span(3);
+      @include push(6);
+    }
+}
+
+.page-footer-brand {
+    @include breakpoint($tabletwidth) {
+      @include span(3);
+      @include pull(9);
+    }
+}
+
+.page-footer-links {
+    @include breakpoint($tabletwidth) {
+       @include span(3);
+    }
+}
+
+.page-footer-small {
   @include span(12);
-  margin-bottom: rhythm(2);
 }
 
-.site-footer {
+.page-footer {
+  background-color: #333333;
+  color: #ffffff;
+  margin-top: 4em;
+  min-height: 20em;
+  padding: 4em 0;
+
+  .page-footer-block {
+    margin-bottom: 2em;
+    text-align: center;
+    @include breakpoint($tabletwidth) {
+      text-align: left;
+    }
+  }
+
+  .footer-header {
+    font-weight: 800;
+    margin-bottom: 1em;
+    text-align: center;
+    @include breakpoint($tabletwidth) {
+      text-align: left;
+    }
+  }
+
+  .footer-links {
+    list-style: none;
+    padding-left: 0;
+    i {
+      font-size: 1.2em;
+      width: 1.5em;
+    }
+
+    a {
+      color: #ffffff;
+      
+      &:hover {
+        color: $devyellow;
+      }
+    }
+  }
+
+  .footer-partners {
+    list-style: none;
+    padding-left: 0;
+    li {
+      vertical-align: top;
+      display: block;
+      @include breakpoint($tabletwidth) {
+        display: inline-block;
+      }
+    }
+  }
+
+  .partner-logo {
+    margin: 0 auto 1em;
+    width: 5em;
+    @include breakpoint($tabletwidth) {
+      margin: 1em 0 2em 2em;
+    }
+  }
+
+  .heldev-logo {
+    margin: 0 auto 1em;
+    max-width: 5em;
+  }
+}
+
+.footer-branding {
+  margin-bottom: 2em;
+  text-align: center;
+
+  .footer-logo {
+    margin: 0 auto 1em;
+    max-width: 4.5em;
+  }
+
+  .footer-logo-heldev {
+    max-width: 4em;
+  }
+
   a {
-    color: #FFFFFF;
+    color: #ffffff;
+    display: block;
+
     &:hover {
-      color: $devyellow;
+      text-decoration: none;
     }
+  }
+
+  .footer-branding-text {
+    font-size: $small-font-size;
+    margin-bottom: 1.5em;
   }
 }
 
-.site-footer-navigation {
-    text-align: center;
-    @include breakpoint($tabletwidth) {
-      text-align: left;
-      @include pre(3);
-      @include span(3);
-    }
-}
+.page-footer-small-print {
+  margin-top: 2em;
+  text-align: center;
 
-.site-footer-links {
-    text-align: center;
-    @include breakpoint($tabletwidth) {
-      text-align: left;
-      @include span(3);
-    }
+  @include breakpoint($tabletwidth) {
+    text-align: right;
+  }
 
-  i {
-    margin-right: .5em;
-    margin-bottom: .5em;
-  }
-}
-
-.site-footer-partners {
-    @include breakpoint($tabletwidth) {
-      @include span(3);
-    }
-  .partner-helsinki {
-    height: rhythm(4);
-    width: 50%;
-    float: left;
-    @include replace-text(url("/static/images/helsinki-vaakuna.svg"),90%,1%);
-    background-size: contain;
-  }
-  .partner-heldev {
-    height: rhythm(4);
-    width: 50%;
-    float: left;
-    @include replace-text(url("/static/images/heldev-logo-white.svg"),10%,1%);
-    background-size: contain;
-  }
-  .partner-link {
-    float: left;
-    width: 100%;
-    margin-top: rhythm(1);
+  .footer-header {
     text-align: center;
+
+    @include breakpoint($tabletwidth) {
+      text-align: right;
+    }
   }
 }
 
 /* ------------ FRONT BANNER */
 
 .front-banner__background {
-  background: no-repeat center center fixed; 
+  background: no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
