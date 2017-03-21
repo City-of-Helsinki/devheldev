@@ -40,13 +40,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link href='https://fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic|Inconsolata:400,700' rel='stylesheet' type='text/css'>
         {# Global stylesheets #}
- 
+
         {% compress css %}
           <link rel="stylesheet" type="text/x-scss" href="{% static "sass/screen.scss" %}" />
         {% endcompress %}
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+
         <script type="text/javascript" src='{% static 'jquery/dist/jquery.js' %}'></script>
-      
+
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}
         {% endblock %}
@@ -87,7 +87,7 @@
           <footer class="page-footer">
             <div class="container">
                 <div class="row">
-                    <div class="page-footer-nav col-md-3 col-md-push-6 col-sm-4 col-sm-push-4">
+                    <div class="page-footer-nav">
                         <div class="page-footer-block">
                           <div class="footer-header">dev.hel.fi</div>
                           <ul class="footer-links">
@@ -104,7 +104,7 @@
                           </ul>
                         </div>
                     </div>
-                    <div class="page-footer-brand col-md-3 col-md-pull-3 col-sm-4 col-sm-pull-4">
+                    <div class="page-footer-brand">
                         <div class="footer-branding footer-branding-helsinki">
                             <a href="http://www.hel.fi">
                                 <img alt="Helsingin vaakuna" src="{% static "images/helsinki-vaakuna-white.svg" %}" class="footer-logo footer-logo-helsinki" aria-hidden="true">
@@ -118,7 +118,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="page-footer-links col-md-3 col-md-push-3 col-sm-4">
+                    <div class="page-footer-links">
                         <div class="page-footer-block">
                             <div class="footer-header">See also</div>
                             <ul class="footer-links">
@@ -130,7 +130,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="page-footer-small col-xs-12">
+                    <div class="page-footer-small">
                         <div class="page-footer-small-print">
                             <div class="footer-header">In collaboration with</div>
                             <ul class="footer-partners">

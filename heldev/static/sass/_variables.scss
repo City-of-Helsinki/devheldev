@@ -7,6 +7,8 @@ $tabletwidth: 670px;
 $deskwidth: 1024px;
 $nondesk: max-width 1024px;
 
+$fa-font-path: "../components-font-awesome/fonts";
+
 /* footer height must be defined for it to stick to bottom of screen on low content pages */
 $footer-height: rhythm(15);
 

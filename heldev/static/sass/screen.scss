@@ -1,11 +1,9 @@
 @import 'compass-mixins/lib/compass';
 @include global-reset;
-
+@import 'variables';
 @import "susy/sass/susy";
 @import 'breakpoint-sass/stylesheets/breakpoint';
 @import 'components-font-awesome/scss/font-awesome';
-
-@import 'variables';
 @import 'typography';
 @import 'formhack';
 @import 'sidr';
