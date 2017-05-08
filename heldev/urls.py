@@ -6,6 +6,7 @@ from django.contrib import admin
 from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 from wagtail.wagtailcore import urls as wagtail_urls
+from django.views.generic import TemplateView
 from django.shortcuts import redirect
 from django.conf import settings
 
@@ -49,6 +50,7 @@ urlpatterns = [
     url(r'^event_data/', events.views.event_data),
     # API endpoints
     url(r'^projects/projects.csv', projects.views.cfapi_list),
+    url(r'^docs/index$', TemplateView.as_view(template_name="docs/index.html")),
     # wagtail handles the rest
     url(r'', include(wagtail_urls)),
 ]

@@ -68,7 +68,8 @@ INSTALLED_APPS = (
     'users',
     'github',
     'events',
-    'infopage'
+    'infopage',
+    'docs',
 )
 
 MIDDLEWARE_CLASSES = (
