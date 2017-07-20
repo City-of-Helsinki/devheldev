@@ -8,6 +8,7 @@ from django.http import HttpResponseBadRequest, Http404
 
 
 DOCS_STORAGE = Path(settings.BASE_DIR) / 'docs' / 'templates' / 'docs'
+DOCS_TEMPLATE_ROOT = Path('docs')
 
 
 def validate_path_root(path, root=DOCS_STORAGE):
@@ -25,10 +26,13 @@ def doc_view(request, path, doc_root=DOCS_STORAGE):
 
     doc_path = doc_root / path
 
-    if not validate_path_root(doc_path, doc_root):
+    print(doc_root, doc_path, path)
+
+    if validate_path_root(doc_path, doc_root):
         return HttpResponseBadRequest('Invalid path given for doc')
 
-    if not path.exists():
-        return Http404('No doc found for given path')
+    if not doc_path.exists():
+        raise Http404('No doc found for given path')
 
-    return render(request, template_name=path, context={})
+    doc_as_template_path = DOCS_TEMPLATE_ROOT / path
+    return render(request, template_name=doc_as_template_path, context={})
