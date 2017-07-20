@@ -26,8 +26,6 @@ def doc_view(request, path, doc_root=DOCS_STORAGE):
 
     doc_path = doc_root / path
 
-    print(doc_root, doc_path, path)
-
     if validate_path_root(doc_path, doc_root):
         return HttpResponseBadRequest('Invalid path given for doc')
 
@@ -35,4 +33,8 @@ def doc_view(request, path, doc_root=DOCS_STORAGE):
         raise Http404('No doc found for given path')
 
     doc_as_template_path = DOCS_TEMPLATE_ROOT / path
+
+    if doc_path.is_dir():
+        doc_as_template_path = doc_as_template_path / 'index.html'
+
     return render(request, template_name=doc_as_template_path, context={})
