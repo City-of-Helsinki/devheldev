@@ -6,7 +6,7 @@ django-compressor==2.1
 django-libsass==0.7
 wagtail-blog==1.6.5
 django-grappelli==2.7.1
--e git+https://github.com/City-of-Helsinki/django-helusers.git@94b0d3db73e76ba5387c7dc0db3c6315ccbbb079#egg=django_helusers-master
+-e git+https://github.com/City-of-Helsinki/django-helusers.git@f9a943e3f268aea389c69a17ebf13a2dacc9296b#egg=django_helusers-master
 django-allauth==0.23.0
 django-modelcluster==1.0
 python-kong==0.4.0
