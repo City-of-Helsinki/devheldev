@@ -50,7 +50,7 @@ urlpatterns = [
     url(r'^event_data/', events.views.event_data),
     # API endpoints
     url(r'^projects/projects.csv', projects.views.cfapi_list),
-    url(r'^docs', include('docs.urls')),
+    url(r'^docs/', include('docs.urls')),
     # wagtail handles the rest
     url(r'', include(wagtail_urls)),
 ]
