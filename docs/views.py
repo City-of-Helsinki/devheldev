@@ -4,7 +4,8 @@ from pathlib import Path
 from django.shortcuts import render
 from django.utils.text import get_valid_filename
 from django.conf import settings
-from django.http import HttpResponseBadRequest, Http404
+from django.http import HttpResponseBadRequest, Http404, HttpResponseRedirect
+from django.core.urlresolvers import reverse
 
 
 DOCS_STORAGE = Path(settings.BASE_DIR) / 'docs' / 'templates' / 'docs'
@@ -23,6 +24,10 @@ def validate_path_root(path, root=DOCS_STORAGE):
 
 
 def doc_view(request, path, doc_root=DOCS_STORAGE):
+
+    if path == '':
+        index_page = reverse('doc_view', kwargs={'path': 'README/'})
+        return HttpResponseRedirect(index_page)
 
     doc_path = doc_root / path
 
