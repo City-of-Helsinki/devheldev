@@ -30,6 +30,7 @@ def doc_view(request, path, doc_root=DOCS_STORAGE):
         return HttpResponseRedirect(index_page)
 
     doc_path = doc_root / path
+    doc_path = doc_path.absolute()
 
     if validate_path_root(doc_path, doc_root):
         return HttpResponseBadRequest('Invalid path given for doc')
