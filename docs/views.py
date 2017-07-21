@@ -42,4 +42,7 @@ def doc_view(request, path, doc_root=DOCS_STORAGE):
     if doc_path.is_dir():
         doc_as_template_path = doc_as_template_path / 'index.html'
 
+    elif not doc_path.suffix == '.html':
+        return HttpResponseBadRequest('Bad file request')
+
     return render(request, template_name=doc_as_template_path, context={})
