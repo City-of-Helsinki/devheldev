@@ -1,0 +1,47 @@
+{% raw %}
+    {% extends "base.html" %}
+
+    {% load static wagtailcore_tags %}
+
+    {% block extra_css %}
+        <script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.3.7.min.js"></script>
+        <script src="../js/highlight.pack.js"></script>
+    {% endblock %}
+
+    {% block content %}
+{% endraw %}
+<div class="layout-page-content">
+  <div class="page-content">
+    <div class="page-content__box">
+        {% include "nav.html" %}
+
+        <div class="container">
+            {%- block content %}
+                <div class="col-md-3">{% include "toc.html" %}</div>
+                <div class="col-md-9" role="main">{% include "content.html" %}</div>
+            {%- endblock %}
+        </div>
+
+    <footer class="col-md-12">
+        {%- block footer %}
+        <hr>
+        {% if config.copyright %}
+        <center>{{ config.copyright }}</center>
+        {% endif %}
+        <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
+        {%- endblock %}
+    </footer>
+
+        {%- block scripts %}
+        <script src="{{ base_url }}/js/base.js"></script>
+        {%- for path in extra_javascript %}
+        <script src="{{ path }}"></script>
+        {%- endfor %}
+        {%- endblock %}
+    </div>
+  </div>
+</div>
+{% raw %}
+    {% endblock content %}
+{% endraw%}
