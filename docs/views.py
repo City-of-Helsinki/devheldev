@@ -45,7 +45,7 @@ def doc_view(request, path, doc_root=DOCS_STORAGE):
     if doc_path.is_dir():
         doc_as_template_path = doc_as_template_path / 'index.html'
 
-    if doc_path.suffix == '.html':
+    if doc_as_template_path.suffix == '.html':
         return render(request, template_name=doc_as_template_path, context={})
     else:
         response = HttpResponse(content=doc_path.read_text())
