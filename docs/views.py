@@ -4,8 +4,10 @@ from pathlib import Path
 from django.shortcuts import render
 from django.utils.text import get_valid_filename
 from django.conf import settings
-from django.http import HttpResponseBadRequest, Http404, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseBadRequest, Http404, HttpResponseRedirect
 from django.core.urlresolvers import reverse
+
+import mimetypes
 
 
 DOCS_STORAGE = Path(settings.BASE_DIR) / 'docs' / 'templates' / 'docs'
@@ -43,7 +45,15 @@ def doc_view(request, path, doc_root=DOCS_STORAGE):
     if doc_path.is_dir():
         doc_as_template_path = doc_as_template_path / 'index.html'
 
-    elif not doc_path.suffix == '.html':
-        return HttpResponseBadRequest('Bad file request')
+    if doc_path.suffix == '.html':
+        return render(request, template_name=doc_as_template_path, context={})
+    else:
+        response = HttpResponse(content=doc_path.read_text())
+        mime_type, encoding = mimetypes.guess_type(str(doc_path))
+        response['Content-Type'] = mime_type
 
-    return render(request, template_name=doc_as_template_path, context={})
+        response['Content-Length'] = doc_path.stat().st_size
+        if encoding is not None:
+            response['Content-Encoding'] = encoding
+
+        return response
