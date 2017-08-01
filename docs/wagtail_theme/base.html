@@ -4,9 +4,8 @@
     {% load static wagtailcore_tags %}
 
     {% block extra_css %}
-        <script src="../js/jquery-1.10.2.min.js"></script>
+        <link rel="stylesheet" type="text/x-scss" href="{% static "css/highlight.css" %}" />
         <script src="../js/bootstrap-3.3.7.min.js"></script>
-        <script src="../js/highlight.pack.js"></script>
     {% endblock %}
 
     {% block content %}

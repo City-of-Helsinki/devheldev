@@ -39,3 +39,5 @@ Unidecode==0.4.18
 Willow==0.2.1
 raven==5.9.0
 mkdocs
+Pygments
+pymdown-extensions

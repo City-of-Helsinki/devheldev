@@ -1,1 +1,4 @@
 site_name: Hel <3 Docs
+markdown_extensions:
+    - pymdownx.superfences
+    - pymdownx.highlight
