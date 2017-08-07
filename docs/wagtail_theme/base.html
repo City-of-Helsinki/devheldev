@@ -5,42 +5,52 @@
 
     {% block extra_css %}
         <link rel="stylesheet" type="text/css" href="{% static "css/highlight.css" %}" />
-        <script src="../js/bootstrap-3.3.7.min.js"></script>
     {% endblock %}
 
     {% block content %}
 {% endraw %}
-<div class="layout-page-content">
-  <div class="page-content">
-    <div class="page-content__box">
-        {% include "nav.html" %}
-
-        <div class="container">
-            {%- block content %}
-                <div class="col-md-3">{% include "toc.html" %}</div>
-                <div class="col-md-9" role="main">{% include "content.html" %}</div>
-            {%- endblock %}
-        </div>
-
-    <footer class="col-md-12">
-        {%- block footer %}
-        <hr>
-        {% if config.copyright %}
-        <center>{{ config.copyright }}</center>
-        {% endif %}
-        <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
-        {%- endblock %}
-    </footer>
-
-        {%- block scripts %}
-        <script src="{{ base_url }}/js/base.js"></script>
-        {%- for path in extra_javascript %}
-        <script src="{{ path }}"></script>
-        {%- endfor %}
-        {%- endblock %}
+  <div class="layout-page-content--full">
+    <div class="layout-page-header--full">
+      <div class="page-header page-header--full">
+        <h1>{{ config.site_name }}</h1>
+      </div>
     </div>
   </div>
-</div>
+  <div class="layout-page-content">
+    <div class="page-content">
+      <div class="page-content__box">
+
+          <div class="rich-text">
+            {%- block content %}
+              <h1 class="doc-section-header">{{ page.title }}</h1>
+              {% include "toc.html" %}
+              {% include "content.html" %}
+            {%- endblock %}
+          </div>
+
+          {%- block scripts %}
+          <script src="{{ base_url }}/js/base.js"></script>
+          {%- for path in extra_javascript %}
+          <script src="{{ path }}"></script>
+          {%- endfor %}
+          {%- endblock %}
+      </div>
+    </div>
+  </div>
+  <div class="layout-side-content">
+    {% include "nav.html" %}
+  </div>
+<footer class="doc-footer">
+    {%- block footer %}
+    <div class="doc-footer-content">
+    {% if config.copyright %}
+    <center>{{ config.copyright }}</center>
+    {% endif %}
+    <center>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</center>
+    </div>
+    {%- endblock %}
+</footer>
+
 {% raw %}
     {% endblock content %}
 {% endraw%}

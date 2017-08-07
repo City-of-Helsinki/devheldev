@@ -1,6 +1,7 @@
 <div class="bs-sidebar hidden-print affix well" role="complementary">
-    <ul class="nav bs-sidenav">
-    {% if page %}  
+    <h4>Contents</h4>
+    <ul class="doc-toc-nav">
+    {% if page %}
     {% for toc_item in page.toc %}
         <li class="main {% if toc_item.active %}active{% endif %}"><a href="{{ toc_item.url }}">{{ toc_item.title }}</a></li>
         {% for toc_item in toc_item.children %}
