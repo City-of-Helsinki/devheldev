@@ -1,6 +1,8 @@
 # New dev.hel.fi site's wagtail project
 
 [![Build Status](https://travis-ci.org/City-of-Helsinki/devheldev.svg?branch=master)](https://travis-ci.org/City-of-Helsinki/devheldev)
+[![codecov](https://codecov.io/gh/City-of-Helsinki/devheldev/branch/master/graph/badge.svg)](https://codecov.io/gh/City-of-Helsinki/devheldev)
+[![Requirements](https://requires.io/github/City-of-Helsinki/devheldev/requirements.svg?branch=master)](https://requires.io/github/City-of-Helsinki/devheldev/requirements/?branch=master)
 
 ## Installation
 
