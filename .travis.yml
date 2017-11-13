@@ -12,10 +12,11 @@ addons:
 
 install:
 - pip install pytest-cov -r requirements.txt
-- npm install -g bower coffee-script
-- python manage.py bower install
+- npm install -g coffee-script
+- npm install
+- python manage.py collectstatic <<<yes
 
-before_script: 
+before_script:
 - python manage.py compress
 
 script: pytest --reuse-db --cov=.
