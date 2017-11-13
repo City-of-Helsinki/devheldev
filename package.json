@@ -24,7 +24,7 @@
     "chart.js": "^2.0.0",
     "compass-mixins": "^0.12.10",
     "components-font-awesome": "^4.6.3",
-    "enquire": "0.0.2",
+    "enquire.js": "^2.1.6",
     "jquery": "^2.1.4",
     "jquery-relativetimeago": "git+https://github.com/Rikuoja/jquery-relativetimeago.git",
     "sidr": "^2.2.1",
