@@ -11,9 +11,9 @@ Installation assumes a working PostgreSQL with table creation rights
  * Clone the repository somewhere and change there for the rest
  * pip install -r requirements.txt **or**
   * pip install -r dev_requirements.txt
+ * npm install
  * createdb heldev
  * python manage.py migrate
- * python manage.py bower install
  * python manage.py collectstatic
  * python manage.py compress
  * python manage.py createsuperuser
