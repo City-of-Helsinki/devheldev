@@ -71,7 +71,7 @@ img {
   left: rhythm(.25);
   top: 0.05em;
   @extend %t-base;
-  @include replace-text(url("/static/images/heldev-logo-mini-white.svg"));
+  @include replace-text("/static/images/heldev-logo-mini-white.svg");
   background-size: contain;
   @include breakpoint($tabletwidth) {
     left: rhythm(.5);
@@ -87,7 +87,7 @@ img {
     @include breakpoint($tabletwidth) {
       height: rhythm(7);
       width: rhythm(7);
-      @include replace-text(url("/static/images/heldev-logo-white.svg"));
+      @include replace-text("/static/images/heldev-logo-white.svg");
     }  
     @include breakpoint($deskwidth) {
       left: rhythm(3);
@@ -623,7 +623,7 @@ p {
     margin-bottom: -.5em;
     height: rhythm(1.2);
     width: rhythm(1.2);
-    @include replace-text(url("/static/images/hri_logo.png"));
+    @include replace-text("/static/images/hri_logo.png");
     background-size: contain;
   }
 }

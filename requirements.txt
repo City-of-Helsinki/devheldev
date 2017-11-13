@@ -1,7 +1,7 @@
 Django<1.9
 wagtail==1.2
 psycopg2==2.6.1
-django-bower==5.0.4
+django-npm==1.0.0
 django-compressor==2.1
 django-libsass==0.7
 wagtail-blog==1.6.5

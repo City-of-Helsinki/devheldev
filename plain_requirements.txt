@@ -1,7 +1,7 @@
 Django<1.9
 wagtail
 psycopg2
-django-bower
+django-npm
 django-compressor
 django-libsass
 wagtail-blog

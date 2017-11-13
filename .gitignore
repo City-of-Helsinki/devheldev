@@ -25,6 +25,7 @@ var/
 .installed.cfg
 *.egg
 /bower_components
+/node_modules
 /static
 /media
 
