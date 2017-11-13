@@ -57,7 +57,6 @@ INSTALLED_APPS = (
     'helusers.providers.helsinki',
 
     'blog',
-    'djangobower',
     'helusers',
 
     'search',
@@ -107,21 +106,6 @@ TEMPLATES = [
     
 WSGI_APPLICATION = 'heldev.wsgi.application'
 
-# Bower apps
-
-BOWER_INSTALLED_APPS = (
-    'compass-mixins',
-    'susy#2.2.12',
-    'jquery#2.1.4',
-    'breakpoint-sass',
-    'swagger-ui#2.1.3',
-    'sidr#2.2.1',
-    'enquire',
-    'components-font-awesome',
-    'Chart.js#2.0.0-beta1',
-    'jquery-relativetimeago#1.5.1'
-)
-
 COMPRESS_PRECOMPILERS = (
     ('text/x-scss', 'django_libsass.SassCompiler'),
     ('text/coffeescript', 'coffee --compile --stdio'),
@@ -160,7 +144,7 @@ LOCAL_TIME_ZONE = 'Europe/Helsinki'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'djangobower.finders.BowerFinder',
+    'npm.finders.NpmFinder',
     'compressor.finders.CompressorFinder',
 )
 
@@ -174,6 +158,7 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+NPM_ROOT_PATH = BASE_DIR
 
 # Wagtail settings
 
