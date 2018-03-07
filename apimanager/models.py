@@ -141,7 +141,7 @@ class APISubscription(models.Model):
     key = models.CharField(max_length=300, blank=True, null=True)
     key_kong_id = models.CharField(max_length=300, blank=True, null=True)
 
-    def save(self, *args, **kwargs)):
+    def save(self, *args, **kwargs):
         consumer = uuid.uuid4()
         key = uuid.uuid4()
         self.consumer_id = consumer
