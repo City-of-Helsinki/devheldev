@@ -132,7 +132,7 @@ class Application(models.Model):
     def __str__(self):
         return u'Application of ' + self.user.username
 
-
+import uuid
 class APISubscription(models.Model):
     api = models.ForeignKey(KongAPIConfiguration)
     application = models.ForeignKey(Application)
@@ -140,6 +140,15 @@ class APISubscription(models.Model):
     consumer_kong_id = models.CharField(max_length=300, blank=True, null=True)
     key = models.CharField(max_length=300, blank=True, null=True)
     key_kong_id = models.CharField(max_length=300, blank=True, null=True)
+
+    def save(self, *args, **kwargs)):
+        consumer = uuid.uuid4()
+        key = uuid.uuid4()
+        self.consumer_id = consumer
+        self.consumer_kong_id = consumer
+        self.key = key
+        self.key_kong_id = key
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return u'API subscription for ' + self.api.api_page.name
