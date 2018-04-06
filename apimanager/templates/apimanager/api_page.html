@@ -15,84 +15,15 @@
 
 {% block extra_js %}
 {% if self.has_swagger_docs %}
-  <script src="{% static 'swagger-ui/dist/lib/jquery.slideto.min.js' %}" type='text/javascript'></script>
-  <script src="{% static 'swagger-ui/dist/lib/jquery.wiggle.min.js' %}" type='text/javascript'></script>
-  <script src="{% static 'swagger-ui/dist/lib/jquery.ba-bbq.min.js' %}" type='text/javascript'></script>
-  <script src="{% static 'swagger-ui/dist/lib/handlebars-2.0.0.js' %}" type='text/javascript'></script>
-  <script src="{% static 'swagger-ui/dist/lib/underscore-min.js' %}" type='text/javascript'></script>
-  <script src="{% static 'swagger-ui/dist/lib/backbone-min.js' %}" type='text/javascript'></script>
-  <script src="{% static 'swagger-ui/dist/swagger-ui.js' %}" type='text/javascript'></script>
-  <script src="{% static 'swagger-ui/dist/lib/highlight.7.3.pack.js' %}" type='text/javascript'></script>
-  <script src="{% static 'swagger-ui/dist/lib/marked.js' %}" type='text/javascript'></script>
-  <script src="{% static 'swagger-ui/dist/lib/swagger-oauth.js' %}" type='text/javascript'></script>
+<link rel="stylesheet" href="//unpkg.com/swagger-ui-dist@3.13.2/swagger-ui.css">
+<script src="//unpkg.com/swagger-ui-dist@3/swagger-ui-bundle.js"></script>
+<script>
 
-  <script type="text/javascript">
-    $(function () {
-      var url = "{{ self.documentation }}";
-
-      // Pre load translate...
-      if(window.SwaggerTranslator) {
-        window.SwaggerTranslator.translate();
-      }
-      window.swaggerUi = new SwaggerUi({
-        url: url,
-        dom_id: "swagger-ui-container",
-        supportedSubmitMethods: ['get', 'post', 'put', 'delete', 'patch'],
-        onComplete: function(swaggerApi, swaggerUi){
-          if(typeof initOAuth == "function") {
-            initOAuth({
-              clientId: "your-client-id",
-              clientSecret: "your-client-secret",
-              realm: "your-realms",
-              appName: "your-app-name",
-              scopeSeparator: ","
-            });
-          }
-
-          if(window.SwaggerTranslator) {
-            window.SwaggerTranslator.translate();
-          }
-
-          $('pre code').each(function(i, e) {
-            hljs.highlightBlock(e)
-          });
-
-          addApiKeyAuthorization();
-        },
-        onFailure: function(data) {
-          log("Unable to Load SwaggerUI");
-        },
-        docExpansion: "none",
-        apisSorter: "alpha",
-        showRequestHeaders: false
-      });
-
-      function addApiKeyAuthorization(){
-        var key = encodeURIComponent($('#input_apiKey')[0].value);
-        if(key && key.trim() != "") {
-            var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization("api_key", key, "query");
-            window.swaggerUi.api.clientAuthorizations.add("api_key", apiKeyAuth);
-            log("added key " + key);
-        }
-      }
-
-      $('#input_apiKey').change(addApiKeyAuthorization);
-
-      // if you have an apiKey you would like to pre-populate on the page for demonstration purposes...
-      /*
-        var apiKey = "myApiKeyXXXX123456789";
-        $('#input_apiKey').val(apiKey);
-      */
-
-      window.swaggerUi.load();
-
-      function log() {
-        if ('console' in window) {
-          console.log.apply(console, arguments);
-        }
-      }
-  });
-  </script>
+  const ui = SwaggerUIBundle({
+    url: "{{ self.documentation }}",
+    dom_id: "#swagger-ui-container"
+  })
+</script>
 {% endif %}
 {% endblock %}
 
