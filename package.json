@@ -29,7 +29,6 @@
     "jquery-collapse": "^1.1.2",
     "jquery-relativetimeago": "git+https://github.com/Rikuoja/jquery-relativetimeago.git",
     "sidr": "^2.2.1",
-    "susy": "^2.2.12",
-    "swagger-ui": "^2.1.3"
+    "susy": "^2.2.12"
   }
 }
