@@ -1357,3 +1357,16 @@ a.blog-listing-item__tag {
     overflow-y: auto;
   }
 }
+
+label[for=servers] {
+    display: inline;
+}
+
+.renderedMarkdown p {
+    margin-bottom: 14px;
+    margin-top: 14px;
+}
+
+#swagger-ui-container .version {
+  line-height: 20px;
+}
