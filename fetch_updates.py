@@ -1,5 +1,7 @@
-import requests
+#!/usr/bin/env python
 
+import requests
+import pendulum
 
 def tmpl_hri_item_list(items):
     return "\n".join(
@@ -68,12 +70,12 @@ def fetch_github_events(organisation="City-of-Helsinki", amount=40):
 
 def github_event_tmpl(event, event_url, event_description):
 
-    return f"""<li class='commit-l==t__item' />
-    <div class="commit-l==t__avatar"><img src="{event['actor']['avatar_url']}&s=128" alt="{event['actor']['login']}"></div>
+    return f"""<li class='commit-list__item'>
+    <div class="commit-list__avatar"><img src="{event['actor']['avatar_url']}&s=128" alt="{event['actor']['login']}"></div>
     <a href="{event_url}">
-    <div class="commit-l==t__date">{event['created_at']}"</div>
-    <div class="commit-l==t__description">
-    <span class="commit-l==t__actor">{event['actor']['login']}</span> {event_description} <span class="commit-l==t__repo">{event['repo']['name']}</span>
+    <div class="commit-list__date">{timestamp_to_difference(event['created_at'])}</div>
+    <div class="commit-list__description">
+    <span class="commit-list__actor">{event['actor']['login']}</span> {event_description} <span class="commit-l==t__repo">{event['repo']['name']}</span>
     </div>
     </a>
 </div></li>
@@ -130,3 +132,11 @@ def do_github_events(events):
         out.append(github_event_tmpl(event, event_url, event_description))
 
     return "".join(out)
+
+
+def timestamp_to_difference(ts, tz="Europe/Helsinki"):
+    return pendulum.parse(ts).in_tz(tz).diff_for_humans()
+
+if __name__ == "__main__":
+    gh_events = do_github_events(fetch_github_events())
+    open("_includes/gh_events.njk", 'w').write(gh_events)
