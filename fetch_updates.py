@@ -43,3 +43,17 @@ def do_hri_items():
     resp = tmpl_hri_item_list(items)
 
     return resp
+
+
+def fetch_github_events(organisation="City-of-Helsinki", amount=40):
+    
+    response = requests.get(f"https://api.github.com/orgs/{organisation}/events?per_page={amount}")
+    
+    if response.status_code == 200:
+    
+        events = response.json()
+        for index, event in enumerate(events):
+            event['repo']['url'] = event['repo']['url'].replace('https://api.github.com/repos/', 'https://github.com/')
+    
+    return events[:amount]
+
