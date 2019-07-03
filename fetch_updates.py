@@ -3,6 +3,7 @@
 import requests
 import pendulum
 
+
 def tmpl_hri_item_list(items):
     return "\n".join(
         [
@@ -18,37 +19,28 @@ def tmpl_hri_item_list(items):
     )
 
 
-def get_hri_items(limit=5):
+def fetch_hri_items(amount=5):
     try:
         response = requests.get(
             url="https://hri.fi/data/api/action/current_package_list_with_resources",
-            params={"limit": limit},
+            params={"limit": amount},
         )
-        print(
-            "Response HTTP Status Code: {status_code}".format(
-                status_code=response.status_code
-            )
-        )
-        print("Response HTTP Response Body: {content}".format(content=response.content))
     except requests.exceptions.RequestException:
-        print("HTTP Request failed")
+        print("HRI HTTP Request failed")
 
     data = response.json()
     if data.get("success"):
         return data.get("result")
 
 
-def do_hri_items():
-    data = get_hri_items()
+def do_hri_items(items):
 
-    items = [
-        (d["title_translated"]["en"] or d["title_translated"]["fi"], d["name"])
-        for d in data
-    ]
-
-    resp = tmpl_hri_item_list(items)
-
-    return resp
+    return tmpl_hri_item_list(
+        (
+            (d["title_translated"]["en"] or d["title_translated"]["fi"], d["name"])
+            for d in items
+        )
+    )
 
 
 def fetch_github_events(organisation="City-of-Helsinki", amount=40):
@@ -138,6 +130,13 @@ def do_github_events(events):
 def timestamp_to_difference(ts, tz="Europe/Helsinki"):
     return pendulum.parse(ts).in_tz(tz).diff_for_humans()
 
+
 if __name__ == "__main__":
+
     gh_events = do_github_events(fetch_github_events(amount=5))
-    open("_includes/gh_events.njk", 'w').write(gh_events)
+    if gh_events:
+        open("_includes/gh_events.njk", "w").write(gh_events)
+
+    hri_items = do_hri_items(fetch_hri_items(amount=5))
+    if hri_items:
+        open("_includes/hri_items.njk", "w").write(hri_items)
