@@ -40,7 +40,9 @@
 
         
             
-        
+        <style>
+          .template-home-page .layout-header { z-index: 100; }
+        </style>
     </head>
 
     <body class="template-home-page">
@@ -66,7 +68,8 @@
 <div class="layout-front-banner">
   <div class="front-banner__content front-banner__background" style="background-image: url(/static/images/front-banner-image-default.png)">
     <div class="front-banner__text">
-          <div class="rich-text"><h2>Helsinki Loves Developers</h2><p>Welcome to the Helsinki Developers' Portal! This site is developed and operated by the City's <a href="http://dev.hel.fi/about/">Open Software Development team</a>. </p><p>You can find information about our <a href="http://dev.hel.fi/projects/">projects</a> and <a href="http://dev.hel.fi/apis/">APIs</a>. All the code we develop is fully open source, and our UIs are built on top of the same APIs that are available for everyone to use.</p><p>Any questions or comments? Want to share your love? Feel free to join us for a chat in our <a href="https://gitter.im/City-of-Helsinki/heldev">Gitter chat room</a>.</p></div>
+          <div class="rich-text"><h2>Helsinki Loves Developers</h2><p>Welcome to the Helsinki Developers' Portal! This site is developed and operated by the City's <a href="http://dev.hel.fi/about/">Open Software Development team</a>. </p><p>You can find information about our <a href="http://dev.hel.fi/projects/">projects</a> and <a href="http://dev.hel.fi/apis/">APIs</a>. All the code we develop is fully open source, and our UIs are built on top of the same APIs that are available for everyone to use.</p><p>Any questions or comments? Want to share your love? Feel free to join us for a chat in our <a href="https://gitter.im/City-of-Helsinki/heldev">Gitter chat room</a>.
+          <button class="js-gitter-toggle-chat-button" data-gitter-toggle-chat-state="true">Open Chat</button></p></div>
     </div>
   </div>
 </div>
@@ -336,5 +339,14 @@ return results;});});}).call(this);$.getJSON('/github_data/?amount=3',displayGit
       </script>
       <noscript><p><img src="//analytics.hel.ninja/piwik/pw.php?idsite=6" style="border:0;" alt="" /></p></noscript>
       <!-- End Piwik Code -->
+<script>
+  ((window.gitter = {}).chat = {}).options = {
+    room: 'City-of-Helsinki/heldev',
+    // targetElement: '#gitter',
+    // showChatByDefault: true
+  };
+</script>
+<script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+
     </body>
 </html>
