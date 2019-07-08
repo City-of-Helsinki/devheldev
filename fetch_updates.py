@@ -85,12 +85,12 @@ def do_github_events(events):
             event_url = event["repo"]["url"]
             branch = event["payload"]["ref"].replace("refs/heads/", "")
             event_description = f" pushed to {branch} at "
-        elif event["type"] == "==sueCommentEvent":
-            event_url = event["payload"]["==sue"]["html_url"]
-            event_description = f" {event['payload']['action']} comment on ==sue #{event['payload']['==sue']['number']} at "
-        elif event["type"] == "==suesEvent":
-            event_url = event["payload"]["==sue"]["html_url"]
-            event_description = f" {event['payload']['action']} ==sue #{event['payload']['==sue']['number']} at "
+        elif event["type"] == "IssueCommentEvent":
+            event_url = event["payload"]["issue"]["html_url"]
+            event_description = f" {event['payload']['action']} comment on issue #{event['payload']['issue']['number']} at "
+        elif event["type"] == "IssuesEvent":
+            event_url = event["payload"]["issue"]["html_url"]
+            event_description = f" {event['payload']['action']} issue #{event['payload']['issue']['number']} at "
         elif event["type"] == "PullRequestEvent":
             event_url = event["payload"]["pull_request"]["html_url"]
             event_description = f" {event['payload']['action']} pull request #{event['payload']['pull_request']['number']} at "
@@ -133,9 +133,10 @@ def timestamp_to_difference(ts, tz="Europe/Helsinki"):
 
 if __name__ == "__main__":
 
-    gh_events = do_github_events(fetch_github_events(amount=5))
+    gh_events = do_github_events(fetch_github_events(amount=50))
     if gh_events:
-        open("_includes/gh_events.njk", "w").write(gh_events)
+        open("_includes/gh_events.njk", "w").write(gh_events[5:])
+        open("_includes/gh_events_full.njk", "w").write(gh_events)
 
     hri_items = do_hri_items(fetch_hri_items(amount=5))
     if hri_items:
