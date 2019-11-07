@@ -39,7 +39,7 @@ jobs:
     
     - name: Deploy
       env:
-        ACTIONS_DEPLOY_KEY: ${{ secrets.PERSONAL_TOKEN }}
+        PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
         PUBLISH_BRANCH: gh-pages
         PUBLISH_DIR: ./site/_site
         SCRIPT_MODE: true
