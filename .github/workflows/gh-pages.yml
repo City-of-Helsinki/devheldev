@@ -1,0 +1,50 @@
+name: github pages
+
+on:
+  push:
+    branches:
+    - master
+    - gh-action
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@master
+
+    - name: setup node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+
+    # - name: install base packages
+    #   run: yarn
+
+    # - name: install site packages
+    #   run: yarn
+    #   working-directory: ./site
+
+    # - name: install react packages
+    #   run: yarn
+    #   working-directory: ./packages/react
+    
+    # - name: build base packages
+    #   run: yarn build
+    
+    # - name: build docz site
+    #   run: yarn run build
+    #   working-directory: ./site
+    #   env:
+    #     DOCZ_BASE: /helsinki-design-system/
+    
+    - name: Deploy
+      env:
+        ACTIONS_DEPLOY_KEY: ${{ secrets.PERSONAL_TOKEN }}
+        PUBLISH_BRANCH: gh-pages
+        PUBLISH_DIR: ./site/_site
+        SCRIPT_MODE: true
+      run: |
+        wget https://raw.githubusercontent.com/peaceiris/actions-gh-pages/v2.5.0/entrypoint.sh
+        bash ./entrypoint.sh
+        # with:
+        # keepFiles: true
