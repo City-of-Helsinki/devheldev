@@ -28,7 +28,7 @@ libsass==0.11.1
 oauthlib==1.0.3
 ordereddict==1.1
 Pillow<4.0
-py==1.4.34
+py==1.10.0
 python3-openid==3.0.7
 requests==2.18.4
 requests-oauthlib==0.8.0
