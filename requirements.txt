@@ -1,5 +1,5 @@
 Django<2.0
-wagtail==1.2
+wagtail==2.11.8
 psycopg2==2.7.4
 django-npm==1.0.0
 django-compressor==2.1
